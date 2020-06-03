@@ -17,6 +17,7 @@ def main():
 	if not os.path.exists(directory) or not os.path.isdir(directory):
 		os.mkdir(directory)
 
+	print("Fetching gists.")
 	r = requests.get(API_URL)
 	if r.status_code != 200:
 		return
@@ -31,6 +32,7 @@ def main():
 		url = gist.get('html_url')
 		titles = list(files.keys())
 		title = titles[0].strip(".md")
+		print(f"GIST {gist_id} {title}")
 		text = f"""---
 title: "{title}"
 date: {date}
@@ -70,7 +72,9 @@ draft: false
 		subdir = os.path.join(directory, d)
 		if not os.path.exists(subdir) or not os.path.isdir(subdir):
 			os.mkdir(subdir)
-		path = os.path.join(subdir,f'{gist_id}.md')
+		filehash = gist_id if len(gist_id) < 6 else f"{gist_id[:3]}{gist_id[-3:]}"
+		filename = f"{filehash}-{title}.md"
+		path = os.path.join(subdir, filename)
 		with open(path, 'w+') as file:
 			file.write(text)
 
