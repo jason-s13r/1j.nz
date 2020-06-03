@@ -1,5 +1,5 @@
 languageCode = 'en-us'
-baseUrl = 'https://jason.schwarzenberger.nz/'
+baseUrl = 'https://jason.schwarzenberger.co.nz/'
 title = 'Jason Schwarzenberger'
 description = 'Software engineer from New Zealand.'
 theme = 'anubis'
