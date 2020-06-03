@@ -1,7 +1,7 @@
 ---
 title: "New Site With Hugo"
 date: 2020-06-02T22:14:57Z
-tags: ["posts", "2020-06-02"]
+tags: ["post", "2020-06-02"]
 draft: false
 ---
 
