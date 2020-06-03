@@ -33,14 +33,16 @@ def main():
 		titles = list(files.keys())
 		title = titles[0].strip(".md")
 		print(f"GIST {gist_id} {title}")
+		shortdate = date.split("T", maxsplit=1)[0]
 		text = f"""---
 title: "{title}"
 date: {date}
-tags: ["gist"]
+tags: ["gist", "{shortdate}"]
 draft: false
 ---
-[gist link]({url})\n\n
 {description}\n\n
+<!--more-->\n\n
+[gist link]({url})\n\n
 """
 		sections = []
 		attachments = ["| Attachment | Type | Size |\n| - | - | - |"]
@@ -66,10 +68,10 @@ draft: false
 				section.append("```")
 			sections.append("\n".join(section))
 		if len(attachments) > 1:
-			text = text + "\n".join(attachments) + "\n***\n\n"
+			text = text + "\n".join(attachments) + "\n\n"
+		text = text + "\n***\n\n"
 		text = text + "\n***\n".join(sections) + "\n\n"
-		d = date.split("T", maxsplit=1)[0]
-		subdir = os.path.join(directory, d)
+		subdir = os.path.join(directory, shortdate)
 		if not os.path.exists(subdir) or not os.path.isdir(subdir):
 			os.mkdir(subdir)
 		filehash = gist_id if len(gist_id) < 6 else f"{gist_id[:3]}{gist_id[-3:]}"
