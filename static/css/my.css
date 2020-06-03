@@ -30,3 +30,16 @@ img[alt=cows] {
 img[alt="blogger-logo"]{
 	background: #000;
 }
+
+@media (max-width: 840px) {
+	.site-header {
+		font-size: 0.9rem;
+	}
+	
+	.site-header > .site-logo {
+		margin: 0rem 0.5rem 0 0;
+	}
+	.site-logo > img {
+		max-width: 3.5rem;
+	}
+}
