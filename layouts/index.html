@@ -1,7 +1,11 @@
 {{ define "main" }}
+
+{{ if not .Paginator.HasPrev }}
 <div class="homepage-content">
     {{ .Content }}
 </div>
+{{ end }}
+
 
 {{ $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
 {{ range (.Paginate $pages).Pages }}
