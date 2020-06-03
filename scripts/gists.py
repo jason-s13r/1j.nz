@@ -71,13 +71,15 @@ draft: false
 			text = text + "\n".join(attachments) + "\n\n"
 		text = text + "\n***\n\n"
 		text = text + "\n***\n".join(sections) + "\n\n"
-		subdir = os.path.join(directory, shortdate)
-		if not os.path.exists(subdir) or not os.path.isdir(subdir):
-			os.mkdir(subdir)
 		filehash = gist_id if len(gist_id) < 6 else f"{gist_id[:3]}{gist_id[-3:]}"
 		filename = f"{filehash}-{title}.md"
-		print(f"\t\toutput: {filename}")
+		
+		subdir = directory
+		# subdir = os.path.join(directory, shortdate)
+		# if not os.path.exists(subdir) or not os.path.isdir(subdir):
+		# 	os.mkdir(subdir)
 		path = os.path.join(subdir, filename)
+		print(f"\toutput: {path}")
 		with open(path, 'w+') as file:
 			file.write(text)
 
