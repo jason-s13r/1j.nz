@@ -27,3 +27,6 @@ img[alt=cows] {
 	max-width: 100%;
 	border: solid 1px #f9f9f9;
 }
+img[alt="blogger-logo"]{
+	background: #000;
+}
