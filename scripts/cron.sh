@@ -10,10 +10,7 @@ source ./env/bin/activate
 python $dir/scripts/gists.py
 
 rm -r $dir/public
-rm -r /var/www/1j.nz/public
 
 /home/linuxbrew/.linuxbrew/bin/hugo
-/home/linuxbrew/.linuxbrew/bin/hugo -b https://1j.nz/ -d /var/www/1j.nz/public
 
 chown jason:jason $dir -R
-chown jason:jason /var/www/1j.nz -R
