@@ -74,6 +74,7 @@ draft: false
 			os.mkdir(subdir)
 		filehash = gist_id if len(gist_id) < 6 else f"{gist_id[:3]}{gist_id[-3:]}"
 		filename = f"{filehash}-{title}.md"
+		print(f"\t\toutput: {filename}")
 		path = os.path.join(subdir, filename)
 		with open(path, 'w+') as file:
 			file.write(text)
