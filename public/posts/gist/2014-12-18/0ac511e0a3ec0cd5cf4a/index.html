@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    
+        
+<meta charset="utf-8">
+<meta name="HandheldFriendly" content="True">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer-when-downgrade">
+
+<title>WebSocketRpc.js  - Jason Schwarzenberger</title>
+<meta name="description" content="Software engineer from New Zealand.">
+
+<link rel="icon" type="image/x-icon" href="https://jason.schwarzenberger.nz/favicon.ico">
+<link rel="apple-touch-icon-precomposed" href="https://jason.schwarzenberger.nz/favicon.png">
+
+<link rel="stylesheet" href="https://jason.schwarzenberger.nz/css/style.css?rnd=1591147581" />
+
+<link rel="stylesheet" href="https://jason.schwarzenberger.nz/css/my.css?rnd=1591147581">
+
+<meta property="og:title" content="WebSocketRpc.js" />
+<meta property="og:description" content="gist link
+WebSocket RPC
+   Attachment Type Size     WebSocketRpc.js application/javascript 7.4KiB   index.html text/html 2.4KiB     WebSocketRpc.js &ndash; application/javascript, 7.4KiB function WebSocketRpc(url, batchOperationsDisabled) { &#39;use strict&#39;; var self = this; var socket = null; var queue = []; var history = {}; var methods = {}; var noop = function () {}; var noopFactory = function () { return noop; }; var eventHandlers = { error: noop, ready: noop, close: noop, notification: noop, message: noop }; var exceptions = { ParseError: { code: -32700, message: &#39;Parse error&#39; }, MethodNotFound: { code: -32601, message: &#39;Method not found&#39; } }; init(); function init() { self." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://jason.schwarzenberger.nz/posts/gist/2014-12-18/0ac511e0a3ec0cd5cf4a/" />
+<meta property="og:image" content="https://jason.schwarzenberger.nz/images/Schwarzenberger.png"/>
+<meta property="article:published_time" content="2014-12-18T04:29:14+00:00" />
+<meta property="article:modified_time" content="2014-12-18T04:29:14+00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://jason.schwarzenberger.nz/images/Schwarzenberger.png"/>
+
+<meta name="twitter:title" content="WebSocketRpc.js"/>
+<meta name="twitter:description" content="gist link
+WebSocket RPC
+   Attachment Type Size     WebSocketRpc.js application/javascript 7.4KiB   index.html text/html 2.4KiB     WebSocketRpc.js &ndash; application/javascript, 7.4KiB function WebSocketRpc(url, batchOperationsDisabled) { &#39;use strict&#39;; var self = this; var socket = null; var queue = []; var history = {}; var methods = {}; var noop = function () {}; var noopFactory = function () { return noop; }; var eventHandlers = { error: noop, ready: noop, close: noop, notification: noop, message: noop }; var exceptions = { ParseError: { code: -32700, message: &#39;Parse error&#39; }, MethodNotFound: { code: -32601, message: &#39;Method not found&#39; } }; init(); function init() { self."/>
+
+
+
+
+
+
+    
+</head>
+<body>
+    <a class="skip-main" href="#main">Skip to main content</a>
+    <div class="container">
+        <header> 
+            
+                <div class="site-header">
+    <a class="site-logo" href="/">
+        <img src="/images/Schwarzenberger.png" alt="logo" />
+    </a>
+
+    <h1>
+        <a href="/">Jason Schwarzenberger</a>
+    </h1>
+    <div>Software engineer from New Zealand.</div>
+</div>
+<nav>
+    
+    
+    <a class=""
+        href="https://jason.schwarzenberger.nz/posts/" title="Archive">Archive</a>
+    
+    <a class=""
+        href="https://jason.schwarzenberger.nz/tags/" title="Tags">Tags</a>
+    
+</nav>
+            
+        </header>
+        <main id="main" tabindex="-1"> 
+            
+
+    <article class="post">
+        <header>
+            <h1>WebSocketRpc.js</h1>
+        </header>
+        <div class="content">
+            <p><a href="https://gist.github.com/0ac511e0a3ec0cd5cf4a">gist link</a></p>
+<p>WebSocket RPC</p>
+<table>
+<thead>
+<tr>
+<th>Attachment</th>
+<th>Type</th>
+<th>Size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://gist.githubusercontent.com/master5o1/0ac511e0a3ec0cd5cf4a/raw/242aff878b0c1736788e89c14ca67fec6a58cbb5/WebSocketRpc.js">WebSocketRpc.js</a></td>
+<td>application/javascript</td>
+<td>7.4KiB</td>
+</tr>
+<tr>
+<td><a href="https://gist.githubusercontent.com/master5o1/0ac511e0a3ec0cd5cf4a/raw/c6d7194451487aa18a0163fcac7f420cf377cbc2/index.html">index.html</a></td>
+<td>text/html</td>
+<td>2.4KiB</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="websocketrpcjshttpsgistgithubusercontentcommaster5o10ac511e0a3ec0cd5cf4araw242aff878b0c1736788e89c14ca67fec6a58cbb5websocketrpcjs----applicationjavascript-74kib"><a href="https://gist.githubusercontent.com/master5o1/0ac511e0a3ec0cd5cf4a/raw/242aff878b0c1736788e89c14ca67fec6a58cbb5/WebSocketRpc.js">WebSocketRpc.js</a> &ndash; application/javascript, 7.4KiB</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">WebSocketRpc</span>(<span style="color:#a6e22e">url</span>, <span style="color:#a6e22e">batchOperationsDisabled</span>) {
+  <span style="color:#e6db74">&#39;use strict&#39;</span>;
+  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">self</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>;
+  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">socket</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">queue</span> <span style="color:#f92672">=</span> [];
+  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">history</span> <span style="color:#f92672">=</span> {};
+  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">methods</span> <span style="color:#f92672">=</span> {};
+  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">noop</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {};
+  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">noopFactory</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">noop</span>;
+  };
+
+  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">eventHandlers</span> <span style="color:#f92672">=</span> {
+    <span style="color:#a6e22e">error</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">noop</span>,
+    <span style="color:#a6e22e">ready</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">noop</span>,
+    <span style="color:#a6e22e">close</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">noop</span>,
+    <span style="color:#a6e22e">notification</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">noop</span>,
+    <span style="color:#a6e22e">message</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">noop</span>
+  };
+
+  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">exceptions</span> <span style="color:#f92672">=</span> {
+    <span style="color:#a6e22e">ParseError</span><span style="color:#f92672">:</span> {
+      <span style="color:#a6e22e">code</span><span style="color:#f92672">:</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">32700</span>,
+      <span style="color:#a6e22e">message</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Parse error&#39;</span>
+    },
+    <span style="color:#a6e22e">MethodNotFound</span><span style="color:#f92672">:</span> {
+      <span style="color:#a6e22e">code</span><span style="color:#f92672">:</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">32601</span>,
+      <span style="color:#a6e22e">message</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Method not found&#39;</span>
+    }
+  };
+
+  <span style="color:#a6e22e">init</span>();
+
+  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">init</span>() {
+    <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">call</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
+      <span style="color:#a6e22e">queue</span>.<span style="color:#a6e22e">push</span>([].<span style="color:#a6e22e">slice</span>.<span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">arguments</span>));
+      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">self</span>;
+    };
+    <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">batch</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
+      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">batchOperationsDisabled</span>) {
+        <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;Batch Operations Disabled&#39;</span>);
+      }
+      <span style="color:#a6e22e">queue</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">queue</span>.<span style="color:#a6e22e">concat</span>([].<span style="color:#a6e22e">slice</span>.<span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">arguments</span>));
+      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">self</span>;
+    };
+
+    <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">connect</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">connect</span>;
+    <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">expose</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">expose</span>;
+    <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">exceptions</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">exceptions</span>;
+  }
+
+  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">connect</span>() {
+    <span style="color:#a6e22e">socket</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">WebSocket</span>(<span style="color:#a6e22e">url</span>);
+    <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">ws</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">socket</span>;
+    <span style="color:#a6e22e">socket</span>.<span style="color:#a6e22e">onopen</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">opened</span>;
+    <span style="color:#a6e22e">socket</span>.<span style="color:#a6e22e">onerror</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">error</span>;
+    <span style="color:#a6e22e">socket</span>.<span style="color:#a6e22e">onmessage</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">handler</span>;
+    <span style="color:#a6e22e">socket</span>.<span style="color:#a6e22e">onclose</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">onclose</span>;
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">self</span>;
+  }
+
+  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">opened</span>(<span style="color:#a6e22e">event</span>) {
+    <span style="color:#a6e22e">eventHandlers</span>.<span style="color:#a6e22e">ready</span>.<span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">self</span>, <span style="color:#a6e22e">event</span>);
+
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">batchOperationsDisabled</span>) {
+      <span style="color:#66d9ef">while</span> (<span style="color:#a6e22e">queue</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>) {
+        <span style="color:#a6e22e">call</span>.<span style="color:#a6e22e">apply</span>(<span style="color:#a6e22e">self</span>, <span style="color:#a6e22e">queue</span>.<span style="color:#a6e22e">shift</span>());
+      }
+    } <span style="color:#66d9ef">else</span> {
+      <span style="color:#a6e22e">batch</span>.<span style="color:#a6e22e">apply</span>(<span style="color:#a6e22e">self</span>, <span style="color:#a6e22e">queue</span>);
+    }
+
+    <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">call</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">call</span>;
+    <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">batch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">batch</span>;
+    <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">connect</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">noop</span>;
+  }
+
+  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">error</span>(<span style="color:#a6e22e">event</span>) {
+    <span style="color:#a6e22e">eventHandlers</span>.<span style="color:#a6e22e">error</span>.<span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">self</span>, <span style="color:#a6e22e">event</span>);
+  }
+
+  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">handler</span>(<span style="color:#a6e22e">event</span>) {
+    <span style="color:#a6e22e">eventHandlers</span>.<span style="color:#a6e22e">message</span>.<span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">self</span>, <span style="color:#a6e22e">event</span>);
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">data</span>;
+    <span style="color:#66d9ef">try</span> {
+      <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">parse</span>(<span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">data</span>);
+    } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
+      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#a6e22e">e</span>);
+      <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">request</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">formatResponse</span>(<span style="color:#a6e22e">exceptions</span>.<span style="color:#a6e22e">ParseError</span>, <span style="color:#66d9ef">null</span>, {
+        <span style="color:#a6e22e">id</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span>
+      });
+      <span style="color:#a6e22e">socket</span>.<span style="color:#a6e22e">send</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">request</span>));
+    }
+    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">data</span>) {
+      <span style="color:#66d9ef">return</span>;
+    }
+    <span style="color:#66d9ef">if</span> (Object.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">toString</span>.<span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">data</span>) <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;[object Array]&#39;</span>) {
+      <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Batched</span>(<span style="color:#a6e22e">data</span>, <span style="color:#a6e22e">event</span>).<span style="color:#a6e22e">handle</span>();
+      <span style="color:#66d9ef">return</span>;
+    }
+    <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Single</span>(<span style="color:#a6e22e">data</span>, <span style="color:#a6e22e">event</span>).<span style="color:#a6e22e">handle</span>();
+  }
+
+  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">onclose</span>(<span style="color:#a6e22e">event</span>) {
+    <span style="color:#a6e22e">eventHandlers</span>.<span style="color:#a6e22e">close</span>.<span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">self</span>, <span style="color:#a6e22e">event</span>);
+  }
+
+  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Batched</span>(<span style="color:#a6e22e">responses</span>, <span style="color:#a6e22e">event</span>) {
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">_self</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>;
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">batchRequest</span> <span style="color:#f92672">=</span> [];
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">batchNofications</span> <span style="color:#f92672">=</span> [];
+    <span style="color:#a6e22e">_self</span>.<span style="color:#a6e22e">handle</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">handle</span>;
+
+    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">trySend</span>() {
+      <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">combined</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">batchRequest</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">batchNofications</span>.<span style="color:#a6e22e">length</span>;
+      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">combined</span> <span style="color:#f92672">&gt;=</span> <span style="color:#a6e22e">responses</span>.<span style="color:#a6e22e">length</span>) {
+        <span style="color:#a6e22e">socket</span>.<span style="color:#a6e22e">send</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">batchRequest</span>));
+        <span style="color:#66d9ef">return</span>;
+      }
+    }
+
+    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">next</span>(<span style="color:#a6e22e">res</span>) {
+      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">error</span>, <span style="color:#a6e22e">result</span>) {
+        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">request</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">formatResponse</span>(<span style="color:#a6e22e">error</span>, <span style="color:#a6e22e">result</span>, <span style="color:#a6e22e">res</span>);
+        <span style="color:#a6e22e">batchRequest</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">request</span>);
+        <span style="color:#a6e22e">trySend</span>();
+      };
+    }
+
+    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">notify</span>(<span style="color:#a6e22e">res</span>) {
+      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">error</span>, <span style="color:#a6e22e">result</span>) {
+        <span style="color:#a6e22e">batchNofications</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">res</span>);
+      };
+    }
+
+    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">handle</span>() {
+      <span style="color:#a6e22e">responses</span>.<span style="color:#a6e22e">forEach</span>(<span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">response</span>) {
+        <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Single</span>(<span style="color:#a6e22e">response</span>, <span style="color:#a6e22e">event</span>, <span style="color:#a6e22e">next</span>, <span style="color:#a6e22e">notify</span>).<span style="color:#a6e22e">handle</span>();
+      });
+      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">_self</span>;
+    }
+
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">_self</span>;
+  }
+
+  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Single</span>(<span style="color:#a6e22e">response</span>, <span style="color:#a6e22e">event</span>, <span style="color:#a6e22e">_next</span>, <span style="color:#a6e22e">_nextNoop</span>) {
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">_self</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>;
+    <span style="color:#a6e22e">_nextNoop</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">_nextNoop</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">noopFactory</span>;
+    <span style="color:#a6e22e">_self</span>.<span style="color:#a6e22e">next</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">next</span>;
+    <span style="color:#a6e22e">_self</span>.<span style="color:#a6e22e">handle</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">handle</span>;
+    <span style="color:#a6e22e">_self</span>.<span style="color:#a6e22e">method</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">method</span>;
+    <span style="color:#a6e22e">_self</span>.<span style="color:#a6e22e">notification</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">notification</span>;
+    <span style="color:#a6e22e">_self</span>.<span style="color:#a6e22e">results</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">results</span>;
+
+    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">next</span>(<span style="color:#a6e22e">res</span>) {
+      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">error</span>, <span style="color:#a6e22e">result</span>) {
+        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">request</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">formatResponse</span>(<span style="color:#a6e22e">error</span>, <span style="color:#a6e22e">result</span>, <span style="color:#a6e22e">res</span>);
+        <span style="color:#a6e22e">socket</span>.<span style="color:#a6e22e">send</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">request</span>));
+      };
+    }
+
+    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">handle</span>() {
+      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">method</span> <span style="color:#f92672">!==</span> <span style="color:#66d9ef">undefined</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">params</span> <span style="color:#f92672">!==</span> <span style="color:#66d9ef">undefined</span>) {
+        <span style="color:#66d9ef">return</span> <span style="color:#f92672">!!</span><span style="color:#a6e22e">method</span>(<span style="color:#a6e22e">response</span>, <span style="color:#a6e22e">event</span>);
+      }
+      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">id</span> <span style="color:#f92672">===</span> <span style="color:#66d9ef">null</span>) {
+        <span style="color:#66d9ef">return</span> <span style="color:#f92672">!!</span><span style="color:#a6e22e">notification</span>(<span style="color:#a6e22e">response</span>, <span style="color:#a6e22e">event</span>);
+      }
+      <span style="color:#a6e22e">results</span>(<span style="color:#a6e22e">response</span>, <span style="color:#a6e22e">event</span>);
+      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">_self</span>;
+    }
+
+    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">method</span>(<span style="color:#a6e22e">response</span>, <span style="color:#a6e22e">event</span>) {
+      <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">cb</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">methods</span>[<span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">method</span>] <span style="color:#f92672">||</span> <span style="color:#a6e22e">rpcException</span>(<span style="color:#a6e22e">exceptions</span>.<span style="color:#a6e22e">MethodNotFound</span>);
+      <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">n</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">_next</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">next</span>;
+      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">id</span> <span style="color:#f92672">===</span> <span style="color:#66d9ef">null</span>) {
+        <span style="color:#a6e22e">n</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">_nextNoop</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">noopFactory</span>;
+      }
+      <span style="color:#a6e22e">cb</span>.<span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">self</span>, <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">params</span>, <span style="color:#a6e22e">n</span>(<span style="color:#a6e22e">response</span>), <span style="color:#a6e22e">response</span>, <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">id</span> <span style="color:#f92672">===</span> <span style="color:#66d9ef">null</span>);
+      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">_self</span>;
+    }
+
+    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">notification</span>(<span style="color:#a6e22e">response</span>, <span style="color:#a6e22e">event</span>) {
+      <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">id</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">error</span> <span style="color:#f92672">===</span> <span style="color:#66d9ef">undefined</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">id</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">error</span>.<span style="color:#a6e22e">id</span>;
+      <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">id</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">id</span> <span style="color:#f92672">||</span> <span style="color:#66d9ef">null</span>;
+      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">id</span> <span style="color:#f92672">===</span> <span style="color:#66d9ef">null</span>) {
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;notification:&#39;</span>, <span style="color:#a6e22e">response</span>);
+        <span style="color:#a6e22e">eventHandlers</span>.<span style="color:#a6e22e">notification</span>.<span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">self</span>, <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">error</span>, <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">result</span>, <span style="color:#a6e22e">response</span>, <span style="color:#a6e22e">event</span>);
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">_self</span>;
+      }
+      <span style="color:#a6e22e">handle</span>(<span style="color:#a6e22e">response</span>, <span style="color:#a6e22e">event</span>);
+      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">_self</span>;
+    }
+
+    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">results</span>(<span style="color:#a6e22e">response</span>, <span style="color:#a6e22e">event</span>) {
+      <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">item</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">history</span>[<span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">id</span>] <span style="color:#f92672">||</span> {};
+      <span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">response</span>;
+      <span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">callback</span>.<span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">self</span>, <span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">error</span>, <span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">result</span>, <span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">response</span>, <span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">request</span>, <span style="color:#a6e22e">event</span>);
+      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">_self</span>;
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">_self</span>;
+  }
+
+  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">formatResponse</span>(<span style="color:#a6e22e">error</span>, <span style="color:#a6e22e">result</span>, <span style="color:#a6e22e">response</span>) {
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">request</span> <span style="color:#f92672">=</span> {
+      <span style="color:#a6e22e">jsonrpc</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;2.0&#39;</span>,
+      <span style="color:#a6e22e">id</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">id</span> <span style="color:#f92672">||</span> <span style="color:#66d9ef">null</span>
+    };
+    <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!!</span> <span style="color:#a6e22e">error</span>) {
+      <span style="color:#a6e22e">request</span>.<span style="color:#a6e22e">error</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">error</span>;
+    }
+    <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!!</span> <span style="color:#a6e22e">result</span>) {
+      <span style="color:#a6e22e">request</span>.<span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">result</span>;
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">request</span>;
+  }
+
+  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">onErrorCallback</span>(<span style="color:#a6e22e">error</span>) {
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">params</span>, <span style="color:#a6e22e">callback</span>, <span style="color:#a6e22e">response</span>, <span style="color:#a6e22e">isNotification</span>) {
+      <span style="color:#a6e22e">callback</span>(<span style="color:#a6e22e">error</span>);
+      <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">cb</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">onError</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">noop</span>;
+      <span style="color:#a6e22e">cb</span>.<span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">self</span>, <span style="color:#a6e22e">error</span>);
+    };
+  }
+
+  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">rpcException</span>(<span style="color:#a6e22e">error</span>) {
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">params</span>, <span style="color:#a6e22e">callback</span>, <span style="color:#a6e22e">response</span>, <span style="color:#a6e22e">isNotification</span>) {
+      <span style="color:#a6e22e">callback</span>(<span style="color:#a6e22e">error</span>);
+    };
+  }
+
+  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">send</span>(<span style="color:#a6e22e">id</span>) {
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">request</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">collateRequest</span>(<span style="color:#a6e22e">id</span>);
+    <span style="color:#a6e22e">socket</span>.<span style="color:#a6e22e">send</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">request</span>));
+  }
+
+  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">collateRequest</span>(<span style="color:#a6e22e">id</span>) {
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">ids</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">id</span>;
+    <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">id</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;string&#39;</span>) {
+      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">prepareRequest</span>(<span style="color:#a6e22e">id</span>);
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ids</span>.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">prepareRequest</span>);
+  }
+
+  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">prepareRequest</span>(<span style="color:#a6e22e">id</span>) {
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">item</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">history</span>[<span style="color:#a6e22e">id</span>];
+    <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">callback</span> <span style="color:#f92672">!==</span> <span style="color:#e6db74">&#39;function&#39;</span>) {
+      <span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">request</span>.<span style="color:#a6e22e">id</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">request</span>;
+  }
+
+  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">identity</span>(<span style="color:#a6e22e">size</span>, <span style="color:#a6e22e">v</span>) {
+    <span style="color:#a6e22e">v</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Array(<span style="color:#a6e22e">size</span> <span style="color:#f92672">||</span> <span style="color:#ae81ff">20</span>).<span style="color:#a6e22e">join</span>(<span style="color:#e6db74">&#39;.&#39;</span>).<span style="color:#a6e22e">split</span>(<span style="color:#e6db74">&#39;&#39;</span>).<span style="color:#a6e22e">map</span>(<span style="color:#66d9ef">function</span> () {
+      <span style="color:#66d9ef">return</span> Math.<span style="color:#a6e22e">round</span>(Math.<span style="color:#a6e22e">random</span>() <span style="color:#f92672">*</span> <span style="color:#ae81ff">100</span>);
+    }).<span style="color:#a6e22e">join</span>(<span style="color:#e6db74">&#39;&#39;</span>);
+    <span style="color:#66d9ef">return</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">v</span>).<span style="color:#a6e22e">toString</span>(<span style="color:#ae81ff">36</span>);
+  }
+
+  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">createRequest</span>(<span style="color:#a6e22e">method</span>, <span style="color:#a6e22e">parameters</span>, <span style="color:#a6e22e">callback</span>, <span style="color:#a6e22e">id</span>) {
+    <span style="color:#a6e22e">id</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">id</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">identity</span>();
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">request</span> <span style="color:#f92672">=</span> {
+      <span style="color:#a6e22e">jsonrpc</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;2.0&#39;</span>,
+      <span style="color:#a6e22e">id</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">id</span> <span style="color:#f92672">||</span> <span style="color:#66d9ef">null</span>,
+      <span style="color:#a6e22e">method</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">method</span>,
+      <span style="color:#a6e22e">params</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">parameters</span>
+    };
+    <span style="color:#a6e22e">history</span>[<span style="color:#a6e22e">id</span>] <span style="color:#f92672">=</span> {
+      <span style="color:#a6e22e">method</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">method</span>,
+      <span style="color:#a6e22e">request</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">request</span>,
+      <span style="color:#a6e22e">callback</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">callback</span>,
+      <span style="color:#a6e22e">response</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span>
+    };
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">id</span>;
+  }
+
+  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">method</span>, <span style="color:#a6e22e">parameters</span>, <span style="color:#a6e22e">callback</span>, <span style="color:#a6e22e">id</span>) {
+    <span style="color:#a6e22e">id</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createRequest</span>(<span style="color:#a6e22e">method</span>, <span style="color:#a6e22e">parameters</span>, <span style="color:#a6e22e">callback</span>, <span style="color:#a6e22e">id</span>);
+    <span style="color:#a6e22e">send</span>(<span style="color:#a6e22e">id</span>);
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">self</span>;
+  }
+
+  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">batch</span>(<span style="color:#a6e22e">requests</span>) {
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">batchOperationsDisabled</span>) {
+      <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;Batch Operations Disabled&#39;</span>);
+    }
+    <span style="color:#a6e22e">requests</span> <span style="color:#f92672">=</span> [].<span style="color:#a6e22e">slice</span>.<span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">arguments</span>);
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">requests</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">1</span>) {
+      <span style="color:#a6e22e">call</span>.<span style="color:#a6e22e">apply</span>(<span style="color:#a6e22e">self</span>, <span style="color:#a6e22e">requests</span>[<span style="color:#ae81ff">0</span>]);
+      <span style="color:#66d9ef">return</span>;
+    }
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">ids</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">requests</span>.<span style="color:#a6e22e">map</span>(<span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">request</span>) {
+      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">createRequest</span>.<span style="color:#a6e22e">apply</span>(<span style="color:#a6e22e">self</span>, <span style="color:#a6e22e">request</span>);
+    });
+    <span style="color:#a6e22e">send</span>(<span style="color:#a6e22e">ids</span>);
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">self</span>;
+  }
+
+  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">expose</span>(<span style="color:#a6e22e">method</span>, <span style="color:#a6e22e">fn</span>) {
+    <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">fn</span> <span style="color:#f92672">!==</span> <span style="color:#e6db74">&#39;function&#39;</span>) {
+      Object.<span style="color:#a6e22e">keys</span>(<span style="color:#a6e22e">fn</span>).<span style="color:#a6e22e">forEach</span>(<span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">key</span>) {
+        <span style="color:#a6e22e">methods</span>[<span style="color:#a6e22e">method</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;.&#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">key</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">fn</span>[<span style="color:#a6e22e">key</span>];
+      }, <span style="color:#a6e22e">methods</span>);
+    }
+    <span style="color:#a6e22e">methods</span>[<span style="color:#a6e22e">method</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">fn</span>;
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">self</span>;
+  }
+
+  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">on</span>(<span style="color:#a6e22e">eventName</span>, <span style="color:#a6e22e">handler</span>) {
+    <span style="color:#a6e22e">eventHandlers</span>[<span style="color:#a6e22e">eventName</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">handler</span>;
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">self</span>;
+  }
+
+  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">off</span>(<span style="color:#a6e22e">eventName</span>) {
+    <span style="color:#a6e22e">eventHandlers</span>[<span style="color:#a6e22e">eventName</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">noop</span>;
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">self</span>;
+  }
+
+  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">close</span>() {
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">socket</span> <span style="color:#f92672">!==</span> <span style="color:#66d9ef">null</span>) {
+      <span style="color:#a6e22e">socket</span>.<span style="color:#a6e22e">close</span>();
+    }
+  }
+
+  <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">close</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">close</span>;
+  <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">on</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">on</span>;
+  <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">off</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">off</span>;
+  <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">ws</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">socket</span>;
+
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">self</span>;
+}
+</code></pre></div><hr>
+<h3 id="indexhtmlhttpsgistgithubusercontentcommaster5o10ac511e0a3ec0cd5cf4arawc6d7194451487aa18a0163fcac7f420cf377cbc2indexhtml----texthtml-24kib"><a href="https://gist.githubusercontent.com/master5o1/0ac511e0a3ec0cd5cf4a/raw/c6d7194451487aa18a0163fcac7f420cf377cbc2/index.html">index.html</a> &ndash; text/html, 2.4KiB</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">html</span>&gt;
+  &lt;<span style="color:#f92672">head</span>&gt;
+    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;WebSocketRpc.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+    &lt;<span style="color:#f92672">script</span>&gt;
+
+    <span style="color:#75715e">// Setup RPC
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">rpc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">WebSocketRpc</span>(<span style="color:#e6db74">&#39;ws://echo.websocket.org&#39;</span><span style="color:#75715e">/*, true */</span>); <span style="color:#75715e">// pass true to disable sending batched calls.
+</span><span style="color:#75715e"></span>    
+    <span style="color:#75715e">// Want to do stuff on open, error and close.
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">rpc</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;ready&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">event</span>){ <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;socket is ready&#39;</span>); })
+       .<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;error&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">event</span>){ <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;oh my an error occurred&#39;</span>, <span style="color:#a6e22e">event</span>); })
+       .<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;close&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">event</span>){ <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;socket is closed&#39;</span>); })
+       
+    <span style="color:#75715e">// We&#39;ll use this for handling JSON-RPC 2.0 notification result/error messages.
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">rpc</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;notification&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">error</span>, <span style="color:#a6e22e">results</span>, <span style="color:#a6e22e">response</span>, <span style="color:#a6e22e">event</span>){
+      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">error</span>) {
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#e6db74">&#39;what, an error notification?&#39;</span>, <span style="color:#a6e22e">error</span>);
+        <span style="color:#66d9ef">return</span>;
+      }
+      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;oh good, a notification&#39;</span>, <span style="color:#a6e22e">results</span>);
+    })
+
+    <span style="color:#75715e">// Let&#39;s set up a method that the server can call for the client to do.
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">rpc</span>.<span style="color:#a6e22e">expose</span>(<span style="color:#e6db74">&#39;add&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">params</span>, <span style="color:#a6e22e">callback</span>) {
+      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;exposed add:&#39;</span>, <span style="color:#a6e22e">params</span>);
+      <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">params</span>[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">+</span> <span style="color:#a6e22e">params</span>[<span style="color:#ae81ff">1</span>];
+      <span style="color:#a6e22e">callback</span>(<span style="color:#66d9ef">null</span>, <span style="color:#a6e22e">result</span>);
+    });
+
+    <span style="color:#75715e">// Let&#39;s set up another one, which we&#39;ll use as a notification.
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">rpc</span>.<span style="color:#a6e22e">expose</span>(<span style="color:#e6db74">&#39;notification&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">params</span>, <span style="color:#a6e22e">callback</span>){
+      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;exposed notification:&#39;</span>, <span style="color:#a6e22e">params</span>);
+      <span style="color:#a6e22e">callback</span>();
+    });
+
+    <span style="color:#75715e">// Can also set up a namedspaced object of methods.
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">rpc</span>.<span style="color:#a6e22e">expose</span>(<span style="color:#e6db74">&#39;math&#39;</span>, {
+      <span style="color:#a6e22e">add</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">params</span>, <span style="color:#a6e22e">callback</span>) {
+        <span style="color:#a6e22e">callback</span>(<span style="color:#66d9ef">null</span>, <span style="color:#a6e22e">params</span>[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">+</span> <span style="color:#a6e22e">params</span>[<span style="color:#ae81ff">1</span>]);
+      },
+      <span style="color:#a6e22e">subtract</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">params</span>, <span style="color:#a6e22e">callback</span>) {
+        <span style="color:#a6e22e">callback</span>(<span style="color:#66d9ef">null</span>, <span style="color:#a6e22e">params</span>[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">-</span> <span style="color:#a6e22e">params</span>[<span style="color:#ae81ff">1</span>]);
+      },
+      <span style="color:#a6e22e">multiply</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">params</span>, <span style="color:#a6e22e">callback</span>) {
+        <span style="color:#a6e22e">callback</span>(<span style="color:#66d9ef">null</span>, <span style="color:#a6e22e">params</span>[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> <span style="color:#a6e22e">params</span>[<span style="color:#ae81ff">1</span>]);
+      }
+    });
+
+    <span style="color:#75715e">// Call a method on the server.
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">rpc</span>.<span style="color:#a6e22e">call</span>(<span style="color:#e6db74">&#39;add&#39;</span>, [<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">10</span>], <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">error</span>, <span style="color:#a6e22e">result</span>, <span style="color:#a6e22e">response</span>, <span style="color:#a6e22e">request</span>, <span style="color:#a6e22e">event</span>){
+      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">arguments</span>);
+    });
+
+    <span style="color:#75715e">// Send the notification to the server.
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">rpc</span>.<span style="color:#a6e22e">call</span>(<span style="color:#e6db74">&#39;notification&#39;</span>, <span style="color:#e6db74">&#39;Still Alive&#39;</span>);
+
+    <span style="color:#75715e">// Call a namespaced method.
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">rpc</span>.<span style="color:#a6e22e">call</span>(<span style="color:#e6db74">&#39;math.multiply&#39;</span>, [<span style="color:#ae81ff">21</span>, <span style="color:#ae81ff">34</span>], <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">error</span>, <span style="color:#a6e22e">results</span>){
+      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;math.multiply&#39;</span>, <span style="color:#a6e22e">results</span>);
+    });
+
+    <span style="color:#a6e22e">rpc</span>.<span style="color:#a6e22e">batch</span>([<span style="color:#e6db74">&#39;math.subtract&#39;</span>, [<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">3</span>], <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">error</span>, <span style="color:#a6e22e">result</span>) {
+      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;subtract&#39;</span>, <span style="color:#a6e22e">result</span>);
+    }], [<span style="color:#e6db74">&#39;math.divide&#39;</span>, [<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">3</span>], <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">error</span>, <span style="color:#a6e22e">result</span>) {
+      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">error</span>) {
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#e6db74">&#39;divide&#39;</span>, <span style="color:#a6e22e">error</span>);
+        <span style="color:#66d9ef">return</span>;
+      }
+      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;divide&#39;</span>, <span style="color:#a6e22e">result</span>);
+    }]);
+
+    <span style="color:#a6e22e">rpc</span>.<span style="color:#a6e22e">connect</span>();
+
+    &lt;/<span style="color:#f92672">script</span>&gt;
+  &lt;/<span style="color:#f92672">head</span>&gt;
+  &lt;<span style="color:#f92672">body</span>&gt;
+    Look in the JS console.
+  &lt;/<span style="color:#f92672">body</span>&gt;
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div>
+        </div>
+        
+
+    
+
+
+<div class="article-info">
+    
+        <div class="article-date">2014-12-18 04:29</div>
+    
+    <div class="article-taxonomies">
+        
+            
+                <ul class="article-tags">
+                    
+                        <li><a href="https://jason.schwarzenberger.nz/tags/gist">#gist</a></li>
+                    
+                </ul>
+        
+    </div>
+</div>
+
+    </article>
+    
+
+
+        </main>
+        <footer>
+            
+                
+                
+
+                
+            
+        </footer>
+    </div>
+</body>
+</html>

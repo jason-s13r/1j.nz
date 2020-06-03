@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    
+        
+<meta charset="utf-8">
+<meta name="HandheldFriendly" content="True">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer-when-downgrade">
+
+<title>vue-signature-pad.d.ts  - Jason Schwarzenberger</title>
+<meta name="description" content="Software engineer from New Zealand.">
+
+<link rel="icon" type="image/x-icon" href="https://jason.schwarzenberger.nz/favicon.ico">
+<link rel="apple-touch-icon-precomposed" href="https://jason.schwarzenberger.nz/favicon.png">
+
+<link rel="stylesheet" href="https://jason.schwarzenberger.nz/css/style.css?rnd=1591147581" />
+
+<link rel="stylesheet" href="https://jason.schwarzenberger.nz/css/my.css?rnd=1591147581">
+
+<meta property="og:title" content="vue-signature-pad.d.ts" />
+<meta property="og:description" content="gist link
+Typescript type definitions for vue-signature-pad, probably not entirely correct.
+declare module &#39;vue-signature-pad&#39; { import signature_pad, * as SignaturePad from &#39;signature_pad&#39;; import Vue from &#39;vue&#39;; export interface IOptions extends SignaturePad.IOptions {} export interface IPointGroup extends SignaturePad.IPointGroup {} export interface Status { isEmpty: boolean; data?: any; } export default class VueSignaturePad extends Vue { // props  width: string; height: string; customStyle: any; saveType: string; options: IOptions; images: any[]; // computer  propsImagesAndCustomImages: any[]; // methods  resizeCanvas(): void; saveSignature(): Status; undoSignature(): void; mergeImageAndSignature(customSignature: any): Promise&lt;any&gt;; // TODO: constrain to correct return type." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://jason.schwarzenberger.nz/posts/gist/2019-03-27/e5f8dc43c748032917b25af478ef94df/" />
+<meta property="og:image" content="https://jason.schwarzenberger.nz/images/Schwarzenberger.png"/>
+<meta property="article:published_time" content="2019-03-27T21:40:03+00:00" />
+<meta property="article:modified_time" content="2019-03-27T21:40:03+00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://jason.schwarzenberger.nz/images/Schwarzenberger.png"/>
+
+<meta name="twitter:title" content="vue-signature-pad.d.ts"/>
+<meta name="twitter:description" content="gist link
+Typescript type definitions for vue-signature-pad, probably not entirely correct.
+declare module &#39;vue-signature-pad&#39; { import signature_pad, * as SignaturePad from &#39;signature_pad&#39;; import Vue from &#39;vue&#39;; export interface IOptions extends SignaturePad.IOptions {} export interface IPointGroup extends SignaturePad.IPointGroup {} export interface Status { isEmpty: boolean; data?: any; } export default class VueSignaturePad extends Vue { // props  width: string; height: string; customStyle: any; saveType: string; options: IOptions; images: any[]; // computer  propsImagesAndCustomImages: any[]; // methods  resizeCanvas(): void; saveSignature(): Status; undoSignature(): void; mergeImageAndSignature(customSignature: any): Promise&lt;any&gt;; // TODO: constrain to correct return type."/>
+
+
+
+
+
+
+    
+</head>
+<body>
+    <a class="skip-main" href="#main">Skip to main content</a>
+    <div class="container">
+        <header> 
+            
+                <div class="site-header">
+    <a class="site-logo" href="/">
+        <img src="/images/Schwarzenberger.png" alt="logo" />
+    </a>
+
+    <h1>
+        <a href="/">Jason Schwarzenberger</a>
+    </h1>
+    <div>Software engineer from New Zealand.</div>
+</div>
+<nav>
+    
+    
+    <a class=""
+        href="https://jason.schwarzenberger.nz/posts/" title="Archive">Archive</a>
+    
+    <a class=""
+        href="https://jason.schwarzenberger.nz/tags/" title="Tags">Tags</a>
+    
+</nav>
+            
+        </header>
+        <main id="main" tabindex="-1"> 
+            
+
+    <article class="post">
+        <header>
+            <h1>vue-signature-pad.d.ts</h1>
+        </header>
+        <div class="content">
+            <p><a href="https://gist.github.com/e5f8dc43c748032917b25af478ef94df">gist link</a></p>
+<p>Typescript type definitions for <a href="https://www.npmjs.com/package/vue-signature-pad">vue-signature-pad</a>, probably not entirely correct.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">declare</span> <span style="color:#a6e22e">module</span> <span style="color:#e6db74">&#39;vue-signature-pad&#39;</span> {
+  <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">signature_pad</span>, <span style="color:#f92672">*</span> <span style="color:#66d9ef">as</span> <span style="color:#a6e22e">SignaturePad</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;signature_pad&#39;</span>;
+  <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Vue</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;vue&#39;</span>;
+
+  <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">IOptions</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">SignaturePad</span>.<span style="color:#a6e22e">IOptions</span> {}
+  <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">IPointGroup</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">SignaturePad</span>.<span style="color:#a6e22e">IPointGroup</span> {}
+
+  <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Status</span> {
+    <span style="color:#a6e22e">isEmpty</span>: <span style="color:#66d9ef">boolean</span>;
+    <span style="color:#a6e22e">data?</span>: <span style="color:#66d9ef">any</span>;
+  }
+
+  <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">VueSignaturePad</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">Vue</span> {
+    <span style="color:#75715e">// props
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">width</span>: <span style="color:#66d9ef">string</span>;
+    <span style="color:#a6e22e">height</span>: <span style="color:#66d9ef">string</span>;
+    <span style="color:#a6e22e">customStyle</span>: <span style="color:#66d9ef">any</span>;
+    <span style="color:#a6e22e">saveType</span>: <span style="color:#66d9ef">string</span>;
+    <span style="color:#a6e22e">options</span>: <span style="color:#66d9ef">IOptions</span>;
+    <span style="color:#a6e22e">images</span>: <span style="color:#66d9ef">any</span>[];
+
+    <span style="color:#75715e">// computer
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">propsImagesAndCustomImages</span>: <span style="color:#66d9ef">any</span>[];
+
+    <span style="color:#75715e">// methods
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">resizeCanvas</span>()<span style="color:#f92672">:</span> <span style="color:#66d9ef">void</span>;
+    <span style="color:#a6e22e">saveSignature</span>()<span style="color:#f92672">:</span> <span style="color:#a6e22e">Status</span>;
+    <span style="color:#a6e22e">undoSignature</span>()<span style="color:#f92672">:</span> <span style="color:#66d9ef">void</span>;
+    <span style="color:#a6e22e">mergeImageAndSignature</span>(<span style="color:#a6e22e">customSignature</span>: <span style="color:#66d9ef">any</span>)<span style="color:#f92672">:</span> <span style="color:#a6e22e">Promise</span>&lt;<span style="color:#f92672">any</span>&gt;; <span style="color:#75715e">// TODO: constrain to correct return type.
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">addImages</span>(<span style="color:#a6e22e">images</span>: <span style="color:#66d9ef">any</span>[])<span style="color:#f92672">:</span> <span style="color:#a6e22e">Promise</span>&lt;<span style="color:#f92672">any</span>&gt;; <span style="color:#75715e">// TODO: constrain to correct param type and return type.
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">fromDataURL</span>(<span style="color:#a6e22e">data</span>: <span style="color:#66d9ef">string</span>)<span style="color:#f92672">:</span> <span style="color:#66d9ef">void</span>;
+    <span style="color:#a6e22e">lockSignaturePad</span>()<span style="color:#f92672">:</span> <span style="color:#66d9ef">void</span>;
+    <span style="color:#a6e22e">openSignaturePad</span>()<span style="color:#f92672">:</span> <span style="color:#66d9ef">void</span>;
+    <span style="color:#a6e22e">isEmpty</span>()<span style="color:#f92672">:</span> <span style="color:#66d9ef">boolean</span>;
+    <span style="color:#a6e22e">getPropImagesAndCacheImages</span>()<span style="color:#f92672">:</span> <span style="color:#a6e22e">any</span>[];
+    <span style="color:#a6e22e">clearCacheImages</span>()<span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;this.cacheImages&#39;</span>;
+    <span style="color:#a6e22e">clearSignature</span>()<span style="color:#f92672">:</span> <span style="color:#66d9ef">void</span>;
+  }
+}
+
+</code></pre></div>
+        </div>
+        
+
+    
+
+
+<div class="article-info">
+    
+        <div class="article-date">2019-03-27 21:40</div>
+    
+    <div class="article-taxonomies">
+        
+            
+                <ul class="article-tags">
+                    
+                        <li><a href="https://jason.schwarzenberger.nz/tags/gist">#gist</a></li>
+                    
+                </ul>
+        
+    </div>
+</div>
+
+    </article>
+    
+
+
+        </main>
+        <footer>
+            
+                
+                
+
+                
+            
+        </footer>
+    </div>
+</body>
+</html>

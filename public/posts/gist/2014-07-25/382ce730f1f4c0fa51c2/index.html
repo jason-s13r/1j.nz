@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    
+        
+<meta charset="utf-8">
+<meta name="HandheldFriendly" content="True">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer-when-downgrade">
+
+<title>BitNZ.js  - Jason Schwarzenberger</title>
+<meta name="description" content="Software engineer from New Zealand.">
+
+<link rel="icon" type="image/x-icon" href="https://jason.schwarzenberger.nz/favicon.ico">
+<link rel="apple-touch-icon-precomposed" href="https://jason.schwarzenberger.nz/favicon.png">
+
+<link rel="stylesheet" href="https://jason.schwarzenberger.nz/css/style.css?rnd=1591147580" />
+
+<link rel="stylesheet" href="https://jason.schwarzenberger.nz/css/my.css?rnd=1591147580">
+
+<meta property="og:title" content="BitNZ.js" />
+<meta property="og:description" content="gist link
+   Attachment Type Size     BitNZ.js application/javascript 3.2KiB   play.js application/javascript 488.0B     BitNZ.js &ndash; application/javascript, 3.2KiB var crypto = require(&#39;crypto&#39;); var request = require(&#39;request&#39;); module.exports = function BitNZ(username, apiKey, apiSecret) { var self = this; var hostname = &#39;https://bitnz.com&#39;; var api = &#39;/api/0&#39;; var noop = function() {}; var sign = function(obj){ obj = obj || {}; obj.nonce = new Date()." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://jason.schwarzenberger.nz/posts/gist/2014-07-25/382ce730f1f4c0fa51c2/" />
+<meta property="og:image" content="https://jason.schwarzenberger.nz/images/Schwarzenberger.png"/>
+<meta property="article:published_time" content="2014-07-25T23:27:46+00:00" />
+<meta property="article:modified_time" content="2014-07-25T23:27:46+00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://jason.schwarzenberger.nz/images/Schwarzenberger.png"/>
+
+<meta name="twitter:title" content="BitNZ.js"/>
+<meta name="twitter:description" content="gist link
+   Attachment Type Size     BitNZ.js application/javascript 3.2KiB   play.js application/javascript 488.0B     BitNZ.js &ndash; application/javascript, 3.2KiB var crypto = require(&#39;crypto&#39;); var request = require(&#39;request&#39;); module.exports = function BitNZ(username, apiKey, apiSecret) { var self = this; var hostname = &#39;https://bitnz.com&#39;; var api = &#39;/api/0&#39;; var noop = function() {}; var sign = function(obj){ obj = obj || {}; obj.nonce = new Date()."/>
+
+
+
+
+
+
+    
+</head>
+<body>
+    <a class="skip-main" href="#main">Skip to main content</a>
+    <div class="container">
+        <header> 
+            
+                <div class="site-header">
+    <a class="site-logo" href="/">
+        <img src="/images/Schwarzenberger.png" alt="logo" />
+    </a>
+
+    <h1>
+        <a href="/">Jason Schwarzenberger</a>
+    </h1>
+    <div>Software engineer from New Zealand.</div>
+</div>
+<nav>
+    
+    
+    <a class=""
+        href="https://jason.schwarzenberger.nz/posts/" title="Archive">Archive</a>
+    
+    <a class=""
+        href="https://jason.schwarzenberger.nz/tags/" title="Tags">Tags</a>
+    
+</nav>
+            
+        </header>
+        <main id="main" tabindex="-1"> 
+            
+
+    <article class="post">
+        <header>
+            <h1>BitNZ.js</h1>
+        </header>
+        <div class="content">
+            <p><a href="https://gist.github.com/382ce730f1f4c0fa51c2">gist link</a></p>
+<table>
+<thead>
+<tr>
+<th>Attachment</th>
+<th>Type</th>
+<th>Size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://gist.githubusercontent.com/master5o1/382ce730f1f4c0fa51c2/raw/f1165dabdcb0ab8f14bd6d0318f80a91db84ddcd/BitNZ.js">BitNZ.js</a></td>
+<td>application/javascript</td>
+<td>3.2KiB</td>
+</tr>
+<tr>
+<td><a href="https://gist.githubusercontent.com/master5o1/382ce730f1f4c0fa51c2/raw/89824c3d61f06f5a10ddec274c943825497246eb/play.js">play.js</a></td>
+<td>application/javascript</td>
+<td>488.0B</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="bitnzjshttpsgistgithubusercontentcommaster5o1382ce730f1f4c0fa51c2rawf1165dabdcb0ab8f14bd6d0318f80a91db84ddcdbitnzjs----applicationjavascript-32kib"><a href="https://gist.githubusercontent.com/master5o1/382ce730f1f4c0fa51c2/raw/f1165dabdcb0ab8f14bd6d0318f80a91db84ddcd/BitNZ.js">BitNZ.js</a> &ndash; application/javascript, 3.2KiB</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">crypto</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;crypto&#39;</span>);
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">request</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;request&#39;</span>);
+
+<span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">BitNZ</span>(<span style="color:#a6e22e">username</span>, <span style="color:#a6e22e">apiKey</span>, <span style="color:#a6e22e">apiSecret</span>) {
+  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">self</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>;
+  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">hostname</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;https://bitnz.com&#39;</span>;
+  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">api</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;/api/0&#39;</span>;
+  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">noop</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {};
+
+  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">sign</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">obj</span>){
+    <span style="color:#a6e22e">obj</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">obj</span> <span style="color:#f92672">||</span> {};
+    <span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">nonce</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Date().<span style="color:#a6e22e">getTime</span>() <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">new</span> Date().<span style="color:#a6e22e">getMilliseconds</span>();
+    <span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">signature</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">crypto</span>.<span style="color:#a6e22e">createHmac</span>(<span style="color:#e6db74">&#39;sha256&#39;</span>, <span style="color:#a6e22e">apiSecret</span>)
+                          .<span style="color:#a6e22e">update</span>(<span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">nonce</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">username</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">apiKey</span>)
+                          .<span style="color:#a6e22e">digest</span>(<span style="color:#e6db74">&#39;hex&#39;</span>)
+                          .<span style="color:#a6e22e">toUpperCase</span>();
+    <span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">key</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">apiKey</span>;
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">obj</span>;
+  };
+
+  <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">sign</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">sign</span>;
+
+  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">post</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">action</span>, <span style="color:#a6e22e">parameters</span>, <span style="color:#a6e22e">callback</span>) {
+    <span style="color:#a6e22e">callback</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">callback</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">noop</span>;
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;URL&#39;</span>, <span style="color:#a6e22e">hostname</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">api</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">action</span>, <span style="color:#a6e22e">parameters</span>);
+    <span style="color:#a6e22e">request</span>.<span style="color:#a6e22e">post</span>(<span style="color:#a6e22e">hostname</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">api</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">action</span>, {
+      <span style="color:#a6e22e">form</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">parameters</span>,
+      <span style="color:#a6e22e">headers</span><span style="color:#f92672">:</span> {
+        <span style="color:#e6db74">&#39;User-Agent&#39;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Mozilla/4.0 (compatible; bitNZ node.js client by master5o1)&#39;</span>
+      }
+    }, <span style="color:#a6e22e">callback</span>);
+  }
+
+  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">get</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">action</span>, <span style="color:#a6e22e">parameters</span>, <span style="color:#a6e22e">callback</span>) {
+    <span style="color:#a6e22e">callback</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">callback</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">noop</span>;
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">params</span> <span style="color:#f92672">=</span> [];
+    Object.<span style="color:#a6e22e">keys</span>(<span style="color:#a6e22e">parameters</span>).<span style="color:#a6e22e">forEach</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">key</span>){
+      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">key</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;=&#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">parameters</span>[<span style="color:#a6e22e">key</span>]);
+    }, <span style="color:#a6e22e">params</span>);
+    <span style="color:#a6e22e">request</span>.<span style="color:#a6e22e">get</span>(<span style="color:#a6e22e">hostname</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">api</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">action</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;?&#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">params</span>.<span style="color:#a6e22e">join</span>(<span style="color:#e6db74">&#39;&amp;&#39;</span>), <span style="color:#a6e22e">callback</span>);
+  };
+
+  <span style="color:#75715e">// Open/Public API Calls:
+</span><span style="color:#75715e"></span>
+  <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">getTicker</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">callback</span>){
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;/ticker&#39;</span>, {}, <span style="color:#a6e22e">callback</span>);
+  };
+
+  <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">getTrades</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">since</span>, <span style="color:#a6e22e">date</span>, <span style="color:#a6e22e">callback</span>){
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;/trades&#39;</span>, {
+      <span style="color:#a6e22e">since</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">since</span>,
+      <span style="color:#e6db74">&#39;since_date&#39;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">date</span>
+    }, <span style="color:#a6e22e">callback</span>);
+  };
+
+  <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">getOrderBook</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">parmeters</span>, <span style="color:#a6e22e">callback</span>){
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;/orderbook&#39;</span>, <span style="color:#a6e22e">parameters</span>, <span style="color:#a6e22e">callback</span>);
+  };
+
+  <span style="color:#75715e">// Private API Calls:
+</span><span style="color:#75715e"></span>
+  <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">getBalance</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">callback</span>) {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">post</span>(<span style="color:#e6db74">&#39;/private/balance&#39;</span>, <span style="color:#a6e22e">sign</span>({}), <span style="color:#a6e22e">callback</span>);
+  };
+
+  <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">openBids</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">callback</span>) {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">post</span>(<span style="color:#e6db74">&#39;/private/orders/buy/open&#39;</span>, <span style="color:#a6e22e">sign</span>({}), <span style="color:#a6e22e">callback</span>);
+  };
+
+  <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">openAsks</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">callback</span>) {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">post</span>(<span style="color:#e6db74">&#39;/private/orders/sell/open&#39;</span>, <span style="color:#a6e22e">sign</span>({}), <span style="color:#a6e22e">callback</span>);
+  };
+
+  <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">closedBids</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">skip</span>, <span style="color:#a6e22e">limit</span>, <span style="color:#a6e22e">callback</span>) {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">post</span>(<span style="color:#e6db74">&#39;/private/orders/buy/close&#39;</span>, <span style="color:#a6e22e">sign</span>({
+      <span style="color:#a6e22e">offset</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">skip</span>,
+      <span style="color:#a6e22e">limit</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">limit</span>
+    }), <span style="color:#a6e22e">callback</span>);
+  };
+
+  <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">closedAsks</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">skip</span>, <span style="color:#a6e22e">limit</span>, <span style="color:#a6e22e">callback</span>) {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">post</span>(<span style="color:#e6db74">&#39;/private/orders/sell/close&#39;</span>, <span style="color:#a6e22e">sign</span>({
+      <span style="color:#a6e22e">offset</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">skip</span>,
+      <span style="color:#a6e22e">limit</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">limit</span>
+    }), <span style="color:#a6e22e">callback</span>);
+  };
+
+  <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">cancelBid</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">id</span>, <span style="color:#a6e22e">callback</span>) {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">post</span>(<span style="color:#e6db74">&#39;/private/orders/buy/cancel&#39;</span>, <span style="color:#a6e22e">sign</span>({
+      <span style="color:#a6e22e">id</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">id</span>
+    }), <span style="color:#a6e22e">callback</span>);
+  };
+
+  <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">cancelAsk</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">id</span>, <span style="color:#a6e22e">callback</span>) {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">post</span>(<span style="color:#e6db74">&#39;/private/orders/sell/cancel&#39;</span>, <span style="color:#a6e22e">sign</span>({
+      <span style="color:#a6e22e">id</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">id</span>
+    }), <span style="color:#a6e22e">callback</span>);
+  };
+
+  <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">createBid</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">amount</span>, <span style="color:#a6e22e">price</span>, <span style="color:#a6e22e">callback</span>) {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">post</span>(<span style="color:#e6db74">&#39;/private/orders/buy/create&#39;</span>, <span style="color:#a6e22e">sign</span>({
+      <span style="color:#a6e22e">amount</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">amount</span>,
+      <span style="color:#a6e22e">price</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">price</span>
+    }), <span style="color:#a6e22e">callback</span>);
+  };
+
+  <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">createAsk</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">amount</span>, <span style="color:#a6e22e">price</span>, <span style="color:#a6e22e">callback</span>) {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">post</span>(<span style="color:#e6db74">&#39;/private/orders/sell/create&#39;</span>, <span style="color:#a6e22e">sign</span>({
+      <span style="color:#a6e22e">amount</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">amount</span>,
+      <span style="color:#a6e22e">price</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">price</span>
+    }), <span style="color:#a6e22e">callback</span>);
+  };
+
+  <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">depositAddress</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">callback</span>) {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">post</span>(<span style="color:#e6db74">&#39;/private/btc/address&#39;</span>, <span style="color:#a6e22e">sign</span>({}), <span style="color:#a6e22e">callback</span>);
+  };
+
+  <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">withdraw</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">address</span>, <span style="color:#a6e22e">amount</span>, <span style="color:#a6e22e">callback</span>) {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">post</span>(<span style="color:#e6db74">&#39;/private/btc/withdraw&#39;</span>, <span style="color:#a6e22e">sign</span>({
+      <span style="color:#a6e22e">address</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">address</span>,
+      <span style="color:#a6e22e">amount</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">amount</span>
+    }), <span style="color:#a6e22e">callback</span>);
+  };
+};
+</code></pre></div><hr>
+<h3 id="playjshttpsgistgithubusercontentcommaster5o1382ce730f1f4c0fa51c2raw89824c3d61f06f5a10ddec274c943825497246ebplayjs----applicationjavascript-4880b"><a href="https://gist.githubusercontent.com/master5o1/382ce730f1f4c0fa51c2/raw/89824c3d61f06f5a10ddec274c943825497246eb/play.js">play.js</a> &ndash; application/javascript, 488.0B</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">BitNZ</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;./BitNZ.js&#39;</span>);
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">username</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;username&#34;</span>
+  , <span style="color:#a6e22e">apiKey</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;key&#34;</span>
+  , <span style="color:#a6e22e">apiSecret</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;sekrit&#34;</span>;
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">bitnz</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">BitNZ</span>(<span style="color:#a6e22e">username</span>, <span style="color:#a6e22e">apiKey</span>, <span style="color:#a6e22e">apiSecret</span>);
+
+<span style="color:#a6e22e">bitnz</span>.<span style="color:#a6e22e">getBalance</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">error</span>, <span style="color:#a6e22e">response</span>, <span style="color:#a6e22e">body</span>){
+  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">statusCode</span>);
+  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">error</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">statusCode</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">200</span>) {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">body</span>);
+  }
+});
+
+<span style="color:#a6e22e">bitnz</span>.<span style="color:#a6e22e">getTicker</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">error</span>, <span style="color:#a6e22e">response</span>, <span style="color:#a6e22e">body</span>){
+  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">statusCode</span>);
+  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">error</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">statusCode</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">200</span>) {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">body</span>);
+  }
+});
+</code></pre></div>
+        </div>
+        
+
+    
+
+
+<div class="article-info">
+    
+        <div class="article-date">2014-07-25 23:27</div>
+    
+    <div class="article-taxonomies">
+        
+            
+                <ul class="article-tags">
+                    
+                        <li><a href="https://jason.schwarzenberger.nz/tags/gist">#gist</a></li>
+                    
+                </ul>
+        
+    </div>
+</div>
+
+    </article>
+    
+
+
+        </main>
+        <footer>
+            
+                
+                
+
+                
+            
+        </footer>
+    </div>
+</body>
+</html>

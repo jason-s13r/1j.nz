@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    
+        
+<meta charset="utf-8">
+<meta name="HandheldFriendly" content="True">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer-when-downgrade">
+
+<title>MockAjax.js  - Jason Schwarzenberger</title>
+<meta name="description" content="Software engineer from New Zealand.">
+
+<link rel="icon" type="image/x-icon" href="https://jason.schwarzenberger.nz/favicon.ico">
+<link rel="apple-touch-icon-precomposed" href="https://jason.schwarzenberger.nz/favicon.png">
+
+<link rel="stylesheet" href="https://jason.schwarzenberger.nz/css/style.css?rnd=1591147581" />
+
+<link rel="stylesheet" href="https://jason.schwarzenberger.nz/css/my.css?rnd=1591147581">
+
+<meta property="og:title" content="MockAjax.js" />
+<meta property="og:description" content="gist link
+silly little thing.
+function MockAjax() { var self = this; var responses = { &#39;http://api.example.com/cart/add.json?a=5&amp;b=3&#39;: { &#34;data&#34;: 8 } }; function request(url, success, failure) { window.setTimeout(function () { if (responses[url] === undefined) { failure(); return; } success(responses[url]); }, Math.random() * 1000); } self.mock = function(url, response) { responses[url] = response; }; self.get = function(url, success, failure) { request(url, success, failure); }; self.post = function(url, success, failure) { request(url, success, failure); }; return self; } " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://jason.schwarzenberger.nz/posts/gist/2015-07-13/2f8bc9aeabf8045e34c0/" />
+<meta property="og:image" content="https://jason.schwarzenberger.nz/images/Schwarzenberger.png"/>
+<meta property="article:published_time" content="2015-07-13T23:48:29+00:00" />
+<meta property="article:modified_time" content="2015-07-13T23:48:29+00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://jason.schwarzenberger.nz/images/Schwarzenberger.png"/>
+
+<meta name="twitter:title" content="MockAjax.js"/>
+<meta name="twitter:description" content="gist link
+silly little thing.
+function MockAjax() { var self = this; var responses = { &#39;http://api.example.com/cart/add.json?a=5&amp;b=3&#39;: { &#34;data&#34;: 8 } }; function request(url, success, failure) { window.setTimeout(function () { if (responses[url] === undefined) { failure(); return; } success(responses[url]); }, Math.random() * 1000); } self.mock = function(url, response) { responses[url] = response; }; self.get = function(url, success, failure) { request(url, success, failure); }; self.post = function(url, success, failure) { request(url, success, failure); }; return self; } "/>
+
+
+
+
+
+
+    
+</head>
+<body>
+    <a class="skip-main" href="#main">Skip to main content</a>
+    <div class="container">
+        <header> 
+            
+                <div class="site-header">
+    <a class="site-logo" href="/">
+        <img src="/images/Schwarzenberger.png" alt="logo" />
+    </a>
+
+    <h1>
+        <a href="/">Jason Schwarzenberger</a>
+    </h1>
+    <div>Software engineer from New Zealand.</div>
+</div>
+<nav>
+    
+    
+    <a class=""
+        href="https://jason.schwarzenberger.nz/posts/" title="Archive">Archive</a>
+    
+    <a class=""
+        href="https://jason.schwarzenberger.nz/tags/" title="Tags">Tags</a>
+    
+</nav>
+            
+        </header>
+        <main id="main" tabindex="-1"> 
+            
+
+    <article class="post">
+        <header>
+            <h1>MockAjax.js</h1>
+        </header>
+        <div class="content">
+            <p><a href="https://gist.github.com/2f8bc9aeabf8045e34c0">gist link</a></p>
+<p>silly little thing.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">MockAjax</span>() {
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">self</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>;
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">responses</span> <span style="color:#f92672">=</span> {
+		<span style="color:#e6db74">&#39;http://api.example.com/cart/add.json?a=5&amp;b=3&#39;</span><span style="color:#f92672">:</span> {
+			<span style="color:#e6db74">&#34;data&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">8</span>
+		}
+	};
+
+	<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">request</span>(<span style="color:#a6e22e">url</span>, <span style="color:#a6e22e">success</span>, <span style="color:#a6e22e">failure</span>) {
+		window.<span style="color:#a6e22e">setTimeout</span>(<span style="color:#66d9ef">function</span> () {
+			<span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">responses</span>[<span style="color:#a6e22e">url</span>] <span style="color:#f92672">===</span> <span style="color:#66d9ef">undefined</span>) {
+				<span style="color:#a6e22e">failure</span>();
+				<span style="color:#66d9ef">return</span>;
+			}
+			<span style="color:#a6e22e">success</span>(<span style="color:#a6e22e">responses</span>[<span style="color:#a6e22e">url</span>]);
+		}, Math.<span style="color:#a6e22e">random</span>() <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000</span>);
+	}
+
+	<span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">mock</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">url</span>, <span style="color:#a6e22e">response</span>) {
+		<span style="color:#a6e22e">responses</span>[<span style="color:#a6e22e">url</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">response</span>;
+	};
+	<span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">get</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">url</span>, <span style="color:#a6e22e">success</span>, <span style="color:#a6e22e">failure</span>) {
+		<span style="color:#a6e22e">request</span>(<span style="color:#a6e22e">url</span>, <span style="color:#a6e22e">success</span>, <span style="color:#a6e22e">failure</span>);
+	};
+	
+	<span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">post</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">url</span>, <span style="color:#a6e22e">success</span>, <span style="color:#a6e22e">failure</span>) {
+		<span style="color:#a6e22e">request</span>(<span style="color:#a6e22e">url</span>, <span style="color:#a6e22e">success</span>, <span style="color:#a6e22e">failure</span>);
+	};
+
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">self</span>;
+}
+</code></pre></div>
+        </div>
+        
+
+    
+
+
+<div class="article-info">
+    
+        <div class="article-date">2015-07-13 23:48</div>
+    
+    <div class="article-taxonomies">
+        
+            
+                <ul class="article-tags">
+                    
+                        <li><a href="https://jason.schwarzenberger.nz/tags/gist">#gist</a></li>
+                    
+                </ul>
+        
+    </div>
+</div>
+
+    </article>
+    
+
+
+        </main>
+        <footer>
+            
+                
+                
+
+                
+            
+        </footer>
+    </div>
+</body>
+</html>

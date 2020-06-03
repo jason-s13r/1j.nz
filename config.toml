@@ -1,0 +1,28 @@
+languageCode = 'en-us'
+baseUrl = 'https://jason.schwarzenberger.nz/'
+title = 'Jason Schwarzenberger'
+description = 'Software engineer from New Zealand.'
+theme = 'anubis'
+paginate = 10.0
+disqusShortname = ''
+googleAnalytics = ''
+[[menu.main]]
+identifier = 'posts'
+name = 'Archive'
+title = 'Archive'
+url = '/posts/'
+weight = 1.0
+
+[[menu.main]]
+identifier = 'tags'
+name = 'Tags'
+title = 'Tags'
+url = '/tags/'
+weight = 1.0
+
+[params]
+author = 'Jason'
+description = 'Software engineer from New Zealand.'
+images = ['images/Schwarzenberger.png']
+customCSS = ['css/my.css']
+dateFormat = '2006-01-02 15:04'

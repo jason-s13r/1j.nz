@@ -1,0 +1,17 @@
+<div class="site-header">
+    <a class="site-logo" href="{{ .Site.BaseURL | relLangURL }}">
+        <img src="/images/Schwarzenberger.png" alt="logo" />
+    </a>
+
+    <h1>
+        <a href="{{ .Site.BaseURL | relLangURL }}">{{ .Site.Title }}</a>
+    </h1>
+    <div>{{ .Site.Params.description }}</div>
+</div>
+<nav>
+    {{ $currentPage := . }}
+    {{ range .Site.Menus.main }}
+    <a class="{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}"
+        href="{{ .URL | absLangURL }}" title="{{ .Title }}">{{ .Name }}</a>
+    {{ end }}
+</nav>

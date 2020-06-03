@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    
+        
+<meta charset="utf-8">
+<meta name="HandheldFriendly" content="True">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer-when-downgrade">
+
+<title>Scrabble  - Jason Schwarzenberger</title>
+<meta name="description" content="Software engineer from New Zealand.">
+
+<link rel="icon" type="image/x-icon" href="https://jason.schwarzenberger.nz/favicon.ico">
+<link rel="apple-touch-icon-precomposed" href="https://jason.schwarzenberger.nz/favicon.png">
+
+<link rel="stylesheet" href="https://jason.schwarzenberger.nz/css/style.css?rnd=1591147581" />
+
+<link rel="stylesheet" href="https://jason.schwarzenberger.nz/css/my.css?rnd=1591147581">
+
+<meta property="og:title" content="Scrabble" />
+<meta property="og:description" content="gist link
+A scrabble-like arrangement of Tannercoin related words (ie, mostly pokemon names). - https://txt.t0.vc/NYZN
+ V SLOWPOKE PERSIAN L H I FARFETCH&#39;D Y D S D VENONAT O PIDGEOTTO E I I BEFRIEND N E A W L D C A B BOOP Y R MAGNEMITE O H T R Mr.MIME O A P R A SEADRA NATTY PAUL GLOOM I N G CLEFAIRY VICTREEBEL HODL U L FARM B B WEEZING M U N M O M E I GAMBLING A M ODDISH E W Q BWB OMAIR M B E MEW PRIMEAPE I I L M KABUTO I E E SOMEBODY MEWTWO O R P B G TANGELA A R R TANNERCOIN S S ALAKAZAM PARAS L M O C A O T P S TWIN L EKANS T T R A VENOMOTH N H B E H E M V A X P RAPIDASH T N O B BINGO ISABEL O I U E Z E E C S A T P CLEFABLE MANKEY E E L L P L R R GYARADOS A EXEGGUTOR I H E STARTER E A ROULETTE G P R W T C E C KANGASKHAN R F DICE S I U N C DROWZEE E T PONYTA S N F JYNX E K E O ARTICUNO W E D N I G A T I A J I T L T S D DUGTRIO DRAGONAIR WATER C METAPOD RUSSIAN D T B E KINGLER D N I O E MATURE N I O O C DOM E E y SHELLDER D W E O T K R W POKEMON TELETHON G I MAGNETON L P J P RATTATA A M D O POLIWRATH ZUBAT I R I I O C C NORAH I M BUTTERFREE I I C U T S A T SANDSLASH O H ♂ GREATBALL A I S MACAHMP U L OMASTAR N H T B T A GOLDUCK C E L S A U BLUE U K E B B I H ♀ A E E R L A H E T S R L ARBOK I R O H A N Y T L O V M MAGIKARP C ELECTRODE N N T GENGARS D G RHYDON S L N E A R R T L R O S E I RAICHU A E U A O N O D H S TENTAQUIL A E B I V D X N S N U D O R ALEX WIGGLYTUFF G H V Z B CHANSEY E O S GOLBAT STARYU W BANG I T O YAY E A U T L E SEAKING E L E O A M L LAPRAS Z R L I O CLOYSTER R O K D E D Z O ZENN R L E NINETALES NIDORINA E R DODRIO GOLEM SANDSHREW O L B MEOWTH KANYE R F A P L SCYTHER P E NIDOQUEEN KADABRA A M VULPIX V R Q T O E T E A KOFFING A E A A JASON U P CLICK O P R N U O R N R PBUO U I O E E PIDGEOT PORYGON C NIDOQUEEN O N TENTACRUEL DUCK S R L D ALVANDI W S O O R S T I S E A I A T T A A N M E HAKA L W E X T W CHARMANDER E K U MACHOP E A E I H T R P R N N RIGGED N JIGGLYPUFF P S Y I R L IVYSAUR T L E D E U C K " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://jason.schwarzenberger.nz/posts/gist/2020-01-29/c4da3b99bcdbf9c01a3d82a73211233d/" />
+<meta property="og:image" content="https://jason.schwarzenberger.nz/images/Schwarzenberger.png"/>
+<meta property="article:published_time" content="2020-01-29T08:45:29+00:00" />
+<meta property="article:modified_time" content="2020-01-29T08:45:29+00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://jason.schwarzenberger.nz/images/Schwarzenberger.png"/>
+
+<meta name="twitter:title" content="Scrabble"/>
+<meta name="twitter:description" content="gist link
+A scrabble-like arrangement of Tannercoin related words (ie, mostly pokemon names). - https://txt.t0.vc/NYZN
+ V SLOWPOKE PERSIAN L H I FARFETCH&#39;D Y D S D VENONAT O PIDGEOTTO E I I BEFRIEND N E A W L D C A B BOOP Y R MAGNEMITE O H T R Mr.MIME O A P R A SEADRA NATTY PAUL GLOOM I N G CLEFAIRY VICTREEBEL HODL U L FARM B B WEEZING M U N M O M E I GAMBLING A M ODDISH E W Q BWB OMAIR M B E MEW PRIMEAPE I I L M KABUTO I E E SOMEBODY MEWTWO O R P B G TANGELA A R R TANNERCOIN S S ALAKAZAM PARAS L M O C A O T P S TWIN L EKANS T T R A VENOMOTH N H B E H E M V A X P RAPIDASH T N O B BINGO ISABEL O I U E Z E E C S A T P CLEFABLE MANKEY E E L L P L R R GYARADOS A EXEGGUTOR I H E STARTER E A ROULETTE G P R W T C E C KANGASKHAN R F DICE S I U N C DROWZEE E T PONYTA S N F JYNX E K E O ARTICUNO W E D N I G A T I A J I T L T S D DUGTRIO DRAGONAIR WATER C METAPOD RUSSIAN D T B E KINGLER D N I O E MATURE N I O O C DOM E E y SHELLDER D W E O T K R W POKEMON TELETHON G I MAGNETON L P J P RATTATA A M D O POLIWRATH ZUBAT I R I I O C C NORAH I M BUTTERFREE I I C U T S A T SANDSLASH O H ♂ GREATBALL A I S MACAHMP U L OMASTAR N H T B T A GOLDUCK C E L S A U BLUE U K E B B I H ♀ A E E R L A H E T S R L ARBOK I R O H A N Y T L O V M MAGIKARP C ELECTRODE N N T GENGARS D G RHYDON S L N E A R R T L R O S E I RAICHU A E U A O N O D H S TENTAQUIL A E B I V D X N S N U D O R ALEX WIGGLYTUFF G H V Z B CHANSEY E O S GOLBAT STARYU W BANG I T O YAY E A U T L E SEAKING E L E O A M L LAPRAS Z R L I O CLOYSTER R O K D E D Z O ZENN R L E NINETALES NIDORINA E R DODRIO GOLEM SANDSHREW O L B MEOWTH KANYE R F A P L SCYTHER P E NIDOQUEEN KADABRA A M VULPIX V R Q T O E T E A KOFFING A E A A JASON U P CLICK O P R N U O R N R PBUO U I O E E PIDGEOT PORYGON C NIDOQUEEN O N TENTACRUEL DUCK S R L D ALVANDI W S O O R S T I S E A I A T T A A N M E HAKA L W E X T W CHARMANDER E K U MACHOP E A E I H T R P R N N RIGGED N JIGGLYPUFF P S Y I R L IVYSAUR T L E D E U C K "/>
+
+
+
+
+
+
+    
+</head>
+<body>
+    <a class="skip-main" href="#main">Skip to main content</a>
+    <div class="container">
+        <header> 
+            
+                <div class="site-header">
+    <a class="site-logo" href="/">
+        <img src="/images/Schwarzenberger.png" alt="logo" />
+    </a>
+
+    <h1>
+        <a href="/">Jason Schwarzenberger</a>
+    </h1>
+    <div>Software engineer from New Zealand.</div>
+</div>
+<nav>
+    
+    
+    <a class=""
+        href="https://jason.schwarzenberger.nz/posts/" title="Archive">Archive</a>
+    
+    <a class=""
+        href="https://jason.schwarzenberger.nz/tags/" title="Tags">Tags</a>
+    
+</nav>
+            
+        </header>
+        <main id="main" tabindex="-1"> 
+            
+
+    <article class="post">
+        <header>
+            <h1>Scrabble</h1>
+        </header>
+        <div class="content">
+            <p><a href="https://gist.github.com/c4da3b99bcdbf9c01a3d82a73211233d">gist link</a></p>
+<p>A scrabble-like arrangement of Tannercoin related words (ie, mostly pokemon names). - <a href="https://txt.t0.vc/NYZN">https://txt.t0.vc/NYZN</a></p>
+<pre><code>                            V                                              
+                       SLOWPOKE          PERSIAN                           
+                            L         H  I                                 
+                       FARFETCH'D     Y  D   S    D     VENONAT            
+                            O         PIDGEOTTO   E     I   I              
+                         BEFRIEND     N  E   A    W     L   D        C     
+                         A  B       BOOP Y   R  MAGNEMITE   O        H     
+                         T             R  Mr.MIME O  A  P   R        A     
+               SEADRA  NATTY    PAUL GLOOM   I    N  G CLEFAIRY  VICTREEBEL
+            HODL       U L    FARM  B  B    WEEZING  M  U   N        M     
+               O       M E      I  GAMBLING          A  M   ODDISH   E     
+               W  Q  BWB  OMAIR M   B  E      MEW   PRIMEAPE I   I   L     
+           M KABUTO I  E  E  SOMEBODY  MEWTWO O  R P     B   G   TANGELA   
+           A R R  TANNERCOIN  S S            ALAKAZAM  PARAS L   M   O     
+           C A O    T  P  S TWIN    L  EKANS  T  T R     A  VENOMOTH N     
+           H B      E  H      E M V A  X   P  RAPIDASH       T   N         
+           O B   BINGO ISABEL   O I U  E Z E  E  C S       A T P CLEFABLE  
+        MANKEY   E  E  L  L   P L R R  GYARADOS  A EXEGGUTOR   I H         
+           E  STARTER  E  A  ROULETTE  G P R   W T C   E   C KANGASKHAN    
+                 R   F  DICE  S I U N  C DROWZEE E T  PONYTA   S N         
+      F         JYNX E    K   E O ARTICUNO W   E       D   N   I      G    
+      A      T    I  A    J   I T L    T S     D      DUGTRIO DRAGONAIR    
+  WATER   C METAPOD  RUSSIAN  D T    B E   KINGLER     D   N       I  O    
+  E   MATURE N  I O  O    C  DOM     E         E   y SHELLDER      D  W    
+  E       O  T  K R  W  POKEMON   TELETHON      G         I  MAGNETON L    
+  P  J    P RATTATA     A    M       D O   POLIWRATH  ZUBAT  I     R  I    
+  I  O       C  C NORAH I     M BUTTERFREE   I  I   C   U T  S     A  T    
+SANDSLASH    O  H ♂     GREATBALL A  I S   MACAHMP  U   L OMASTAR  N  H    
+T B  T  A   GOLDUCK   C E L   S A U BLUE   U K  E   B   B    I  H  ♀       
+A E  E  R    L A      H   E   T S R  L ARBOK I  R   O H A    N  Y          
+T L  O  V      M MAGIKARP C ELECTRODE N   N  T    GENGARS D  G RHYDON      
+S L  N  E      A   R  R   T L R O S E I RAICHU    A E U A O  N  O  D       
+   H    S      TENTAQUIL  A E B I   V D   X  N    S   N U D  O  R  ALEX    
+  WIGGLYTUFF G H   V  Z   B CHANSEY E O S    GOLBAT  STARYU W BANG I       
+   T         O YAY E  A   U T L E  SEAKING      E L   E   O A              
+   M         L     LAPRAS Z R L       I O      CLOYSTER     R              
+   O      K  D     E  D   Z O      ZENN R       L  E    NINETALES          
+   NIDORINA  E     R        DODRIO    GOLEM SANDSHREW       O              
+   L      B MEOWTH      KANYE R      F  A       P  L  SCYTHER  P           
+   E NIDOQUEEN    KADABRA     A  M VULPIX V     R     Q     T  O           
+   E      T        E  A KOFFING  A E A    A  JASON    U  P CLICK           
+          O    P   R  N U     O  R N R    PBUO  U     I  O  E  E           
+          PIDGEOT PORYGON  C  NIDOQUEEN   O  N  TENTACRUEL     DUCK        
+          S R  L   D    ALVANDI  W S O O  R  S        T  I  S  E           
+            A  I   A       T  T  A A N M  E  HAKA     L  W  E  X           
+            T  W   CHARMANDER E  K U  MACHOP          E  A  E              
+            I  H   T       R P     R   N  N            RIGGED              
+            N JIGGLYPUFF   P S         Y                                   
+            I  R   L       IVYSAUR     T                                   
+               L           E D         E                                   
+                             U                                             
+                             C                                             
+                             K                                             
+</code></pre>
+        </div>
+        
+
+    
+
+
+<div class="article-info">
+    
+        <div class="article-date">2020-01-29 08:45</div>
+    
+    <div class="article-taxonomies">
+        
+            
+                <ul class="article-tags">
+                    
+                        <li><a href="https://jason.schwarzenberger.nz/tags/gist">#gist</a></li>
+                    
+                </ul>
+        
+    </div>
+</div>
+
+    </article>
+    
+
+
+        </main>
+        <footer>
+            
+                
+                
+
+                
+            
+        </footer>
+    </div>
+</body>
+</html>

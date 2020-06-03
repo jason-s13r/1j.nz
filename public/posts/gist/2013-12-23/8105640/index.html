@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    
+        
+<meta charset="utf-8">
+<meta name="HandheldFriendly" content="True">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer-when-downgrade">
+
+<title>bookmarklet.js  - Jason Schwarzenberger</title>
+<meta name="description" content="Software engineer from New Zealand.">
+
+<link rel="icon" type="image/x-icon" href="https://jason.schwarzenberger.nz/favicon.ico">
+<link rel="apple-touch-icon-precomposed" href="https://jason.schwarzenberger.nz/favicon.png">
+
+<link rel="stylesheet" href="https://jason.schwarzenberger.nz/css/style.css?rnd=1591147580" />
+
+<link rel="stylesheet" href="https://jason.schwarzenberger.nz/css/my.css?rnd=1591147580">
+
+<meta property="og:title" content="bookmarklet.js" />
+<meta property="og:description" content="gist link
+   Attachment Type Size     bookmarklet.js application/javascript 498.0B   clickingbad_seconds_info.js application/javascript 912.0B   fiddle.js application/javascript 912.0B   fiddle.manifest text/cache-manifest 126.0B     bookmarklet.js &ndash; application/javascript, 498.0B javascript:window.setInterval(function(){$(&#34;#clickers, #sellers, #upgrades, #banks&#34;).find(&#39;[id$=&#34;_cst&#34;]&#39;).each(function(){var b=$(this),a=b.text().replace(/[\$,]/g,&#34;&#34;),c=a.replace(/[0-9\.]/g,&#34;&#34;),a=1*a.replace(/[A-Z]/,&#34;&#34;),c={Q:1E15,T:1E12,B:1E9,M:1E6}[c]||1,a=a*c,d=$(&#34;#seller_rps&#34;),c=$(&#34;#sell_amt&#34;),d=d.text().replace(/,/g,&#34;&#34;),c=c.text().replace(/,/g,&#34;&#34;),a=(a-c)/d,b=&#34;#&#34;&#43;b.attr(&#34;id&#34;).replace(&#34;_cst&#34;,&#34;_btn&#34;),b=$(b);0&lt;a?(a=&#34;Purchase in &#34;&#43;a.toFixed(0)&#43;&#34; seconds&#34;,b.html(a)):b.html(&#34;Purchase&#34;)})},1E3);  clickingbad_seconds_info.js &ndash; application/javascript, 912.0B window.setInterval(function () { $(&#39;#clickers, #sellers, #upgrades, #banks&#39;).find(&#39;[id$=&#34;_cst&#34;]&#39;).each(function () { var multipliers = { Qt: 1E18, Q: 1E15, T: 1E12, B: 1E9, M: 1E6 }; var $this = $(this); var price = $this." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://jason.schwarzenberger.nz/posts/gist/2013-12-23/8105640/" />
+<meta property="og:image" content="https://jason.schwarzenberger.nz/images/Schwarzenberger.png"/>
+<meta property="article:published_time" content="2013-12-23T22:02:42+00:00" />
+<meta property="article:modified_time" content="2013-12-23T22:02:42+00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://jason.schwarzenberger.nz/images/Schwarzenberger.png"/>
+
+<meta name="twitter:title" content="bookmarklet.js"/>
+<meta name="twitter:description" content="gist link
+   Attachment Type Size     bookmarklet.js application/javascript 498.0B   clickingbad_seconds_info.js application/javascript 912.0B   fiddle.js application/javascript 912.0B   fiddle.manifest text/cache-manifest 126.0B     bookmarklet.js &ndash; application/javascript, 498.0B javascript:window.setInterval(function(){$(&#34;#clickers, #sellers, #upgrades, #banks&#34;).find(&#39;[id$=&#34;_cst&#34;]&#39;).each(function(){var b=$(this),a=b.text().replace(/[\$,]/g,&#34;&#34;),c=a.replace(/[0-9\.]/g,&#34;&#34;),a=1*a.replace(/[A-Z]/,&#34;&#34;),c={Q:1E15,T:1E12,B:1E9,M:1E6}[c]||1,a=a*c,d=$(&#34;#seller_rps&#34;),c=$(&#34;#sell_amt&#34;),d=d.text().replace(/,/g,&#34;&#34;),c=c.text().replace(/,/g,&#34;&#34;),a=(a-c)/d,b=&#34;#&#34;&#43;b.attr(&#34;id&#34;).replace(&#34;_cst&#34;,&#34;_btn&#34;),b=$(b);0&lt;a?(a=&#34;Purchase in &#34;&#43;a.toFixed(0)&#43;&#34; seconds&#34;,b.html(a)):b.html(&#34;Purchase&#34;)})},1E3);  clickingbad_seconds_info.js &ndash; application/javascript, 912.0B window.setInterval(function () { $(&#39;#clickers, #sellers, #upgrades, #banks&#39;).find(&#39;[id$=&#34;_cst&#34;]&#39;).each(function () { var multipliers = { Qt: 1E18, Q: 1E15, T: 1E12, B: 1E9, M: 1E6 }; var $this = $(this); var price = $this."/>
+
+
+
+
+
+
+    
+</head>
+<body>
+    <a class="skip-main" href="#main">Skip to main content</a>
+    <div class="container">
+        <header> 
+            
+                <div class="site-header">
+    <a class="site-logo" href="/">
+        <img src="/images/Schwarzenberger.png" alt="logo" />
+    </a>
+
+    <h1>
+        <a href="/">Jason Schwarzenberger</a>
+    </h1>
+    <div>Software engineer from New Zealand.</div>
+</div>
+<nav>
+    
+    
+    <a class=""
+        href="https://jason.schwarzenberger.nz/posts/" title="Archive">Archive</a>
+    
+    <a class=""
+        href="https://jason.schwarzenberger.nz/tags/" title="Tags">Tags</a>
+    
+</nav>
+            
+        </header>
+        <main id="main" tabindex="-1"> 
+            
+
+    <article class="post">
+        <header>
+            <h1>bookmarklet.js</h1>
+        </header>
+        <div class="content">
+            <p><a href="https://gist.github.com/8105640">gist link</a></p>
+<table>
+<thead>
+<tr>
+<th>Attachment</th>
+<th>Type</th>
+<th>Size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://gist.githubusercontent.com/master5o1/8105640/raw/470cf05c4cb7ac8c00723d3f4b696f218d4897c3/bookmarklet.js">bookmarklet.js</a></td>
+<td>application/javascript</td>
+<td>498.0B</td>
+</tr>
+<tr>
+<td><a href="https://gist.githubusercontent.com/master5o1/8105640/raw/fb26590702f717e298df77c9b3b0ba8945877427/clickingbad_seconds_info.js">clickingbad_seconds_info.js</a></td>
+<td>application/javascript</td>
+<td>912.0B</td>
+</tr>
+<tr>
+<td><a href="https://gist.githubusercontent.com/master5o1/8105640/raw/fb26590702f717e298df77c9b3b0ba8945877427/fiddle.js">fiddle.js</a></td>
+<td>application/javascript</td>
+<td>912.0B</td>
+</tr>
+<tr>
+<td><a href="https://gist.githubusercontent.com/master5o1/8105640/raw/bfdcda218c01b44ae6692d3e906dac41d6f04d45/fiddle.manifest">fiddle.manifest</a></td>
+<td>text/cache-manifest</td>
+<td>126.0B</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="bookmarkletjshttpsgistgithubusercontentcommaster5o18105640raw470cf05c4cb7ac8c00723d3f4b696f218d4897c3bookmarkletjs----applicationjavascript-4980b"><a href="https://gist.githubusercontent.com/master5o1/8105640/raw/470cf05c4cb7ac8c00723d3f4b696f218d4897c3/bookmarklet.js">bookmarklet.js</a> &ndash; application/javascript, 498.0B</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">javascript</span><span style="color:#f92672">:</span>window.<span style="color:#a6e22e">setInterval</span>(<span style="color:#66d9ef">function</span>(){<span style="color:#a6e22e">$</span>(<span style="color:#e6db74">&#34;#clickers, #sellers, #upgrades, #banks&#34;</span>).<span style="color:#a6e22e">find</span>(<span style="color:#e6db74">&#39;[id$=&#34;_cst&#34;]&#39;</span>).<span style="color:#a6e22e">each</span>(<span style="color:#66d9ef">function</span>(){<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">b</span><span style="color:#f92672">=</span><span style="color:#a6e22e">$</span>(<span style="color:#66d9ef">this</span>),<span style="color:#a6e22e">a</span><span style="color:#f92672">=</span><span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">text</span>().<span style="color:#a6e22e">replace</span>(<span style="color:#e6db74">/[\$,]/g</span>,<span style="color:#e6db74">&#34;&#34;</span>),<span style="color:#a6e22e">c</span><span style="color:#f92672">=</span><span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">replace</span>(<span style="color:#e6db74">/[0-9\.]/g</span>,<span style="color:#e6db74">&#34;&#34;</span>),<span style="color:#a6e22e">a</span><span style="color:#f92672">=</span><span style="color:#ae81ff">1</span><span style="color:#f92672">*</span><span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">replace</span>(<span style="color:#e6db74">/[A-Z]/</span>,<span style="color:#e6db74">&#34;&#34;</span>),<span style="color:#a6e22e">c</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">Q</span><span style="color:#f92672">:</span><span style="color:#ae81ff">1</span><span style="color:#a6e22e">E15</span>,<span style="color:#a6e22e">T</span><span style="color:#f92672">:</span><span style="color:#ae81ff">1</span><span style="color:#a6e22e">E12</span>,<span style="color:#a6e22e">B</span><span style="color:#f92672">:</span><span style="color:#ae81ff">1</span><span style="color:#a6e22e">E9</span>,<span style="color:#a6e22e">M</span><span style="color:#f92672">:</span><span style="color:#ae81ff">1</span><span style="color:#a6e22e">E6</span>}[<span style="color:#a6e22e">c</span>]<span style="color:#f92672">||</span><span style="color:#ae81ff">1</span>,<span style="color:#a6e22e">a</span><span style="color:#f92672">=</span><span style="color:#a6e22e">a</span><span style="color:#f92672">*</span><span style="color:#a6e22e">c</span>,<span style="color:#a6e22e">d</span><span style="color:#f92672">=</span><span style="color:#a6e22e">$</span>(<span style="color:#e6db74">&#34;#seller_rps&#34;</span>),<span style="color:#a6e22e">c</span><span style="color:#f92672">=</span><span style="color:#a6e22e">$</span>(<span style="color:#e6db74">&#34;#sell_amt&#34;</span>),<span style="color:#a6e22e">d</span><span style="color:#f92672">=</span><span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">text</span>().<span style="color:#a6e22e">replace</span>(<span style="color:#e6db74">/,/g</span>,<span style="color:#e6db74">&#34;&#34;</span>),<span style="color:#a6e22e">c</span><span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">text</span>().<span style="color:#a6e22e">replace</span>(<span style="color:#e6db74">/,/g</span>,<span style="color:#e6db74">&#34;&#34;</span>),<span style="color:#a6e22e">a</span><span style="color:#f92672">=</span>(<span style="color:#a6e22e">a</span><span style="color:#f92672">-</span><span style="color:#a6e22e">c</span>)<span style="color:#f92672">/</span><span style="color:#a6e22e">d</span>,<span style="color:#a6e22e">b</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;#&#34;</span><span style="color:#f92672">+</span><span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">attr</span>(<span style="color:#e6db74">&#34;id&#34;</span>).<span style="color:#a6e22e">replace</span>(<span style="color:#e6db74">&#34;_cst&#34;</span>,<span style="color:#e6db74">&#34;_btn&#34;</span>),<span style="color:#a6e22e">b</span><span style="color:#f92672">=</span><span style="color:#a6e22e">$</span>(<span style="color:#a6e22e">b</span>);<span style="color:#ae81ff">0</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">a</span><span style="color:#f92672">?</span>(<span style="color:#a6e22e">a</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Purchase in &#34;</span><span style="color:#f92672">+</span><span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">toFixed</span>(<span style="color:#ae81ff">0</span>)<span style="color:#f92672">+</span><span style="color:#e6db74">&#34; seconds&#34;</span>,<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">html</span>(<span style="color:#a6e22e">a</span>))<span style="color:#f92672">:</span><span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">html</span>(<span style="color:#e6db74">&#34;Purchase&#34;</span>)})},<span style="color:#ae81ff">1</span><span style="color:#a6e22e">E3</span>);
+</code></pre></div><hr>
+<h3 id="clickingbad_seconds_infojshttpsgistgithubusercontentcommaster5o18105640rawfb26590702f717e298df77c9b3b0ba8945877427clickingbad_seconds_infojs----applicationjavascript-9120b"><a href="https://gist.githubusercontent.com/master5o1/8105640/raw/fb26590702f717e298df77c9b3b0ba8945877427/clickingbad_seconds_info.js">clickingbad_seconds_info.js</a> &ndash; application/javascript, 912.0B</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">window.<span style="color:#a6e22e">setInterval</span>(<span style="color:#66d9ef">function</span> () {
+	<span style="color:#a6e22e">$</span>(<span style="color:#e6db74">&#39;#clickers, #sellers, #upgrades, #banks&#39;</span>).<span style="color:#a6e22e">find</span>(<span style="color:#e6db74">&#39;[id$=&#34;_cst&#34;]&#39;</span>).<span style="color:#a6e22e">each</span>(<span style="color:#66d9ef">function</span> () {
+		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">multipliers</span> <span style="color:#f92672">=</span> {
+			<span style="color:#a6e22e">Qt</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span><span style="color:#a6e22e">E18</span>,
+			<span style="color:#a6e22e">Q</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span><span style="color:#a6e22e">E15</span>,
+			<span style="color:#a6e22e">T</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span><span style="color:#a6e22e">E12</span>,
+			<span style="color:#a6e22e">B</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span><span style="color:#a6e22e">E9</span>,
+			<span style="color:#a6e22e">M</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span><span style="color:#a6e22e">E6</span>
+		};
+		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">$this</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">$</span>(<span style="color:#66d9ef">this</span>);
+		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">price</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">$this</span>.<span style="color:#a6e22e">text</span>().<span style="color:#a6e22e">replace</span>(<span style="color:#e6db74">/[\$,]/g</span>, <span style="color:#e6db74">&#34;&#34;</span>);
+		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">multiplier</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">price</span>.<span style="color:#a6e22e">replace</span>(<span style="color:#e6db74">/[0-9\.]/g</span>, <span style="color:#e6db74">&#34;&#34;</span>);
+		<span style="color:#a6e22e">price</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">price</span>.<span style="color:#a6e22e">replace</span>(<span style="color:#e6db74">/[A-Z]/gi</span>, <span style="color:#e6db74">&#34;&#34;</span>) <span style="color:#f92672">*</span> <span style="color:#ae81ff">1</span>;
+		<span style="color:#a6e22e">multiplier</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">multipliers</span>[<span style="color:#a6e22e">multiplier</span>] <span style="color:#f92672">||</span> <span style="color:#ae81ff">1</span>;
+		<span style="color:#a6e22e">price</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">price</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">multiplier</span>;
+		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">$income</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">$</span>(<span style="color:#e6db74">&#34;#seller_rps&#34;</span>);
+		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">$cash</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">$</span>(<span style="color:#e6db74">&#34;#sell_amt&#34;</span>);
+		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">income</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">$income</span>.<span style="color:#a6e22e">text</span>()
+			.<span style="color:#a6e22e">replace</span>(<span style="color:#e6db74">/,/g</span>, <span style="color:#e6db74">&#34;&#34;</span>);
+		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">cash</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">$cash</span>.<span style="color:#a6e22e">text</span>()
+			.<span style="color:#a6e22e">replace</span>(<span style="color:#e6db74">/,/g</span>, <span style="color:#e6db74">&#34;&#34;</span>);
+		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">seconds</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">price</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">cash</span>) <span style="color:#f92672">/</span> <span style="color:#a6e22e">income</span>;
+		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">buybtn</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;#&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">$this</span>.<span style="color:#a6e22e">attr</span>(<span style="color:#e6db74">&#34;id&#34;</span>)
+				.<span style="color:#a6e22e">replace</span>(<span style="color:#e6db74">&#34;_cst&#34;</span>, <span style="color:#e6db74">&#34;_btn&#34;</span>);
+		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">$buybtn</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">$</span>(<span style="color:#a6e22e">buybtn</span>);
+		<span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">seconds</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>) {
+			<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">text</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Purchase in &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">seconds</span>.<span style="color:#a6e22e">toFixed</span>(<span style="color:#ae81ff">0</span>) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; seconds&#34;</span>;
+			<span style="color:#a6e22e">$buybtn</span>.<span style="color:#a6e22e">html</span>(<span style="color:#a6e22e">text</span>);
+		} <span style="color:#66d9ef">else</span> {
+			<span style="color:#a6e22e">$buybtn</span>.<span style="color:#a6e22e">html</span>(<span style="color:#e6db74">&#39;Purchase&#39;</span>);
+		}
+	});
+}, <span style="color:#ae81ff">1</span><span style="color:#a6e22e">E3</span>);
+</code></pre></div><hr>
+<h3 id="fiddlejshttpsgistgithubusercontentcommaster5o18105640rawfb26590702f717e298df77c9b3b0ba8945877427fiddlejs----applicationjavascript-9120b"><a href="https://gist.githubusercontent.com/master5o1/8105640/raw/fb26590702f717e298df77c9b3b0ba8945877427/fiddle.js">fiddle.js</a> &ndash; application/javascript, 912.0B</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">window.<span style="color:#a6e22e">setInterval</span>(<span style="color:#66d9ef">function</span> () {
+	<span style="color:#a6e22e">$</span>(<span style="color:#e6db74">&#39;#clickers, #sellers, #upgrades, #banks&#39;</span>).<span style="color:#a6e22e">find</span>(<span style="color:#e6db74">&#39;[id$=&#34;_cst&#34;]&#39;</span>).<span style="color:#a6e22e">each</span>(<span style="color:#66d9ef">function</span> () {
+		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">multipliers</span> <span style="color:#f92672">=</span> {
+			<span style="color:#a6e22e">Qt</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span><span style="color:#a6e22e">E18</span>,
+			<span style="color:#a6e22e">Q</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span><span style="color:#a6e22e">E15</span>,
+			<span style="color:#a6e22e">T</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span><span style="color:#a6e22e">E12</span>,
+			<span style="color:#a6e22e">B</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span><span style="color:#a6e22e">E9</span>,
+			<span style="color:#a6e22e">M</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span><span style="color:#a6e22e">E6</span>
+		};
+		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">$this</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">$</span>(<span style="color:#66d9ef">this</span>);
+		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">price</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">$this</span>.<span style="color:#a6e22e">text</span>().<span style="color:#a6e22e">replace</span>(<span style="color:#e6db74">/[\$,]/g</span>, <span style="color:#e6db74">&#34;&#34;</span>);
+		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">multiplier</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">price</span>.<span style="color:#a6e22e">replace</span>(<span style="color:#e6db74">/[0-9\.]/g</span>, <span style="color:#e6db74">&#34;&#34;</span>);
+		<span style="color:#a6e22e">price</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">price</span>.<span style="color:#a6e22e">replace</span>(<span style="color:#e6db74">/[A-Z]/gi</span>, <span style="color:#e6db74">&#34;&#34;</span>) <span style="color:#f92672">*</span> <span style="color:#ae81ff">1</span>;
+		<span style="color:#a6e22e">multiplier</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">multipliers</span>[<span style="color:#a6e22e">multiplier</span>] <span style="color:#f92672">||</span> <span style="color:#ae81ff">1</span>;
+		<span style="color:#a6e22e">price</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">price</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">multiplier</span>;
+		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">$income</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">$</span>(<span style="color:#e6db74">&#34;#seller_rps&#34;</span>);
+		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">$cash</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">$</span>(<span style="color:#e6db74">&#34;#sell_amt&#34;</span>);
+		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">income</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">$income</span>.<span style="color:#a6e22e">text</span>()
+			.<span style="color:#a6e22e">replace</span>(<span style="color:#e6db74">/,/g</span>, <span style="color:#e6db74">&#34;&#34;</span>);
+		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">cash</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">$cash</span>.<span style="color:#a6e22e">text</span>()
+			.<span style="color:#a6e22e">replace</span>(<span style="color:#e6db74">/,/g</span>, <span style="color:#e6db74">&#34;&#34;</span>);
+		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">seconds</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">price</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">cash</span>) <span style="color:#f92672">/</span> <span style="color:#a6e22e">income</span>;
+		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">buybtn</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;#&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">$this</span>.<span style="color:#a6e22e">attr</span>(<span style="color:#e6db74">&#34;id&#34;</span>)
+				.<span style="color:#a6e22e">replace</span>(<span style="color:#e6db74">&#34;_cst&#34;</span>, <span style="color:#e6db74">&#34;_btn&#34;</span>);
+		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">$buybtn</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">$</span>(<span style="color:#a6e22e">buybtn</span>);
+		<span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">seconds</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>) {
+			<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">text</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Purchase in &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">seconds</span>.<span style="color:#a6e22e">toFixed</span>(<span style="color:#ae81ff">0</span>) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; seconds&#34;</span>;
+			<span style="color:#a6e22e">$buybtn</span>.<span style="color:#a6e22e">html</span>(<span style="color:#a6e22e">text</span>);
+		} <span style="color:#66d9ef">else</span> {
+			<span style="color:#a6e22e">$buybtn</span>.<span style="color:#a6e22e">html</span>(<span style="color:#e6db74">&#39;Purchase&#39;</span>);
+		}
+	});
+}, <span style="color:#ae81ff">1</span><span style="color:#a6e22e">E3</span>);
+</code></pre></div><hr>
+<h3 id="fiddlemanifesthttpsgistgithubusercontentcommaster5o18105640rawbfdcda218c01b44ae6692d3e906dac41d6f04d45fiddlemanifest----textcache-manifest-1260b"><a href="https://gist.githubusercontent.com/master5o1/8105640/raw/bfdcda218c01b44ae6692d3e906dac41d6f04d45/fiddle.manifest">fiddle.manifest</a> &ndash; text/cache-manifest, 126.0B</h3>
+<pre><code>name: Clicking bad bookmarklet
+description: Clicking bad thing
+authors:
+  - Jason Schwarzenberger
+resources:
+normalize_css: no
+</code></pre>
+        </div>
+        
+
+    
+
+
+<div class="article-info">
+    
+        <div class="article-date">2013-12-23 22:02</div>
+    
+    <div class="article-taxonomies">
+        
+            
+                <ul class="article-tags">
+                    
+                        <li><a href="https://jason.schwarzenberger.nz/tags/gist">#gist</a></li>
+                    
+                </ul>
+        
+    </div>
+</div>
+
+    </article>
+    
+
+
+        </main>
+        <footer>
+            
+                
+                
+
+                
+            
+        </footer>
+    </div>
+</body>
+</html>
