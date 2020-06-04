@@ -1,7 +1,6 @@
 languageCode = 'en-us'
 baseUrl = 'https://jason.schwarzenberger.co.nz/'
 title = 'Jason Schwarzenberger'
-description = 'Software engineer from New Zealand.'
 theme = 'anubis'
 paginate = 10.0
 disqusShortname = ''
@@ -18,7 +17,7 @@ identifier = 'tags'
 name = 'Tags'
 title = 'Tags'
 url = '/tags/'
-weight = 1.0
+weight = 2.0
 
 [params]
 author = 'Jason'
