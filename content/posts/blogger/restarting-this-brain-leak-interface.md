@@ -2,7 +2,6 @@
 title: 'Restarting this brain-leak interface.'
 date: 2011-06-04T03:27:00.002+12:00
 draft: false
-aliases: [ "/2011/06/restarting-this-brain-leak-interface.html" ]
 tags: [blogger, "2011-06-04"]
 ---
 

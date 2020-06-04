@@ -2,7 +2,6 @@
 title: 'Erupted Through Some Shit From A Text Input Device'
 date: 2011-11-28T23:04:00.002+13:00
 draft: false
-aliases: [ "/2011/11/erupted-through-some-shit-from-text.html" ]
 tags: [blogger, "2011-11-28"]
 ---
 

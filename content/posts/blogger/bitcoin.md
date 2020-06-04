@@ -2,7 +2,6 @@
 title: 'Bitcoin'
 date: 2011-06-04T03:57:00.001+12:00
 draft: false
-aliases: [ "/2011/06/bitcoin.html" ]
 tags: ["blogger", "2013-06-04"]
 ---
 

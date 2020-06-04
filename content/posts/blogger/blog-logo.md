@@ -2,7 +2,6 @@
 title: 'Blog Logo'
 date: 2011-12-05T20:04:00.001+13:00
 draft: false
-aliases: [ "/2011/12/blog-logo.html" ]
 tags: [blogger, "2011-12-05"]
 ---
 

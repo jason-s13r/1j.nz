@@ -2,7 +2,6 @@
 title: 'Bitcoin Update'
 date: 2013-11-10T12:03:00.003+13:00
 draft: false
-aliases: [ "/2013/11/bitcoin-update.html" ]
 tags: ["blogger", "2013-11-10"]
 ---
 

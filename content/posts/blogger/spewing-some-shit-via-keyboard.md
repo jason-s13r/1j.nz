@@ -2,7 +2,6 @@
 title: 'Spewing Some Shit via the Keyboard'
 date: 2011-06-06T20:09:00.000+12:00
 draft: false
-aliases: [ "/2011/06/spewing-some-shit-via-keyboard.html" ]
 tags: [blogger, "2011-06-06", random shit]
 ---
 

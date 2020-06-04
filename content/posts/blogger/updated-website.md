@@ -2,7 +2,6 @@
 title: 'updated website'
 date: 2014-06-21T12:05:00.002+12:00
 draft: false
-aliases: [ "/2014/06/updated-website.html" ]
 tags: ["blogger", "2014-06-21"]
 ---
 

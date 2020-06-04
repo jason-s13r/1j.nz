@@ -2,7 +2,6 @@
 title: 'My Little Pet Rock!'
 date: 2011-11-29T23:27:00.001+13:00
 draft: false
-aliases: [ "/2011/11/my-little-pet-rock.html" ]
 tags: [blogger, "2011-11-29"]
 ---
 

@@ -2,7 +2,6 @@
 title: 'Lame Blog'
 date: 2010-03-16T09:51:00.001+13:00
 draft: false
-aliases: [ "/2010/03/lame-blog.html" ]
 tags: [blogger, "2010-03-16"]
 ---
 

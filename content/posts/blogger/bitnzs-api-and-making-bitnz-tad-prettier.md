@@ -2,7 +2,6 @@
 title: 'bitNZ''s API and making bitNZ a tad prettier'
 date: 2014-09-05T22:23:00.001+12:00
 draft: false
-aliases: [ "/2014/09/bitnzs-api-and-making-bitnz-tad-prettier.html" ]
 tags: ["blogger", "2014-09-05"]
 ---
 
