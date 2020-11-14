@@ -34,6 +34,7 @@ def main():
 		title = titles[0].strip(".md")
 		print(f"GIST {gist_id} {title}")
 		shortdate = date.split("T", maxsplit=1)[0]
+		shortdate = date.split("-", maxsplit=1)[0]
 		text = f"""---
 title: "{title}"
 date: {date}
