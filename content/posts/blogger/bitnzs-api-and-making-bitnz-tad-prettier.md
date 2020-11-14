@@ -2,7 +2,7 @@
 title: 'bitNZ''s API and making bitNZ a tad prettier'
 date: 2014-09-05T22:23:00.001+12:00
 draft: false
-tags: ["blogger", "2014-09-05"]
+tags: ["blogger", "2014"]
 ---
 
 A wee while back the _only_ [New Zealand bitcoin exchange](https://bitnz.com/) released its trading API. I immediately jumped at the chance to make something with it. And so, I've made an API library. It's called [bitnz-angular](https://github.com/master5o1/bitnz-angular).  

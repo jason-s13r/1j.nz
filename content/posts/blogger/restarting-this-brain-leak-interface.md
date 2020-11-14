@@ -2,7 +2,7 @@
 title: 'Restarting this brain-leak interface.'
 date: 2011-06-04T03:27:00.002+12:00
 draft: false
-tags: [blogger, "2011-06-04"]
+tags: [blogger, "2011"]
 ---
 
 It's been more than a year since I last posted on this blog.   This is probably mostly because my \_real\_ blog is [my website](http://master5o1.com/), which kind of acts as a web-CV, without the personal info that a CV provides.

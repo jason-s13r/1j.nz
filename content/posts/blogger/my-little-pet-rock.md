@@ -2,7 +2,7 @@
 title: 'My Little Pet Rock!'
 date: 2011-11-29T23:27:00.001+13:00
 draft: false
-tags: [blogger, "2011-11-29"]
+tags: [blogger, "2011"]
 ---
 
   

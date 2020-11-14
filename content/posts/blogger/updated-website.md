@@ -2,7 +2,7 @@
 title: 'updated website'
 date: 2014-06-21T12:05:00.002+12:00
 draft: false
-tags: ["blogger", "2014-06-21"]
+tags: ["blogger", "2014"]
 ---
 
 Yay! New version of [my website](http://jason.schwarzenberger.co.nz/).  

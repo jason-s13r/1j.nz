@@ -2,7 +2,7 @@
 title: 'Bitcoin Update'
 date: 2013-11-10T12:03:00.003+13:00
 draft: false
-tags: ["blogger", "2013-11-10"]
+tags: ["blogger", "2013"]
 ---
 
 In June 2011 I made a post about Bitcoin mining. In this post I said I had about 0.7 bitcoins.  

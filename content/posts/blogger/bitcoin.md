@@ -2,7 +2,7 @@
 title: 'Bitcoin'
 date: 2011-06-04T03:57:00.001+12:00
 draft: false
-tags: ["blogger", "2013-06-04"]
+tags: ["blogger", "2011"]
 ---
 
 I've been playing with a bitcoin miner for about two weeks now.  I have generated about 0.70 BTC using my laptop's ATI graphics card.

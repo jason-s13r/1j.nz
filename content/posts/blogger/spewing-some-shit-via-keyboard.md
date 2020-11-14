@@ -2,7 +2,7 @@
 title: 'Spewing Some Shit via the Keyboard'
 date: 2011-06-06T20:09:00.000+12:00
 draft: false
-tags: [blogger, "2011-06-06", random shit]
+tags: [blogger, "2011", random shit]
 ---
 
 That the biggest shoe can be destroyed by fire, the smallest cat can be exploded by air, the medium sized human has an average height. If you were to discuss the true motives of everything then nothing would happen without the reasoning of a rabbit tossing coins under the overpass into the railway tracks below. We have a wonderful system of try and get goosebumps attempting to try again while being pressurised in a cooking utensil from another country. I could continue with some more ramblings but I honestly think that everyone will just discount what I'll say, or take it as fact without little care to actually read it. I would prefer the former. Everything here that has been said can be said again by adding six words into each paragraph and saying it again. The proprietary nature of Windows is exactly the best selling point that it has. People don't expect to be able to have anything to do with the creation or understanding of a piece of software. Unfortunately the last two sentences made far too much sense and that is completely not on. My poorly constructed block of text is designed to destroy several of your thought gems that grow brighter when trying to understand something and then suddenly explode when you cannot fail to misunderstand something.
