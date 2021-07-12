@@ -8,7 +8,7 @@
 	
 }
 .site-logo > img {
-	max-width: 4.5rem;
+	width: 4.5rem;
 }
 .site-header > .site-logo:hover {
 	border-bottom: unset;
