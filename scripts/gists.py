@@ -11,7 +11,7 @@ def sizeof_fmt(num, suffix='B'):
     return "%.1f%s%s" % (num, 'Yi', suffix)
 
 def main():
-	API_URL = "https://api.github.com/users/master5o1/gists"
+	API_URL = "https://api.github.com/users/jason-s13r/gists"
 
 	directory = os.path.join('content', 'posts', f'gist')
 	if not os.path.exists(directory) or not os.path.isdir(directory):
