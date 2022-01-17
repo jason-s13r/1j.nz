@@ -2,7 +2,7 @@
 title: "Raspberry Pi Controlled Garage Door"
 date: 2022-01-17T10:07:30Z
 tags: ["post", "electronics", "2022"]
-draft: true
+draft: false
 ---
 
 I made my first solder joint in about 15 years to achieve *Smort* control of my garage door using a Raspberry Pi 4, relay hat, and a spare remote.
@@ -39,3 +39,8 @@ First test cycling the relays with it connected to the remote. It works!
 
 Toggling the door is now just a `/toggle` command for a telegram bot. I can then use the camera stream from my Reolink PTZ-423 to show me the door going up or down.  
 No need to add a sensor on the door to figure out whether it's open if I can just take a photo.
+
+
+![outcome](./07-outcome.jpg)
+
+Hey, that kinda looks like what I had planned.
