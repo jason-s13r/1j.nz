@@ -44,4 +44,5 @@ No need to add a sensor on the door to figure out whether it's open if I can jus
 
 ![outcome](./07-outcome.jpg)
 
+Finally, swapped onto the Pi 4 I have in use.  
 Hey, that kinda looks like what I had planned.
