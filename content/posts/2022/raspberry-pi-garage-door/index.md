@@ -31,11 +31,12 @@ I bought a soldering iron and accessories.
 
 Those don't look too bad for something I haven't done since high school.
 
-<video src="./05-works.mp4" width="100%" controls="controls"></video>
+
+{{< video src="./05-works.mp4" type="video/mp4" preload="auto" >}}
 
 First test cycling the relays with it connected to the remote. It works!
 
-<video src="./06-telegram.mp4" width="100%" controls="controls"></video>
+{{< video src="./06-telegram.mp4" type="video/mp4" preload="auto" >}}
 
 Toggling the door is now just a `/toggle` command for a telegram bot. I can then use the camera stream from my Reolink PTZ-423 to show me the door going up or down.  
 No need to add a sensor on the door to figure out whether it's open if I can just take a photo.

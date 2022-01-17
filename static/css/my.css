@@ -43,3 +43,9 @@ img[alt="blogger-logo"]{
 		max-width: 3.5rem;
 	}
 }
+
+
+.video-shortcode {
+	max-width: 100%;
+	height: auto;
+  }
