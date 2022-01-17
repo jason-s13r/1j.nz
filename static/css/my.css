@@ -44,8 +44,9 @@ img[alt="blogger-logo"]{
 	}
 }
 
-
-.video-shortcode {
+.content img,
+.content video,
+.content .video-shortcode {
 	max-width: 100%;
 	height: auto;
-  }
+}
