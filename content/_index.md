@@ -1,5 +1,5 @@
 **email:** jason@master5o1.com  
-**repositories:** [github:jason-s13r](https://github.com/jason-s13r), [git.1j.nz](https://git.1j.nz)  
+**repositories:** [github:jason-s13r](https://github.com/jason-s13r)
 **twitter:** [@master5o1](https://twitter.com/master5o1)  
 
 
