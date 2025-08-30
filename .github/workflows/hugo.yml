@@ -6,6 +6,10 @@ on:
   push:
     branches: ["master"]
 
+  # Run once a week to catch any gists.
+  schedule:
+    - cron: '0 0 * * 0'
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
