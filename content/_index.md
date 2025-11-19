@@ -3,4 +3,6 @@
 **mastodon:** [@json@mastodon.nz](https://mastodon.nz/@json)  
 **pseudonym:** master5o1
 
+**Guestbook:** https://guestbook.1j.nz/
+
 ![cows](/images/cows.jpg)
