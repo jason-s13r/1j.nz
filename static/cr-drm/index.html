@@ -1,0 +1,74 @@
+<!DOCTYPE html><html lang=en><meta charset=UTF-8><title>Chrome DRM issue with CSS</title><script src=https://ajax.googleapis.com/ajax/libs/shaka-player/4.10.10/shaka-player.compiled.js></script><style>html{--blur-radius:2px}html.with-blur,#video-container.with-blur,video.with-blur{filter:blur(var(--blur-radius,0px))}video{border:2px solid red}video.with-border-radius{border-radius:25px}.inline{vertical-align:top;display:inline-block}.with-background{--s:50px;--c1:#ddd;--c2:#eee;--_g:#0000 90deg,var(--c1)0;background:conic-gradient(from 90deg at 2px 2px,var(--_g)),conic-gradient(from 90deg at 1px 1px,var(--_g)),var(--c2);background-size:var(--s)var(--s),calc(var(--s)/5)calc(var(--s)/5)}</style><body>
+    <div class=inline>
+      <h2>Chrome DRM issue with CSS</h2>
+      <code>ref: <a href=https://issues.chromium.org/issues/362007492>https://issues.chromium.org/issues/362007492</a></code>
+      <h3>Environment</h3>
+      <ul>
+        <li>macOS, various</li>
+        <li>Video with Widevine DRM content protection</li>
+        <li>CSS blur filter</li>
+      </ul>
+
+      <h3>Tangential Chromium issue</h3>
+      <ul>
+        <li>
+          <a href=https://issues.chromium.org/issues/40837008>https://issues.chromium.org/issues/40837008</a>
+        </li>
+        <li>
+          <a href=https://issues.chromium.org/issues/344484976>https://issues.chromium.org/issues/344484976</a>
+        </li>
+      </ul>
+
+      <h3>Steps to reproduce the problem</h3>
+      <ul>
+        <li>1) Start video</li>
+        <li>2) Begin screen recording</li>
+        <li>3) Configure video to be blurred</li>
+      </ul>
+
+      <h3>What went wrong?</h3>
+      <p>
+        DRM protected video is visible during screen recording when css blur
+        filter applied.
+      </p>
+
+      <h3>What is the expected behavior?</h3>
+      <p>The DRM protected video is blank during screen recording</p>
+    </div>
+    <div class=inline>
+      <div>
+        <label for=toggle-blur>Blur element:</label>
+        <select name=toggle-blur>
+          <option value=none>No Blur</option>
+          <option value=html>Blur HTML element</option>
+          <option value=#video-container>Blur parent element</option>
+          <option value=video>Blur video element</option>
+        </select>
+      </div>
+
+      <div>
+        <label for=blur-radius>Blur radius:</label>
+        <input type=number name=blur-radius value=2>
+      </div>
+
+      <button type=button name=toggle-border-radius>
+        Toggle Border Radius
+      </button>
+
+      <div id=video-container>
+        <h3>Video container</h3>
+        <video id=video class=with-background width=640 autoplay muted controls></video>
+      </div>
+    </div>
+    <div>
+      <h3>Reproduction: screen recording</h3>
+      <a href="https://www.youtube.com/watch?v=mSt12xwKpgM">https://www.youtube.com/watch?v=mSt12xwKpgM</a>
+      <div id=video-container>
+        
+        <iframe width=560 height=315 src=https://www.youtube.com/embed/mSt12xwKpgM title="YouTube video player" frameborder=0 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy=strict-origin-when-cross-origin allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <script>async function initShakaPlayer(){if(shaka.polyfill.installAll(),!shaka.Player.isBrowserSupported())return void console.error("Browser not supported!");let e=document.querySelector("video"),r=new shaka.Player;r.configure({drm:{servers:{"com.widevine.alpha":"https://proxy.uat.widevine.com/proxy?video_id=HDCP_V1&provider=widevine_test"},advanced:{"com.widevine.alpha":{videoRobustness:"SW_SECURE_CRYPTO",audioRobustness:"SW_SECURE_CRYPTO"}}}}),await r.attach(e),await r.load("https://storage.googleapis.com/wvmedia/cenc/h264/tears/tears.mpd"),window._player=r}function main(){let e=document.querySelector("html"),r=document.querySelector("video"),t=document.querySelector("#video-container"),a=document.querySelector('[name="toggle-blur"]'),o=document.querySelector('[name="toggle-border-radius"]'),i=document.querySelector('[name="blur-radius"]');i.addEventListener("change",r=>{let t=+i.value;e.style.removeProperty("--blur-radius"),Number.isNaN(t)||e.style.setProperty("--blur-radius",t+"px")}),o.addEventListener("click",e=>r.classList.toggle("with-border-radius")),a.addEventListener("change",o=>{let i=a.value;if(e.classList.remove("with-blur"),r.classList.remove("with-blur"),t.classList.remove("with-blur"),"none"===i)return;let l=document.querySelector(i);l&&l.classList.add("with-blur")})}initShakaPlayer(),main();</script>
+  
+
