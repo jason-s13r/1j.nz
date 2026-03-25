@@ -1,9 +1,9 @@
-body[a="dark"] { @include dark-appearance; }
+// body[a="dark"] { @include dark-appearance; }
 body[a="light"] { @include light-appearance; }
 
-@media (prefers-color-scheme: dark) {
-  body[a="auto"] { @include dark-appearance; }
-}
+// @media (prefers-color-scheme: dark) {
+//   body[a="auto"] { @include dark-appearance; }
+// }
 
 @media (prefers-color-scheme: light) {
   body[a="auto"] { @include light-appearance; }
