@@ -1,0 +1,25 @@
+<header class="profile">
+    <a class="profile-image" href="/">
+        <img src="{{ $.Site.Params.profile.picture }}" alt="{{ $.Site.Params.profile.name }}" />
+    </a>
+
+    <h1>
+        <a href="/">{{ $.Site.Title }}</a>
+    </h1>
+    <h2>{{ $.Site.Params.profile.label }}</h2>
+    <div class="links">
+        <a href="mailto:{{ $.Site.Params.profile.email }}">{{ $.Site.Params.profile.email }}</a>
+        {{ range $.Site.Params.profile.social }}
+            <a href="{{ .url }}">{{ .name }}</a>
+        {{ end }}
+        <!-- <span>{{ $.Site.Params.profile.location.city }}, {{ $.Site.Params.profile.location.country }}</span>     -->
+        {{ if $.Site.Params.profile.webring }}
+            <div class="webring">
+                <span>{{ $.Site.Params.profile.webring.label }}</span>
+                {{ range $.Site.Params.profile.webring.entry}}
+                    <a href="{{ .url }}">{{ .label }}</a>
+                {{ end }}
+            </div>
+        {{ end }}
+    </div>
+</header>

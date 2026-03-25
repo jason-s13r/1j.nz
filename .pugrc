@@ -1,0 +1,21 @@
+{
+  "locals": {
+    "profile": {
+      "name": "Jason Schwarzenberger",
+      "label": "Senior Front-end Engineer",
+      "email": "jason@master5o1.com",
+      "picture": "./static/images/Schwarzenberger.png",
+      "social": [
+        {
+          "name": "github:jason-s13r",
+          "url": "https://github.com/jason-s13r"
+        }
+      ],
+      "location": {
+        "city": "Whangārei",
+        "country": "New Zealand",
+        "countryCode": "NZ"
+      }
+    }
+  }
+}

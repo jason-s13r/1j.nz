@@ -1,0 +1,11 @@
+{{ define "main" }}
+    {{ .Content }}
+
+    {{ $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
+    <!-- {{ partial "pagination.html" . }} -->
+    {{ range (.Paginate $pages).Pages }}
+        {{ partial "paged_item.html" . }}
+    {{ end }}
+    {{ partial "pagination.html" . }}
+
+{{ end }}

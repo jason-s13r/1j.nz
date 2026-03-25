@@ -1,0 +1,19 @@
+{{ define "main" }}
+
+<article class="post-article">
+    <header>
+        <h1>{{ .Title }}</h1>
+        {{ partial "articleInfoTags.html" . }}
+        {{ partial "articleInfoDate.html" . }}
+    </header>
+
+    {{ if .Params.toc }}
+        <aside {{ if .Params.tocBorder }} class="toc" {{ end }}>
+            {{ .TableOfContents }}
+        </aside>
+    {{ end }}
+
+    <div class="content">{{ .Content | safeHTML }}</div>
+</article>
+
+{{ end }}

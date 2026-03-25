@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="{{ $.Site.LanguageCode }}">
+    {{- partial "head.html" . -}}
+    <body a="{{ $.Site.Params.theme_config.appearance | default "auto" }}">
+        {{- partial "heading.html" . -}}
+        <main class="page-content" aria-label="Content">
+            {{- block "main" . }}{{- end }}
+            <div class="post-meta">
+                {{ partial "back_link.html" .}}
+            </div>
+            {{ partial "footer.html" }}
+        </main>
+    </body>
+    {{- if .Params.custom_js -}}
+        {{- range .Params.custom_js -}}
+            {{ $js := resources.Get (print "js/" . ".js") }}
+            <script type="text/javascript" src="{{ $js.RelPermalink }}"></script>
+        {{- end -}}
+    {{- end -}}
+</html>

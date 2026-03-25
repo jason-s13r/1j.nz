@@ -2,3 +2,6 @@ content/posts/gist/
 public/
 env/
 #static/cr-drm/
+.parcel-cache
+.DS_Store
+resources/

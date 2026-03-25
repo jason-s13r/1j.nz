@@ -1,0 +1,31 @@
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' /> -->
+  <!-- <meta http-equiv='content-language' content='en' /> -->
+  <!-- <meta name='HandheldFriendly' content='true' /> -->
+  <!-- <meta name="referrer" content="no-referrer-when-downgrade" /> -->
+  <!-- <link rel='stylesheet' media='all' href='./static/css/style.scss' /> -->
+  <!-- <link rel='stylesheet' media='print' href='./static/css/print.scss' /> -->
+
+
+  {{ if .IsPage }} <meta name="description" content="{{ .Summary }}">  {{ end }}
+
+  <title>
+    {{ if not .IsHome }}
+      {{ .Title }}
+    {{ else }}
+      {{ $.Site.Title }}
+    {{ end }}
+  </title>
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="{{ $.Site.Params.favicon | relURL }}" />
+  {{ $options := (dict "outputStyle" "compressed" "enableSourceMap" (not hugo.IsProduction)) }}
+  {{ $sass := resources.Get "css/main.scss" }}
+  {{ $style := $sass | css.Sass $options | resources.Fingerprint "sha512" }}
+  <link rel="stylesheet" href="{{ $style.Permalink | relURL }}" integrity="{{ $style.Data.Integrity }}" />
+  {{ if .Params.mathjax }} {{ partial "mathjax.html" . }} {{ end }}
+</head>

@@ -1,0 +1,51 @@
+@mixin theme($--bg-color, $--primary-text-color, $--secondary-text-color, $--link-color, $--visited-link-color, $--highlight) {
+  background-color: $--bg-color;
+
+  color: $--primary-text-color;
+
+  a {
+    color: $--link-color;
+    // &:visited { color: $--visited-link-color; }
+  }
+
+  details {
+    border: thin solid $--primary-text-color;
+  }
+
+  details summary {
+    color: $--primary-text-color;
+  }
+
+  details[open] summary {
+    border-bottom: 1px solid $--primary-text-color;
+  }
+
+  pre {
+    background: $--bg-color;
+  }
+
+  code:not(pre > code) {
+    background-color: $--primary-text-color;
+    color: $--bg-color;
+  }
+
+  *:target {
+    background: $--highlight;
+    color: $--primary-text-color;
+   }
+
+  table, th, td {
+    border: thin solid $--primary-text-color;
+  }
+
+  .toc {
+    border: thin solid $--primary-text-color;
+    padding: 1rem;
+  }
+
+  figcaption { color: $--secondary-text-color; }
+
+  blockquote {
+    border: thin solid $--primary-text-color;
+  }
+}

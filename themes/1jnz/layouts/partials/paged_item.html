@@ -1,0 +1,20 @@
+<article class="post-article paged-item">
+    <header>
+        <h1>
+            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        </h1>
+        {{ partial "articleInfoTags.html" . }}
+        {{ partial "articleInfoDate.html" . }}
+    </header>
+
+    {{ if .Summary }}
+        <div class="content">{{ .Summary | safeHTML }}</div>
+    {{ else }}
+        <div class="content">
+            <p>
+                {{ .Kind }}
+                <em>no article summary available</em>
+            </p>
+        </div>
+    {{ end }}
+</article>
