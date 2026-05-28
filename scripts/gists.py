@@ -40,7 +40,7 @@ def main():
 		print(f"GIST {gist_id} {title}")
 		shortdate = date.split("T", maxsplit=1)[0]
 		shortdate = date.split("-", maxsplit=1)[0]
-		tags = set(["gist", f"{shortdate}"])
+		tags = set(["gists", f"{shortdate}"])
 		sections = []
 		attachments = ["| Attachment | Type | Size |\n| - | - | - |"]
 		for attachment in files.values():
