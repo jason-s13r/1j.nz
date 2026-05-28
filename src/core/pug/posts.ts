@@ -9,7 +9,12 @@ export const postsCache = new Map();
 export const toSlug = (tag: string) => tag.toLowerCase().replace(/[^a-zA-Z0-9]/g, "-");
 
 export const getPostInfo = (contents: string, postRoot: string) => {
-  const [_, frontmatter, rawPreviewText, remainder] = contents.split(/---\n|<!--more-->\n/g, 4);
+  const [bad, frontmatter, rawPreviewText, remainder] = contents.split(/---\n|<!--more-->\n/g, 4);
+
+  if (bad) {
+    return null;
+  }
+
   const text = contents.split(/---\n/).slice(2).join('---\n').replace(/<!--more-->/g, '');
 
   const hasMore = /<!--more-->/.test(contents);
@@ -46,10 +51,9 @@ export const getPostInfo = (contents: string, postRoot: string) => {
     ...meta,
     preview: preview.trim(),
     text,
-    date: new Date(meta.date),
+    date: meta.date ? new Date(meta.date) : new Date(0),
     tags: meta.tags.map((tag) => ({
       slug: toSlug(tag),
-      // route: `${postRoot}/tags/${toSlug(tag)}/index.pug`,
       route: `/content/tags/${toSlug(tag)}/index.pug`,
       name: tag,
     })),
@@ -82,6 +86,11 @@ export function* iterPosts(postRoot: string) {
 
     const content = fs.readFileSync(filepath, { encoding: "utf-8" });
     const post = getPostInfo(content, postRoot);
+
+    if (!post) {
+      console.debug('REJECTED', route);
+      continue;
+    }
 
     const entry = {
       ...post,
