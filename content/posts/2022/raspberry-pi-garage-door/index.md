@@ -1,7 +1,7 @@
 ---
 title: "Raspberry Pi Controlled Garage Door"
 date: 2022-01-17T10:07:30Z
-tags: ["post", "electronics", "2022"]
+tags: ["posts", "electronics", "2022"]
 draft: false
 ---
 
