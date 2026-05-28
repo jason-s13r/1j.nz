@@ -1,0 +1,36 @@
+html(lang="en")
+  head
+    base(href="/")
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet" href="/src/layout/css/main.scss")
+    link(rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico")
+    title
+      block title
+        |  &mdash; Jason Schwarzenberger
+    block head
+  body(a="auto")
+    header.profile
+      a.profile-image(href="/")
+        img(src="/static/images/Schwarzenberger.png" alt="Logo")
+
+      h1
+        a(href="/") Jason Schwarzenberger
+      h2 Senior Front-end Engineer
+      .links
+        .nav
+          span Nav:
+          a(href="/content/posts/index.pug") Posts
+          a(href="/content/lab/index.pug") Lab
+          a(href="https://guestbook.1j.nz/") Guestbook
+        .webring
+          span Webring:
+          a(href="https://remycoppard.xyz/") Previous
+          a(href="https://webring.t0.vc") Index
+          a(href="https://elefantlover.github.io/") Next
+        a(href="mailto:jason@master5o1.com") jason@master5o1.com
+        a(href="https://github.com/jason-s13r") github:jason-s13r
+
+    main.page-content
+      block main
+    block scripts

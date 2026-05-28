@@ -1,8 +1,0 @@
-name = "1jnz"
-features = []
-min_version = "0.41.0"
-
-[original]
-  name = "riggraz"
-  homepage = "https://riggraz.dev/"
-  repo = "https://github.com/riggraz/no-style-please"

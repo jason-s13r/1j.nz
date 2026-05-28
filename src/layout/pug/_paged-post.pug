@@ -1,0 +1,17 @@
+article.post-article.paged-item
+  header
+    h2.post-title
+      if post.draft
+        | [draft] 
+      a(href=post.route) #{post.title}
+    div.article-taxonomies
+      ul.article-tags
+        each tag in post.tags
+          li
+            a(href=tag.route) ##{tag.name}
+    time.post-time(datetime=post.date) #{post.date.toISOString().replace(/T|:\d\d.\d{3}Z/g, ' ')}
+  .content
+    if post.preview.length > 0
+      | !{withVariable(':markdown-it(linkify, html=true)', post.preview)}
+    else
+      em no article summary available

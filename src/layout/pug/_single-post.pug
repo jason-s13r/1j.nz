@@ -1,0 +1,20 @@
+extends ./_main.pug
+
+block prepend title
+  | #{post.title}
+
+block main
+  article.post-article
+    header
+      h1.post-title
+        if post.draft
+          | [draft] 
+        a(href=post.route) #{post.title}
+      div.article-taxonomies
+        ul.article-tags
+          each tag in post.tags
+            li
+              a(href=tag.route) ##{tag.name}
+      time.post-time(datetime=post.date) #{post.date.toISOString().replace(/T|:\d\d.\d{3}Z/g, ' ')}
+    .content
+      | !{withVariable(":markdown-it(linkify, html=true)", post.text)}

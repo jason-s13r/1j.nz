@@ -1,0 +1,15 @@
+{
+  "extends": "@parcel/config-default",
+  "resolvers": [
+    "./src/core/parcel/posts.resolver.ts",
+    "./src/core/parcel/tags.resolver.ts",
+    "./src/core/parcel/paging.resolver.ts",
+    "..."
+  ],
+  "optimizers": {
+    "*.html": [
+      "./src/core/parcel/pretty-urls.optimizer.ts",
+      "..."
+    ]
+  }
+}

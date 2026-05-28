@@ -1,0 +1,64 @@
+.Timer {
+  --light-time-background: #f9f9f9;
+  --light-border: #aaa;
+  --light-text: #000;
+
+  --dark-border: #888;
+  --dark-time-background: #222;
+  --dark-text: #eee;
+
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto;
+  grid-template-areas: "display display" "startstop reset";
+  font-size: 1rem;
+  background: light-dark(var(--light-border), var(--dark-border));
+  border: solid 1px light-dark(var(--light-border), var(--dark-border));
+  gap: 1px;
+  border-radius: 1ch;
+  overflow: hidden;
+  max-width: fit-content;
+
+
+  time {
+    grid-area: display;
+    font-size: 3em;
+    line-height: initial;
+    font-family: monospace;
+    padding: 0.5ch;
+    background: light-dark(var(--light-time-background), var(--dark-time-background));
+    color: light-dark(var(--light-text), var(--dark-text));
+    min-width: 12ch;
+    text-align: center;
+
+    [data-value^="0"][data-value$="0"],
+    [data-type="literal"],
+    [data-type="decimal"] {
+      opacity: 0.5;
+    }
+
+    [data-unit="second"][data-type="decimal"],
+    [data-unit="second"][data-type="fraction"] {
+        font-size: 0.5em;
+    }
+
+    :not([data-value^="0"][data-value$="0"]) + [data-type="literal"] {
+        animation: blink-animation 1s ease-in-out infinite;
+    }
+  }
+
+  button {
+    font-size: 3em;
+    border: none;
+    color: light-dark(var(--light-text), var(--dark-text));
+  }
+
+  @keyframes blink-animation {
+    from {
+        opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+}

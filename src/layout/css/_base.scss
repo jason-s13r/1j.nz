@@ -1,0 +1,158 @@
+body[a="dark"] { @include dark-appearance; }
+body[a="light"] { @include light-appearance; }
+
+// @media (prefers-color-scheme: dark) {
+//   body[a="auto"] { @include dark-appearance; }
+// }
+
+@media (prefers-color-scheme: light) {
+  body[a="auto"] {
+    @include light-appearance;
+  }
+}
+
+// -------------------------------------------- //
+
+html {
+  height: 100%;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 1.5rem 0 0;
+}
+
+h1 {
+  font-size: 1.3rem;
+}
+h2 {
+  font-size: 1.2rem;
+}
+h3 {
+  font-size: 1.15rem;
+}
+
+h4 {
+  font-size: 1.1rem;
+}
+h5 {
+  font-size: 1.05rem;
+}
+h6 {
+  font-size: 1rem;
+}
+
+p {
+  margin: 0.5rem 0;
+  line-height: 1.3em;
+}
+
+li {
+  margin: 0.4rem 0;
+}
+
+a {
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+hr {
+  border: none;
+  border-top: solid 1px #888;
+  margin: 0;
+}
+
+pre {
+  padding: 1em;
+  overflow-x: auto; /* Fix pre content overflowing parent without scroll bar */
+}
+
+table {
+  width: 100%;
+}
+
+table,
+th,
+td {
+  border-collapse: collapse;
+  padding: 0.4rem;
+}
+
+code {
+  text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+code:not(pre > code) {
+  padding: 0.1em 0.2em;
+  font-size: 90%;
+}
+
+code.has-jax {
+  -webkit-font-smoothing: antialiased;
+  background: inherit !important;
+  border: none !important;
+  font-size: 100%;
+}
+
+blockquote {
+  padding: 1rem;
+
+  p {
+    margin: 0;
+  }
+}
+
+img {
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
+}
+
+video {
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
+}
+
+.content img,
+.content video {
+  background: #000;
+  border: solid 1px #000;
+  margin: 1rem auto;
+}
+
+figcaption {
+  text-align: center;
+  opacity: 0.5;
+}
+
+details {
+  padding: 1rem;
+}
+
+details summary {
+  text-decoration: none;
+}
+
+details[open] summary {
+  margin-bottom: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+.post-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.toc {
+  padding: 1rem;
+}

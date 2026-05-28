@@ -1,0 +1,31 @@
+{
+  "name": "1j.nz",
+  "private": true,
+  "version": "0.0.0",
+  "source": "content/index.pug",
+  "scripts": {
+    "start": "parcel",
+    "build": "parcel build"
+  },
+  "devDependencies": {
+    "@js-temporal/polyfill": "^0.5.1",
+    "@parcel/transformer-pug": "^2.16.4",
+    "@parcel/transformer-sass": "^2.16.4",
+    "@parcel/transformer-typescript-tsc": "^2.16.4",
+    "@parcel/transformer-vue": "^2.16.4",
+    "@r2wc/react-to-web-component": "^2.1.1",
+    "@types/node": "^25.9.1",
+    "@types/pug": "^2.0.10",
+    "@types/react": "^19.2.15",
+    "@types/react-dom": "^19.2.3",
+    "jstransformer-markdown-it": "^3.0.0",
+    "parcel": "^2.14.0",
+    "posthtml-extend": "^0.6.5",
+    "posthtml-include": "^2.0.1",
+    "posthtml-markdownit": "^3.1.2",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "typescript": "^6.0.3",
+    "vue": "^3.5.34"
+  }
+}

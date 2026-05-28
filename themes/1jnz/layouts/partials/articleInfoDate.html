@@ -1,8 +1,0 @@
-{{ $dateFormat := "2006-01-02" }}
-{{ if .Site.Params.theme_config.date_format }}
-    {{ $dateFormat = .Site.Params.theme_config.date_format }}
-{{ end }}
-
-{{ if .Params.date }}
-    <time datetime="{{ .Date }}">{{- (.Params.date | time.Format $dateFormat) }}</time>
-{{ end }}

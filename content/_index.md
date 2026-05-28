@@ -1,1 +1,0 @@
-<!-- ![cows](/images/cows.jpg) -->

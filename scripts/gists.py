@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+import re
+
 import requests
 import os
 from datetime import datetime
@@ -73,7 +75,9 @@ draft: false
 		text = text + "\n***\n\n"
 		text = text + "\n***\n".join(sections) + "\n\n"
 		filehash = gist_id if len(gist_id) < 6 else f"{gist_id[:3]}{gist_id[-3:]}"
-		filename = f"{filehash}-{title}.md"
+		filetitle = re.sub(r'[ \/\\:*?"<>|]+', '-', title).strip('-')
+		
+		filename = f"{filehash}-{filetitle}.md".lower()
 		
 		subdir = directory
 		# subdir = os.path.join(directory, shortdate)

@@ -1,0 +1,50 @@
+.LolcryptionApp {
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  .Lolcryption div.output,
+  textarea {
+    min-height: 8rem;
+    font-size: 0.85rem;
+  }
+
+  .repeat-button {
+    font-size: 2rem;
+    line-height: 1rem;
+    vertical-align: middle;
+    border-width: 1px;
+    border-radius: 5px;
+    padding: 0 0.25rem 0.25rem;
+    float: right;
+
+    &:not(:focus, :hover) {
+      background: none;
+      border-color: transparent;
+    }
+    &:before {
+      content: attr(data-repeat);
+      font-size: 0.8rem;
+      line-height: 1rem;
+      padding-right: 0.5ch;
+      vertical-align: middle;
+      text-decoration: underline;
+    }
+  }
+
+  .preset-button {
+    display: block;
+    vertical-align: middle;
+    border-width: 1px;
+    border-radius: 5px;
+    padding: 0 0.25rem 0.25rem;
+    margin: 0.05rem;
+    background-color: transparent;
+    &:not(:focus, :hover) {
+      background: none;
+      border-color: transparent;
+      text-decoration: underline;
+    }
+  }
+}

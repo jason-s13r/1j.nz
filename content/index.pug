@@ -1,0 +1,31 @@
+extends ../src/layout/pug/_main.pug
+
+block title
+  | Jason Schwarzenberger
+
+//- block main
+//-   - var lab = getPosts("/content/lab").slice(0, 2)
+//-   - var posts = getPosts("/content/posts").slice(0, 5)
+
+//-   div(style="display: flex; flex-direction: row;")
+//-     div.post-container
+//-       h1 lab experiments
+//-       each post in lab
+//-         include ../src/layout/pug/_paged-post.pug
+//-     div.post-container
+//-       h1 recent posts
+//-       each post in posts
+//-         include ../src/layout/pug/_paged-post.pug
+
+block main
+  - var posts = getPosts("/content")
+  - var paging = pagedList(posts, pageNum, pageSize)
+  each post in paging.page
+    include ../src/layout/pug/_paged-post.pug
+  div.pagination
+    div.left.pagination-item
+      if paging.hasPrev
+        a(href='/content/page/'+(pageNum-1)+'/index.pug') back
+    div.right.pagination-item
+      if paging.hasNext
+        a(href='/content/page/'+(pageNum+1)+'/index.pug') next

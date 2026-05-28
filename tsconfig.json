@@ -1,0 +1,10 @@
+{
+  "include": ["src/**/*.ts","src/**/*.tsx"],
+  "compilerOptions": {
+    "lib": ["es2022", "esnext", "DOM"],
+    "jsx":"preserve",
+    "isolatedModules": true,
+    "strict": true,
+    "types": ["node"]
+  }
+}

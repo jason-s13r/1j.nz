@@ -1,0 +1,9 @@
+{
+  "plugins": {
+    "posthtml-extend": {
+    },
+    "posthtml-include": {
+    },
+    "posthtml-markdownit": {}
+  }
+}

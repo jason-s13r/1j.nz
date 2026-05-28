@@ -1,7 +1,9 @@
-content/posts/gist/
-public/
-env/
-#static/cr-drm/
-.parcel-cache
+
 .DS_Store
+.parcel-cache/
+.env
+public/
+dist/
+content/posts/gist/
 resources/
+node_modules/

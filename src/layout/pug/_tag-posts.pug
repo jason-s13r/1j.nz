@@ -1,0 +1,22 @@
+extends ./_main.pug
+
+block prepend title
+  | Tags &raquo; #{tagSlug}
+
+block main
+  h1
+    a(href=postRoot+"/tags/index.pug") Tags
+    |  &raquo; 
+    | #{tagSlug}
+  - var posts = getPosts(postRoot)
+  - var list = posts.filter(post => post.tags.some(t => t.slug === tagSlug))
+  - var paging = pagedList(list, pageNum, pageSize)
+  each post in paging.page
+    include ./_paged-post.pug
+  div.pagination
+    div.left.pagination-item
+      if paging.hasPrev
+        a(href=postRoot+'/tags/'+(tagSlug)+'/page/'+(pageNum-1)+'/index.pug') back
+    div.right.pagination-item
+      if paging.hasNext
+        a(href=postRoot+'/tags/'+(tagSlug)+'/page/'+(pageNum+1)+'/index.pug') next

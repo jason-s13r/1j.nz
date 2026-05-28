@@ -1,0 +1,74 @@
+.Lolcryption {
+  --light-color: #222;
+  --light-bg: #f9f9f9;
+  --light-border: #999;
+
+  --dark-color: #ccc;
+  --dark-bg: #222;
+  --dark-border: #666;
+
+  --fg-color: light-dark(var(--light-color), var(--dark-color));
+  --bg-color: light-dark(var(--light-bg), var(--dark-bg));
+  --border-color: light-dark(var(--light-border), var(--dark-border));
+
+  display: grid;
+  border: solid 1px var(--border-color);
+  color: var(--fg-color);
+  background: var(--bg-color);
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas: "toolbar" "output";
+  min-width: fit-content;
+  min-height: fit-content;
+  font-size: 1rem;
+
+  .output {
+    grid-area: output;
+    min-width: 30ch;
+    min-height: 3rem;
+    max-height: 10rem;
+    overflow-y: auto;
+    font-size: 1em;
+    border: none;
+    color: var(--fg-color);
+    background: transparent;
+    white-space: pre-wrap;
+    font-family: monospace;
+    p {
+      margin: 0.25em;
+      padding: 0;
+      user-select: all;
+      &.placeholder {
+        opacity: 0.5;
+      }
+    }
+  }
+
+  .toolbar {
+    border-bottom: solid 1px var(--border-color);
+    grid-area: toolbar;
+    color: inherit;
+    background: transparent;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1px;
+    white-space: nowrap;
+  }
+  .toolbar > div {
+    min-width: 10ch;
+    text-align: right;
+  }
+  label {
+    font-size: 0.75em;
+    vertical-align: middle;
+  }
+  select {
+    border: none;
+    color: inherit;
+    background: transparent;
+    font-size: 0.75em;
+    vertical-align: middle;
+    border-right: solid 1px var(--border-color);
+  }
+}

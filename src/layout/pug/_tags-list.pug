@@ -1,0 +1,14 @@
+extends ./_main.pug
+block prepend title
+  | Tags
+block main
+  h1 Tags
+  ul
+    each tag in tags
+      li
+        a(href=tag.route) #{tag.name}
+        |  
+        span (#{tag.count})
+  div.pagination
+    div.left.pagination-item
+      a(href="/") back
