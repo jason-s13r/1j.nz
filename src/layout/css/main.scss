@@ -33,7 +33,7 @@
 }
 
 body {
-  padding: 1.5ch;
+  padding: 0.5ch;
   margin: 0 auto;
   font-family: Nationale, Roboto, sans-serif;
   position: relative;
@@ -98,32 +98,6 @@ a {
 }
 
 @media (max-width: 650px) {
-  .post-article {
-    > header {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr min-content;
-      grid-template-areas: "post-title post-title" "post-tags post-time";
-      justify-items: space-between;
-      .post-title {
-        grid-area: post-title;
-      }
-      time.post-time {
-        grid-area: post-time;
-        font-weight: 100;
-        text-align: right;
-        font-size: 1rem;
-      }
-    }
-  }
-}
-
-.posts-container {
-  container-type: inline-size;
-  container-name: post-container;
-}
-
-.post-container {
   .post-article {
     > header {
       display: grid;

@@ -1,0 +1,18 @@
+extends ../../src/layout/pug/_main.pug
+
+block prepend title
+  | Gists
+
+block main
+  - var posts = getPosts("/content/gists")
+  - var paging = pagedList(posts, pageNum, pageSize)
+  h1 Posts
+  each post in paging.page
+    include ../../src/layout/pug/_paged-post.pug
+  div.pagination
+    div.left.pagination-item
+      if paging.hasPrev
+        a(href='/content/gists/page/'+(pageNum-1)+'/index.pug') back
+    div.right.pagination-item
+      if paging.hasNext
+        a(href='/content/gists/page/'+(pageNum+1)+'/index.pug') next

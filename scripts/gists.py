@@ -18,7 +18,7 @@ def main():
 	API_URL = "https://api.github.com/users/jason-s13r/gists"
 	MAX_EMBED_SIZE = 10000
 
-	directory = os.path.join('content', 'posts', 'gist')
+	directory = os.path.join('content', 'gists')
 	if not os.path.exists(directory) or not os.path.isdir(directory):
 		os.mkdir(directory)
 
@@ -34,7 +34,7 @@ def main():
 		files = gist.get('files')
 		date = gist.get('created_at')
 		description = gist.get('description')
-		url = gist.get('html_url')
+		html_url = gist.get('html_url')
 		titles = list(files.keys())
 		title = titles[0].strip(".md")
 		print(f"GIST {gist_id} {title}")
@@ -74,7 +74,7 @@ draft: false
 ---
 {description}\n\n
 <!--more-->\n\n
-[gist link]({url})\n\n
+[gist link]({html_url})\n\n
 """
 		filehash = gist_id if len(gist_id) < 6 else f"{gist_id[:3]}{gist_id[-3:]}"
 		filetitle = re.sub(r'[ \/\\:*?"<>|]+', '-', title).strip('-')

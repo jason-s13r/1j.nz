@@ -1,4 +1,4 @@
-import path from 'node:path';
+import path from "node:path";
 import process from "node:process";
 import fs from "node:fs";
 import pug from "pug";
@@ -8,28 +8,55 @@ export const postsCache = new Map();
 
 export const toSlug = (tag: string) => tag.toLowerCase().replace(/[^a-zA-Z0-9]/g, "-");
 
-export const getPostInfo = (contents: string, postRoot: string) => {
-  const [bad, frontmatter, rawPreviewText, remainder] = contents.split(/---\n|<!--more-->\n/g, 4);
+type Frontmatter = Record<string, any> & {
+  title: string;
+  date: Date;
+  tags: string[];
+  draft: boolean;
+};
+type PostTag = {
+  slug: string;
+  route: string;
+  name: string;
+};
+type PostMeta = {
+  file: string;
+  filepath: string;
+};
+interface PostInfo extends Omit<Frontmatter, 'tags'> {
+  preview: string;
+  text: string;
+  tags: PostTag[]
+}
+type Post = PostInfo & {
+  meta: PostMeta;
+  route: string;
+};
 
+export const getPostInfo = (contents: string, postRoot: string, rootTag?: string): PostInfo | undefined => {
+  const [bad, frontmatterText, rawPreviewText, remainder] = contents.split(/---\n|<!--more-->\n/g, 4);
+  
   if (bad) {
-    return null;
+    return undefined;
   }
 
-  const text = contents.split(/---\n/).slice(2).join('---\n').replace(/<!--more-->/g, '');
+  const text = contents
+    .split(/---\n/)
+    .slice(2)
+    .join("---\n")
+    .replace(/<!--more-->/g, "");
 
   const hasMore = /<!--more-->/.test(contents);
-  
+
   const rawPreview = rawPreviewText
     .split("\n", 4)
     .join("\n")
     .split(/\. |\.$/g, 4);
-  const computedPreviewText = (
-    rawPreview.length > 3 ? rawPreview.slice(0, 3).concat([""]) : rawPreview
-  ).join(". ");
+  const computedPreviewText = (rawPreview.length > 3 ? rawPreview.slice(0, 3).concat([""]) : rawPreview).join(". ");
 
   const preview = hasMore ? rawPreviewText : computedPreviewText;
 
-  const meta = frontmatter.split("\n").reduce(
+  const frontmatter: Frontmatter = frontmatterText.split("\n").reduce(
     (data, line) => {
       const [key, ...parts] = line.split(":");
       const value = parts.join(":").trim();
@@ -48,11 +75,11 @@ export const getPostInfo = (contents: string, postRoot: string) => {
   );
 
   return {
-    ...meta,
+    ...frontmatter,
     preview: preview.trim(),
     text,
-    date: meta.date ? new Date(meta.date) : new Date(0),
-    tags: meta.tags.map((tag) => ({
+    date: frontmatter.date ? new Date(frontmatter.date) : new Date(0),
+    tags: frontmatter.tags.concat(rootTag ? [rootTag] : []).map((tag) => ({
       slug: toSlug(tag),
       route: `/content/tags/${toSlug(tag)}/index.pug`,
       name: tag,
@@ -61,9 +88,8 @@ export const getPostInfo = (contents: string, postRoot: string) => {
 };
 
 export function* iterPosts(postRoot: string) {
-  const options = { postRoot };
   const basedir = path.join(process.cwd());
-  const searchdir = path.join(basedir, options.postRoot);
+  const searchdir = path.join(basedir, postRoot);
   const files = fs.readdirSync(searchdir, {
     recursive: true,
     encoding: "utf-8",
@@ -84,16 +110,17 @@ export function* iterPosts(postRoot: string) {
       continue;
     }
 
+    const rootTagMatcher = slug.match(/content\/([^/]+)\//);
+    const rootTag = rootTagMatcher ? rootTagMatcher[1] : undefined;
     const content = fs.readFileSync(filepath, { encoding: "utf-8" });
-    const post = getPostInfo(content, postRoot);
+    const postInfo = getPostInfo(content, postRoot, rootTag);
 
-    if (!post) {
-      console.debug('REJECTED', route);
+    if (!postInfo) {
       continue;
     }
 
-    const entry = {
-      ...post,
+    const entry: Post = {
+      ...postInfo,
       route,
       meta: {
         file,
@@ -111,18 +138,18 @@ export function* iterPosts(postRoot: string) {
   }
 }
 
-export function getPosts(postRoot: string) {
+export function getPosts(postRoot: string): Post[] {
   if (!cache.has(postRoot)) {
     const iterator = iterPosts(postRoot);
     const list = iterator.toArray();
     const sorted = list.toSorted((a, b) => b.date.getTime() - a.date.getTime());
     cache.set(postRoot, sorted);
-    console.debug('CACHED:', postRoot, sorted.length);
+    console.debug("CACHED:", postRoot, sorted.length);
   }
   return cache.get(postRoot);
 }
 
-export function getSinglePost(route: string, postRoot: string) {
+export function getSinglePost(route: string, postRoot: string): Post {
   if (!postsCache.has(route)) {
     getPosts(postRoot);
   }

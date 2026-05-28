@@ -1,7 +1,7 @@
 ---
 title: "LOLcryption"
 date: 2026-05-25T00:32:54.000Z
-tags: ["tool", "play", "codes", "react", "2026"]
+tags: ["tool", "react", "2026"]
 draft: false
 ---
 
