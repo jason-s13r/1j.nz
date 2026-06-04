@@ -30,8 +30,9 @@ html(lang="en")
           a(href=site.webring.index) Index
           a(href=site.webring.next) Next
         a(href="mailto:"+site.profile.email)= site.profile.email
-        each link in site.profile.social
-          a(href=link.url)= link.name
+        .social
+          each link in site.profile.social
+            a(href=link.url)= link.name
 
     main.page-content
       block main

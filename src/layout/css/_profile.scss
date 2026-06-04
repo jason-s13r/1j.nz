@@ -69,6 +69,7 @@
     line-height: 1rem;
   }
 
+  .social,
   .webring,
   .nav {
     font-size: 0.75rem;
@@ -80,8 +81,9 @@
     font-weight: 300;
     justify-content: flex-end;
   }
-  .nav {
-    font-variant: unset;
+  .social a,
+  .nav a {
+    font-variant: initial;
   }
 }
 

@@ -6,8 +6,16 @@
         "email": "jason@master5o1.com",
         "social": [
             {
-                "name": "github:jason-s13r",
+                "name": "Github",
                 "url": "https://github.com/jason-s13r"
+            },
+            {
+                "name": "LinkedIn",
+                "url": "https://www.linkedin.com/in/jason-schwarzenberger/"
+            },
+            {
+                "name": "Guestbook",
+                "url": "https://guestbook.1j.nz/"
             }
         ]
     },
@@ -28,10 +36,6 @@
         {
             "name": "Lab",
             "url": "/content/lab/index.pug"
-        },
-        {
-            "name": "Guestbook",
-            "url": "https://guestbook.1j.nz/"
         }
     ]
 }
