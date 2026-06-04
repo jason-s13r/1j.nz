@@ -1,0 +1,37 @@
+{
+    "title": "Jason Schwarzenberger",
+    "description": "Senior Full-stack Software Engineer",
+    "profile": {
+        "name": "Jason Schwarzenberger",
+        "email": "jason@master5o1.com",
+        "social": [
+            {
+                "name": "github:jason-s13r",
+                "url": "https://github.com/jason-s13r"
+            }
+        ]
+    },
+    "webring": {
+        "previous": "https://remycoppard.xyz/",
+        "index": "https://webring.t0.vc/",
+        "next": "https://elefantlover.github.io/"
+    },
+    "nav": [
+        {
+            "name": "Posts",
+            "url": "/content/posts/index.pug"
+        },
+        {
+            "name": "Gists",
+            "url": "/content/gists/index.pug"
+        },
+        {
+            "name": "Lab",
+            "url": "/content/lab/index.pug"
+        },
+        {
+            "name": "Guestbook",
+            "url": "https://guestbook.1j.nz/"
+        }
+    ]
+}
