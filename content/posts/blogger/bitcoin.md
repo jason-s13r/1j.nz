@@ -23,6 +23,6 @@ I connect to the Eligius mining pool on the US server.
 
   
 
-[![](http://4.bp.blogspot.com/-WOC37go5iIM/TekD71N2OXI/AAAAAAAAADA/qp2caCWY55E/s640/btc.png)](http://4.bp.blogspot.com/-WOC37go5iIM/TekD71N2OXI/AAAAAAAAADA/qp2caCWY55E/s1600/btc.png)
+![btc](/static/images/blogger/btc.png?as=webp)
 
 Poclbm-mod GPU miner connected to Eligius-US pooled mining server.

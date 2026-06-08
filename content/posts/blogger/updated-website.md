@@ -16,6 +16,6 @@ I've added Blogger api integration which means that my blog posts on [master5o1.
 Still to come:  
   
 
-*   Pretty up the [list of creations](http://jason.schwarzenberger.co.nz/Creations) page.
+*   Pretty up the list of creations page.
 *   Add some sort of caching so that Google API requests aren't done all the fucking time.
 *   Make the app generic, with a separate theme. Release this thing on GitHub so that it may be reused by anyone else who wants a Google+ and/or Blogger based website.

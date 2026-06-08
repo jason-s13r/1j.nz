@@ -21,4 +21,4 @@ This is generally going to be a ramble blog about geeky things that interest, in
 
 I would like to treat you to an image that I cooked up earlier.  It's of one of my lecturers for Computer Science, and she tends to make things plural.  My friend imagined her using the Enhance image filter algorithm that TV overuses just a bit too much.  But VisualBasic has never had a better plug than CSI.
 
-[![](https://dl.dropboxusercontent.com/u/59191235/files/images/Angela-GUI-Tracking2.jpg)](https://dl.dropboxusercontent.com/u/59191235/files/images/Angela-GUI-Tracking2.jpg)
+![](/static/images/blogger/Angela-GUI-Tracking2.jpg?as=webp)

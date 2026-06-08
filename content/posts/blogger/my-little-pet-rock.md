@@ -10,10 +10,10 @@ Look at my new pet rock!  Isn't he cool?  Though, he does need a name.  I'm t
   
   
 
-[![](http://1.bp.blogspot.com/-wYksYboJdMA/TtSwvbHvuNI/AAAAAAAAAMU/wEgweiQG5ec/s200/IMAG0578.jpg)](http://1.bp.blogspot.com/-wYksYboJdMA/TtSwvbHvuNI/AAAAAAAAAMU/wEgweiQG5ec/s1600/IMAG0578.jpg)[![](http://4.bp.blogspot.com/-B25WAcu5r3c/TtSw2GurDQI/AAAAAAAAAMs/UXq88todq90/s200/IMAG0581.jpg)](http://4.bp.blogspot.com/-B25WAcu5r3c/TtSw2GurDQI/AAAAAAAAAMs/UXq88todq90/s1600/IMAG0581.jpg)
+![](/static/images/blogger/IMAG0578.jpg?as=webp) ![](/static/images/blogger/IMAG0581.jpg?as=webp)
 
   
 
-[![](http://1.bp.blogspot.com/-aFSQl47eQEs/TtSw4GmpGCI/AAAAAAAAAM0/laviAd984BE/s200/IMAG0582.jpg)](http://1.bp.blogspot.com/-aFSQl47eQEs/TtSw4GmpGCI/AAAAAAAAAM0/laviAd984BE/s1600/IMAG0582.jpg)[![](http://1.bp.blogspot.com/-UKJaOT7YRJk/TtSwxZVXaWI/AAAAAAAAAMc/S9If63xJZSs/s200/IMAG0579.jpg)](http://1.bp.blogspot.com/-UKJaOT7YRJk/TtSwxZVXaWI/AAAAAAAAAMc/S9If63xJZSs/s1600/IMAG0579.jpg)
+![](/static/images/blogger/IMAG0582.jpg?as=webp) ![](/static/images/blogger/IMAG0579.jpg?as=webp)
 
-[](http://1.bp.blogspot.com/-UKJaOT7YRJk/TtSwxZVXaWI/AAAAAAAAAMc/S9If63xJZSs/s1600/IMAG0579.jpg)
+[](/static/images/blogger/IMAG0579.jpg?as=webp)

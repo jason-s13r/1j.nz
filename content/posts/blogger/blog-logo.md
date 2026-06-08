@@ -10,4 +10,4 @@ I've decided to make an image logo for this blog.  It's pretty simple and deriv
 Made it simply outlines on a transparent (in here it's black) background.  I think it looks pretty good.  
   
 
-[![blogger-logo](http://1.bp.blogspot.com/-TM62oQx1eJA/Ttxtkhqo5oI/AAAAAAAAANg/bD5eRjm1ryc/s1600/catbrainblog.png)](http://1.bp.blogspot.com/-TM62oQx1eJA/Ttxtkhqo5oI/AAAAAAAAANg/bD5eRjm1ryc/s1600/catbrainblog.png)
+![blogger-logo](/static/images/blogger/catbrainblog.png?as=webp)

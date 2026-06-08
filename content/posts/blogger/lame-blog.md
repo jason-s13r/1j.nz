@@ -9,7 +9,7 @@ This is a lame blog for the sake of a Compsci111 lab fulfillment. Here's a silly
 
   
 
-[![](http://ghostisland.files.wordpress.com/2009/03/lolwut.jpg)](http://ghostisland.files.wordpress.com/2009/03/lolwut.jpg)
+![](/static/images/blogger/lolwut.jpg?as=webp)
 
   
 
