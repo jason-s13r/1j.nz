@@ -11,7 +11,7 @@ I made my first solder joint in about 15 years to achieve *Smort* control of my 
 
 Repository: https://github.com/jason-s13r/garage-door
 
-![equipment](./01-equpment.jpg)
+![equipment](./01-equpment.webp)
 
 - Pi 3b+ I had lying around.
 - Garage door remote.
@@ -19,30 +19,30 @@ Repository: https://github.com/jason-s13r/garage-door
 - Breakout board.
 - Some wires.
 
-![plan](./02-plan.jpg)
+![plan](./02-plan.webp)
 
 Intention is to make a 'hat' using the breakout board. This powers the remote from the Pi.
 
-![setup](./03-setup.jpg)
+![setup](./03-setup.webp)
 
 I bought a soldering iron and accessories.
 
-![practice](./04-practice.jpg)
+![practice](./04-practice.webp)
 
 Those don't look too bad for something I haven't done since high school.
 
 
-<video src="./05-works.mp4" type="video/mp4" preload="auto"></video>
+<video src="./05-works.mp4" type="video/mp4" controls preload="auto"></video>
 
 First test cycling the relays with it connected to the remote. It works!
 
-<video src="./06-telegram.mp4" type="video/mp4" preload="auto"></video>
+<video src="./06-telegram.mp4" type="video/mp4" controls preload="auto"></video>
 
 Toggling the door is now just a `/toggle` command for a telegram bot. I can then use the camera stream from my Reolink PTZ-423 to show me the door going up or down.  
 No need to add a sensor on the door to figure out whether it's open if I can just take a photo.
 
 
-![outcome](./07-outcome.jpg)
+![outcome](./07-outcome.webp)
 
 Finally, swapped onto the Pi 4 I have in use.  
 Hey, that kinda looks like what I had planned.
