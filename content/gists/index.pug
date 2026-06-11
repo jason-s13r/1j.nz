@@ -6,7 +6,7 @@ block prepend title
 block main
   - var posts = getPosts("/content/gists")
   - var paging = pagedList(posts, pageNum, pageSize)
-  h1 Posts
+  h1 Gists
   each post in paging.page
     include ../../src/layout/pug/_paged-post.pug
   div.pagination
