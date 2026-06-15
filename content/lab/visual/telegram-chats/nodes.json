@@ -1,0 +1,924 @@
+[
+  {
+    "id": "group_5dsqh3",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_2fho4bf",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_1rj8f7l",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_2q8uhm3",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_2ohpb59",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_240cpcx",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_2gag95i",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_1zanuwu",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_2o22gci",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_1sljdvi",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_2m5ve3r",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_2h1gz0x",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_1ev1dk9",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_1lumi9x",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_299s5r9",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_2hgiyex",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_2eg428x",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_1ia6eaf",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_25a24sx",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_2hxaiil",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_1jc3k59",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_2pq5z0l",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_23ck8do",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_1qeg370",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_201p7v6",
+    "shape": "hexagon",
+    "kind": "group",
+    "color": "#2ca02c"
+  },
+  {
+    "id": "group_2hmf7qi",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_1iz5m3i",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_1zmkv0l",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_1vco61i",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_27efhqf",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_292mbzf",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_1l1bjzx",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_22xjt33",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_1g3osxl",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_2ikut46",
+    "shape": "hexagon",
+    "kind": "group",
+    "color": "#2ca02c"
+  },
+  {
+    "id": "group_1qgyo1f",
+    "shape": "hexagon",
+    "kind": "group",
+    "color": "#2ca02c"
+  },
+  {
+    "id": "group_1zgkd7f",
+    "shape": "hexagon",
+    "kind": "group",
+    "color": "#2ca02c"
+  },
+  {
+    "id": "group_2of9q1f",
+    "name": "corehole",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_qw6mver",
+    "shape": "hexagon",
+    "kind": "group",
+    "color": "#ff7f0e"
+  },
+  {
+    "id": "group_gojasyr",
+    "shape": "hexagon",
+    "kind": "group",
+    "color": "#2ca02c"
+  },
+  {
+    "id": "group_keinddr",
+    "shape": "hexagon",
+    "kind": "group",
+    "color": "#ff7f0e"
+  },
+  {
+    "id": "group_q3l5r6f",
+    "name": "Local Family",
+    "shape": "hexagon",
+    "kind": "group",
+    "color": "#2ca02c"
+  },
+  {
+    "id": "group_fqstrcl",
+    "shape": "hexagon",
+    "kind": "group",
+    "color": "#2ca02c"
+  },
+  {
+    "id": "group_h5kyun9",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_fipys0x",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_pggzq2x",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_eq1pui9",
+    "shape": "hexagon",
+    "kind": "group",
+    "color": "#2ca02c"
+  },
+  {
+    "id": "group_ejnfvn3",
+    "shape": "hexagon",
+    "kind": "group",
+    "color": "#ff7f0e"
+  },
+  {
+    "id": "group_nl9h97r",
+    "shape": "hexagon",
+    "kind": "group",
+    "color": "#2ca02c"
+  },
+  {
+    "id": "group_hz0lw6r",
+    "name": "Garden Club",
+    "shape": "hexagon",
+    "kind": "group",
+    "color": "#d62728"
+  },
+  {
+    "id": "group_lkw4z83",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_mpp3mor",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_fb6gogf",
+    "shape": "hexagon",
+    "kind": "group",
+    "color": "#ff7f0e"
+  },
+  {
+    "id": "group_gr7ct7f",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_hu4c7zx",
+    "shape": "hexagon",
+    "kind": "group",
+    "color": "#ff7f0e"
+  },
+  {
+    "id": "group_ici8et9",
+    "name": "Global Family",
+    "shape": "hexagon",
+    "kind": "group",
+    "color": "#2ca02c"
+  },
+  {
+    "id": "group_mwtpnox",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_n3h6kp9",
+    "shape": "hexagon",
+    "kind": "group",
+    "color": "#2ca02c"
+  },
+  {
+    "id": "group_nrhoqul",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_idkk0s9",
+    "shape": "hexagon",
+    "kind": "group",
+    "color": "#2ca02c"
+  },
+  {
+    "id": "group_hh68k69",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_jfhob89",
+    "shape": "hexagon",
+    "kind": "group",
+    "color": "#ff7f0e"
+  },
+  {
+    "id": "group_g7ifjqr",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_gitfk73",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_qqweqv3",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_l1sd9qf",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_gdmx11r",
+    "shape": "hexagon",
+    "kind": "group",
+    "color": "#ff7f0e"
+  },
+  {
+    "id": "group_fzil4zf",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_j7vlvlx",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_ri0nso3",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_q5vuiqr",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_jrpa6kl",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_o3zxqbl",
+    "name": "Planes & Trains Chat",
+    "shape": "hexagon",
+    "kind": "group",
+    "color": "#d62728"
+  },
+  {
+    "id": "group_ky6r3f3",
+    "shape": "hexagon",
+    "kind": "group",
+    "color": "#ff7f0e"
+  },
+  {
+    "id": "group_j0jhjof",
+    "name": "corehole",
+    "shape": "hexagon",
+    "kind": "group",
+    "color": "#ff7f0e"
+  },
+  {
+    "id": "group_l3g6wdr",
+    "name": "Grill club",
+    "shape": "hexagon",
+    "kind": "group",
+    "color": "#d62728"
+  },
+  {
+    "id": "group_hc6fynl",
+    "shape": "hexagon",
+    "kind": "group",
+    "color": "#ff7f0e"
+  },
+  {
+    "id": "group_dtglm1l",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_ej1euyl",
+    "shape": "hexagon",
+    "kind": "group",
+    "color": "#2ca02c"
+  },
+  {
+    "id": "group_qag9fmi",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_ium8w9c",
+    "name": "Close Family",
+    "shape": "hexagon",
+    "kind": "group",
+    "color": "#2ca02c"
+  },
+  {
+    "id": "group_qryeim0",
+    "shape": "hexagon",
+    "kind": "group",
+    "color": "#ff7f0e"
+  },
+  {
+    "id": "group_hgubrax",
+    "shape": "hexagon",
+    "kind": "group",
+    "color": "#ff7f0e"
+  },
+  {
+    "id": "group_ftonlj3",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_e0fpx6l",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_lgqsctr",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_guaj0jf",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_o231ce3",
+    "shape": "hexagon",
+    "kind": "group",
+    "color": "#ff7f0e"
+  },
+  {
+    "id": "group_odoniqo",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_g2qff26",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_lc8risi",
+    "shape": "hexagon",
+    "kind": "group",
+    "color": "#2ca02c"
+  },
+  {
+    "id": "group_gc8nrii",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_nm8vnuu",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_h8x5zhf",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "group_e5stcvl",
+    "shape": "hexagon",
+    "kind": "group"
+  },
+  {
+    "id": "user_1scyc",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_1scm3",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_5tzfhr",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_9ifp1r",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_5xwpgf",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_6q2gox",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_2irlrkx",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_2i2tnu9",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_2pw7oe9",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_1khhzcl",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_2kteror",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_1yn1h43",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_1mtbxfr",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_1klitil",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_2gi87zr",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_1s5wb83",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_1y660nx",
+    "name": "Jason Schwarzenberger",
+    "shape": "star",
+    "kind": "user",
+    "mass": 50
+  },
+  {
+    "id": "user_29k3mql",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_1hwhdpx",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_27q63uc",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_1wyawm0",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_2d89l0i",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_1g9j7y0",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_2kt4i1c",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_2ojgd0c",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_23koacu",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_1ots5cc",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_2goieei",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_2m2lr2u",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_2qqbq0x",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_2ojkxd3",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_2fnojjr",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_21ngvw9",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_1y0enp3",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_1h0o0vr",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_2lw5dvl",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_2jcksbx",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_2i4mp9f",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_1m1l9dx",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_2a6aowl",
+    "shape": "star",
+    "kind": "user",
+    "mass": 50
+  },
+  {
+    "id": "user_1kmuxrr",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_1qfmgdx",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_1q8l8n9",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_2255l9r",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_1j2melr",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_2o55fc3",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_2mw0zki",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_1uqubf6",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_259nqwc",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_1tl3186",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_1lms37f",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_qp5tlcf",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_oafr2c3",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_o0rbus3",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_q22v3lx",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_olkpimx",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_l84qz59",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_o91q0nf",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_i0vxf6f",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_pivug6r",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_pmmc0y3",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_j9kafm3",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_huseatf",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_l06pc1x",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_jqviy2f",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_lohqgtr",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_gnug17r",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_imu0scf",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_rj3s913",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_pqcr9tu",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_r89n2t0",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_l2q35bu",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_knb4w29",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_kn48f79",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_nkh0x10",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_q6izllc",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_hklza2o",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_l0xziq6",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_qitjyr6",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_jvs6dji",
+    "shape": "star",
+    "kind": "user"
+  },
+  {
+    "id": "user_l6dj1hc",
+    "shape": "star",
+    "kind": "user"
+  }
+]
