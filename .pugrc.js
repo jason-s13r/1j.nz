@@ -11,5 +11,6 @@ module.exports = {
     withVariable: postUtils.withVariable,
     getPosts: postUtils.getPosts,
     getSinglePost: postUtils.getSinglePost,
+    getTags: postUtils.getTags,
   },
 };

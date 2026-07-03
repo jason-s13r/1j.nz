@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "source": "content/index.pug",
   "scripts": {
-    "start": "parcel",
-    "build": "parcel build"
+    "start": "parcel content/index.pug content/404.pug",
+    "build": "parcel build content/index.pug content/404.pug"
   },
   "devDependencies": {
     "@js-temporal/polyfill": "^0.5.1",

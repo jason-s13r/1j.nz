@@ -18,6 +18,7 @@ type PostTag = {
   slug: string;
   route: string;
   name: string;
+  count?: number;
 };
 type PostMeta = {
   file: string;
@@ -160,4 +161,14 @@ export function getSinglePost(route: string, postRoot: string): Post {
 
 export function withVariable(filter: string, markdown: string) {
   return pug.render(`${filter}\n  ${markdown.trim().split("\n").join("\n  ")}`);
+}
+
+export function getTags(postRoot: string): PostTag[] {
+  const posts = getPosts(postRoot);
+  const tempTags = posts.flatMap(post => post.tags.toSorted((a, b) => a.name.localeCompare(b.name)))
+  const tagMap = new Map(tempTags.map(tag => [tag.route, tag]))
+  const tagCounts = tempTags.reduce((acc: Record<string, number>, tag) => ({...acc, [tag.route]: (acc[tag.route] || 0) + 1}), {})
+  const tags = tagMap.values().toArray().map((tag) => ({...tag, count: tagCounts[tag.route]}))
+
+  return tags;
 }

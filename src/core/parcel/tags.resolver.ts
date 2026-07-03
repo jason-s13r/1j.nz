@@ -32,11 +32,7 @@ function tagsList(basedir: string, specifier: string) {
   return {
     filePath: routePath,
     code: `
-- var posts = getPosts("${postRoot}")
-- var tempTags = posts.flatMap(post => post.tags.toSorted((a, b) => a.name.localeCompare(b.name)))
-- var tagMap = new Map(tempTags.map(tag => [tag.route, tag]))
-- var tagCounts = tempTags.reduce((acc, tag) => ({...acc, [tag.route]: (acc[tag.route] || 0) + 1}), {})
-- var tags = tagMap.values().toArray().map((tag) => ({...tag, count: tagCounts[tag.route]}))
+- var tags = getTags("${postRoot}")
 include ${relative}`,
   };
 }
