@@ -98,7 +98,7 @@ export function defaultConfiguration(): Configuration {
     expenses: [
       { id: "accountant", name: "Accountant", amount: 1500, formula: "min(gross * 0.015, 1500)", enabled: true },
       { id: "insurance", name: "Insurance", amount: 1000, enabled: true },
-      { id: "laptop", name: "Laptop", amount: 2500, enabled: false },
+      { id: "phone-plan", name: "Phone plan", amount: 520, enabled: false },
     ],
     deductions: [
       { id: 'annual-leave', name: '4 weeks annual leave (savings)', amount: 0, formula: 'gross * 4 / 52', enabled: true },
