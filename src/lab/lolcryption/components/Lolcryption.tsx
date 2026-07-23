@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { encodingAlgorithms } from '../../lib/encoders';
 import './Lolcryption.scss';
+import { encodingAlgorithms } from '../lib/encoders';
 
 export type TextCodecProps = {
   value: string,

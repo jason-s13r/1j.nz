@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./LolcryptionApp.scss";
-import Lolcryption from "../../components/lolcryption/Lolcryption";
+import Lolcryption from "./Lolcryption";
 
 export default function LolcryptionApp() {
   const [text, setText] = useState("");
