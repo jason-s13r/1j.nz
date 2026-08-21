@@ -5,7 +5,8 @@
   "source": "content/index.pug",
   "scripts": {
     "start": "parcel content/index.pug content/404.pug",
-    "build": "parcel build content/index.pug content/404.pug"
+    "build": "parcel build content/index.pug content/404.pug",
+    "page:new": "./scripts/page.sh $@"
   },
   "devDependencies": {
     "@js-temporal/polyfill": "^0.5.1",
