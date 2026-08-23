@@ -16,7 +16,7 @@ cat <<FRONTMATTER > "${routePath}/index.md"
 ---
 title: "$@"
 date: ${timestamp}
-tags: ["${year}"]
+tags: []
 draft: false
 ---
 

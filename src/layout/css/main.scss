@@ -167,6 +167,8 @@ a {
   grid-template-columns: repeat(auto-fit, minmax(var(--image-grid-min-width, 250px), 1fr));
   gap: 0.25rem;
   place-content: center;
+  margin: 0 auto;
+  width: fit-content;
 
   figure {
     margin: 0 auto;

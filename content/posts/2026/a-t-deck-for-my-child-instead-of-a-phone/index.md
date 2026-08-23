@@ -1,7 +1,7 @@
 ---
 title: "A T-Deck for My Child Instead of a Phone"
 date: 2026-06-07T22:44:38.988Z
-tags: ["meshcore", "cpp", "2026"]
+tags: ["meshcore", "cpp"]
 draft: false
 ---
 

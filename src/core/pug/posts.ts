@@ -76,12 +76,15 @@ export const getPostInfo = (contents: string, postRoot: string, rootTag?: string
   );
 
   const tags = new Set(frontmatter.tags.concat(rootTag ? [rootTag] : []));
+  const date = frontmatter.date ? new Date(frontmatter.date) : new Date(0);
+
+  tags.add(date.getFullYear().toString());
 
   return {
     ...frontmatter,
     preview: preview.trim(),
     text,
-    date: frontmatter.date ? new Date(frontmatter.date) : new Date(0),
+    date,
     tags: Array.from(tags).map((tag) => ({
       slug: toSlug(tag),
       route: `/content/tags/${toSlug(tag)}/index.pug`,

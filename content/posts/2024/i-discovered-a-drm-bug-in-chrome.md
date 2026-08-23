@@ -1,7 +1,7 @@
 ---
 title: "I Discovered a DRM bug in Chrome"
 date: 2024-08-26T01:52:08.217Z
-tags: ["bugs", "chromium", "2024"]
+tags: ["bugs", "chromium"]
 draft: false
 ---
 

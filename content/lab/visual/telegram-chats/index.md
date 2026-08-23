@@ -1,7 +1,7 @@
 ---
 title: "Visualisation of My Telegram Chats"
 date: 2026-06-15T10:31:27.810Z
-tags: ["visual", "graph", "telegram", "2026"]
+tags: ["visual", "graph", "telegram"]
 draft: false
 ---
 

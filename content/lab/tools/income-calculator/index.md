@@ -1,7 +1,7 @@
 ---
 title: "Income Calculator"
 date: 2026-07-23T00:08:01+00:00
-tags: ["tool", "react", "2026"]
+tags: ["tool", "react"]
 draft: false
 ---
 

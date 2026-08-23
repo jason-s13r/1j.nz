@@ -1,7 +1,7 @@
 ---
 title: "Timer"
 date: 2026-05-25T11:38:10.000Z
-tags: ["tool", "react", "2026"]
+tags: ["tool", "react"]
 draft: false
 ---
 

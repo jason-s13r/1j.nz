@@ -38,9 +38,7 @@ def main():
 		titles = list(files.keys())
 		title = titles[0].strip(".md")
 		print(f"GIST {gist_id} {title}")
-		shortdate = date.split("T", maxsplit=1)[0]
-		shortdate = date.split("-", maxsplit=1)[0]
-		tags = set(["gists", f"{shortdate}"])
+		tags = set(["gists"])
 		sections = []
 		attachments = ["| Attachment | Type | Size |\n| - | - | - |"]
 		for attachment in files.values():
