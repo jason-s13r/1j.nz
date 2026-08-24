@@ -6,7 +6,8 @@
   "scripts": {
     "start": "parcel content/index.pug content/404.pug",
     "build": "parcel build content/index.pug content/404.pug",
-    "page:new": "./scripts/page.sh $@"
+    "new:post": "./scripts/new-post.sh $@",
+    "gist:pull": "uv run python ./scripts/gists.py"
   },
   "devDependencies": {
     "@js-temporal/polyfill": "^0.5.1",
