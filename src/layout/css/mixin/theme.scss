@@ -22,6 +22,8 @@
 
   pre {
     background: $--bg-color;
+    background: rgba($--primary-text-color, 0.02);
+    border: solid 1px rgba($--primary-text-color, 0.05);
   }
 
   code:not(pre > code) {
