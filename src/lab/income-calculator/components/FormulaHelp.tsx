@@ -8,7 +8,8 @@ export function FormulaHelp() {
       </p>
       <ul>
         <li>
-          <strong>gross</strong> — annual gross income before expenses
+          <strong>gross</strong> — annual revenue from working days, before
+          expenses
         </li>
         <li>
           <strong>taxable</strong> — annual taxable income after business

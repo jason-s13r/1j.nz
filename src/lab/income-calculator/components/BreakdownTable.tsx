@@ -1,11 +1,12 @@
-import { CalculationResult, deannualise } from "../domain/calculate";
+import { CalculationResult, deannualise, WorkWeek } from "../domain/calculate";
 import { formatCurrency, frequencies, frequencyLabels } from "../utils/format";
 
 interface BreakdownTableProps {
   result: CalculationResult;
+  week: WorkWeek;
 }
 
-export function BreakdownTable({ result }: BreakdownTableProps) {
+export function BreakdownTable({ result, week }: BreakdownTableProps) {
   const rows = [
     {
       key: "gross",
@@ -79,7 +80,7 @@ export function BreakdownTable({ result }: BreakdownTableProps) {
             </td>
             {frequencies.map((f) => (
               <td key={f} className="numeric">
-                {formatCurrency(deannualise(row.values, f))}
+                {formatCurrency(deannualise(row.values, f, week))}
               </td>
             ))}
           </tr>

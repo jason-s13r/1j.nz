@@ -6,12 +6,13 @@ import {
   deannualise,
   CalculationResult,
 } from "../domain/calculate";
-import { formatCurrency } from "../utils/format";
+import { formatCurrency, formatNumber } from "../utils/format";
 import { BreakdownTable } from "./BreakdownTable";
 import { CogIcon } from "./icons";
 import { Dialog } from "./Dialog";
 import { FormulaHelp } from "./FormulaHelp";
 import { ItemListSection } from "./ItemListSection";
+import { NonWorkingDaysSection } from "./NonWorkingDaysSection";
 import { NumberInput } from "./NumberInput";
 import { TaxConfig } from "./TaxConfig";
 import { Toggle } from "./Toggle";
@@ -58,8 +59,11 @@ function GrossIncomeRow({
   result: CalculationResult;
   updateConfig: (patch: Partial<Configuration>) => void;
 }) {
-  const annualGross = result.selfEmployed.grossIncome;
-  const displayedGross = deannualise(annualGross, config.frequency);
+  const displayedGross = deannualise(
+    result.selfEmployed.potentialIncome,
+    config.frequency,
+    config
+  );
 
   return (
     <tr className="section-row">
@@ -87,6 +91,44 @@ function GrossIncomeRow({
             <option value="hourly">Hourly</option>
           </select>
         </div>
+      </td>
+    </tr>
+  );
+}
+
+function WorkWeekRow({
+  config,
+  updateConfig,
+}: {
+  config: Configuration;
+  updateConfig: (patch: Partial<Configuration>) => void;
+}) {
+  return (
+    <tr>
+      <td>
+        <span className="work-week">
+          Work week:
+          <NumberInput
+            value={config.hoursPerWeek}
+            onChange={(hoursPerWeek) => updateConfig({ hoursPerWeek })}
+            suffix="hours"
+            step={0.5}
+            min={0}
+          />
+          across
+          <NumberInput
+            value={config.daysPerWeek}
+            onChange={(daysPerWeek) => updateConfig({ daysPerWeek: Math.min(7, daysPerWeek) })}
+            suffix="days"
+            step={0.5}
+            min={0}
+            max={7}
+          />
+        </span>
+      </td>
+      <td colSpan={2} className="numeric muted">
+        {formatNumber(config.daysPerWeek > 0 ? config.hoursPerWeek / config.daysPerWeek : 0)}{" "}
+        hrs/day
       </td>
     </tr>
   );
@@ -274,15 +316,29 @@ function EmployerContributionRow({
       }
     >
       <td>
-        <span className="toggle">
-          <input
-            type="checkbox"
+        <span className="acc-inline-inputs">
+          <Toggle
             checked={config.kiwiSaver.boostEmployerContribution}
-            onChange={(e) =>
-              updateKiwiSaver({ boostEmployerContribution: e.target.checked })
+            onChange={(boostEmployerContribution) =>
+              updateKiwiSaver({ boostEmployerContribution })
+            }
+            label={
+              <span className="acc-inline-label">
+                Equivalent to employer contribution{" "}
+                <span className="section-note">
+                  (less {formatNumber(result.selfEmployed.kiwiSaverEsctRate * 100)}% ESCT)
+                </span>
+              </span>
             }
           />
-          <span className="toggle-label">Equivalent to employer contribution</span>
+          <NumberInput
+            value={Number((config.kiwiSaver.employerRate * 100).toFixed(2))}
+            onChange={(employerRate) => updateKiwiSaver({ employerRate: employerRate / 100 })}
+            suffix="%"
+            step={0.01}
+            min={0}
+            max={100}
+          />
         </span>
       </td>
       <td className="numeric">
@@ -346,6 +402,38 @@ function NetIncomeRow({ result }: { result: CalculationResult }) {
   );
 }
 
+function DaysOffSavingsRow({
+  config,
+  result,
+  updateConfig,
+}: {
+  config: Configuration;
+  result: CalculationResult;
+  updateConfig: (patch: Partial<Configuration>) => void;
+}) {
+  const { nonWorkingDays, daysOffSavings, grossIncome: revenue } = result.selfEmployed;
+  return (
+    <tr className={config.daysOffSavingsEnabled ? "" : "disabled"}>
+      <td>
+        <Toggle
+          checked={config.daysOffSavingsEnabled}
+          onChange={(daysOffSavingsEnabled) => updateConfig({ daysOffSavingsEnabled })}
+          label={
+            <span title="Share of revenue to set aside as it comes in, so pay continues through non-working days">
+              Savings for {formatNumber(nonWorkingDays)} days off{" "}
+              <span className="section-note">
+                ({formatNumber(revenue > 0 ? (daysOffSavings / revenue) * 100 : 0)}% of revenue)
+              </span>
+            </span>
+          }
+        />
+      </td>
+      <td className="numeric">{formatCurrency(daysOffSavings)}</td>
+      <td></td>
+    </tr>
+  );
+}
+
 function TakeHomeRow({ result }: { result: CalculationResult }) {
   return (
     <>
@@ -358,9 +446,10 @@ function TakeHomeRow({ result }: { result: CalculationResult }) {
         </td>
       </tr>
       <tr className="highlight-row">
-        <td colSpan={4} className="equivalent-salary">
-          Equivalent employee gross salary:{" "}
-          <strong>{formatCurrency(result.employee.grossSalary)}</strong>
+        <td colSpan={3} className="equivalent-salary">
+          <strong>{formatCurrency(result.selfEmployed.grossIncome)}</strong> self-employed
+          revenue is equivalent to a{" "}
+          <strong>{formatCurrency(result.employee.grossSalary)}</strong> employee salary
         </td>
       </tr>
     </>
@@ -391,6 +480,13 @@ export default function IncomeCalculator() {
       <table className="data-table single-table">
         <tbody>
           <GrossIncomeRow config={config} result={result} updateConfig={updateConfig} />
+          <WorkWeekRow config={config} updateConfig={updateConfig} />
+
+          <NonWorkingDaysSection
+            items={config.nonWorkingDays}
+            result={result.selfEmployed}
+            onChange={(nonWorkingDays) => updateConfig({ nonWorkingDays })}
+          />
 
           <ItemListSection
             title="Business expenses"
@@ -445,6 +541,7 @@ export default function IncomeCalculator() {
             onChange={(deductions) => updateConfig({ deductions })}
             addLabel="Add Payments"
           />
+          <DaysOffSavingsRow config={config} result={result} updateConfig={updateConfig} />
 
           <TakeHomeRow result={result} />
         </tbody>
@@ -461,7 +558,7 @@ export default function IncomeCalculator() {
         />
       </Dialog>
 
-      <BreakdownTable result={result} />
+      <BreakdownTable result={result} week={config} />
       <FormulaHelp />
     </div>
   );

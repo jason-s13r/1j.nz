@@ -595,3 +595,61 @@
     color: var(--accent);
   }
 }
+
+.section-note {
+  font-size: 0.85rem;
+  font-weight: normal;
+  color: var(--muted);
+}
+
+.data-table .muted {
+  color: var(--muted);
+}
+
+.work-week {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.work-week .number-input-wrap {
+  width: 7rem;
+
+  input {
+    width: 100%;
+    padding: 0.35rem 0.5rem;
+    font-size: 0.95rem;
+    text-align: right;
+  }
+}
+
+.non-working-day {
+  .remove-row-button {
+    margin: 0;
+    flex-shrink: 0;
+  }
+
+  .toggle {
+    align-items: center;
+  }
+
+  .toggle > input {
+    margin-top: 0;
+  }
+
+  .toggle-label {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .inline-name {
+    width: 100%;
+    max-width: 45ch;
+  }
+
+  .number-input-wrap {
+    width: 7rem;
+    flex-shrink: 0;
+  }
+}

@@ -14,6 +14,13 @@ export interface Deduction {
   enabled: boolean;
 }
 
+export interface NonWorkingDay {
+  id: string;
+  name: string;
+  days: number;
+  enabled: boolean;
+}
+
 export interface FormulaContext {
   grossIncome: number;
   taxableIncome: number;
@@ -39,6 +46,8 @@ export interface KiwiSaverConfig {
   rate: number; // e.g. 0.04
   enabled: boolean;
   boostEmployerContribution: boolean;
+  employerRate: number; // e.g. 0.035, before ESCT
+  esctBrackets: TaxBrackets; // flat rate on the whole contribution, by salary + contribution
 }
 
 export interface StudentLoanConfig {
@@ -47,9 +56,20 @@ export interface StudentLoanConfig {
   rate: number; // e.g. 0.12
 }
 
+export interface WorkWeek {
+  hoursPerWeek: number;
+  daysPerWeek: number;
+}
+
+export type Frequency = "annual" | "monthly" | "fortnightly" | "weekly" | "daily" | "hourly";
+
 export interface Configuration {
   grossIncome: number;
-  frequency: "annual" | "monthly" | "fortnightly" | "weekly" | "daily" | "hourly";
+  frequency: Frequency;
+  hoursPerWeek: number;
+  daysPerWeek: number;
+  nonWorkingDays: NonWorkingDay[];
+  daysOffSavingsEnabled: boolean;
   expenses: Expense[];
   deductions: Deduction[];
   taxBrackets: TaxBrackets;
@@ -77,10 +97,24 @@ const DEFAULT_ACC: AccConfig = {
   workingSaferEnabled: true,
 };
 
+// ESCT rate thresholds from 1 April 2025.
+const DEFAULT_ESCT_BRACKETS: TaxBrackets = {
+  brackets: [
+    { threshold: 0, rate: 0.105 },
+    { threshold: 18720, rate: 0.175 },
+    { threshold: 64200, rate: 0.30 },
+    { threshold: 93720, rate: 0.33 },
+    { threshold: 216000, rate: 0.39 },
+  ],
+};
+
+// Minimum employee and compulsory employer rates from 1 April 2026.
 const DEFAULT_KIWISAVER: KiwiSaverConfig = {
   rate: 0.035,
   enabled: true,
-  boostEmployerContribution: false,
+  boostEmployerContribution: true,
+  employerRate: 0.035,
+  esctBrackets: DEFAULT_ESCT_BRACKETS,
 };
 
 const DEFAULT_STUDENT_LOAN: StudentLoanConfig = {
@@ -89,20 +123,29 @@ const DEFAULT_STUDENT_LOAN: StudentLoanConfig = {
   rate: 0.12,
 };
 
-export const DEFAULT_HOURS_WEEK = 40;
+export const WEEKS_YEAR = 52;
+export const DEFAULT_WORK_WEEK: WorkWeek = { hoursPerWeek: 40, daysPerWeek: 5 };
+
+export const workDaysYear = (week: WorkWeek) => week.daysPerWeek * WEEKS_YEAR;
 
 export function defaultConfiguration(): Configuration {
   return {
-    grossIncome: 200000,
-    frequency: "annual",
+    grossIncome: 100,
+    frequency: "hourly",
+    ...DEFAULT_WORK_WEEK,
+    nonWorkingDays: [
+      { id: "annual-leave", name: "4 weeks annual leave", days: 20, enabled: true },
+      { id: "sick-leave", name: "10 days sick leave", days: 10, enabled: true },
+      { id: "public-holidays", name: "Public holidays", days: 12, enabled: true },
+      { id: "between-contracts", name: "Days between contracts", days: 18, enabled: false },
+    ],
+    daysOffSavingsEnabled: true,
     expenses: [
-      { id: "accountant", name: "Accountant", amount: 1500, formula: "min(gross * 0.015, 1500)", enabled: true },
-      { id: "insurance", name: "Insurance", amount: 1000, enabled: true },
+      { id: "accountant", name: "Accountant", amount: 1500, formula: "min(gross * 0.015, 1500)", enabled: false },
+      { id: "insurance", name: "Insurance", amount: 1000, enabled: false },
       { id: "phone-plan", name: "Phone plan", amount: 520, enabled: false },
     ],
     deductions: [
-      { id: 'annual-leave', name: '4 weeks annual leave (savings)', amount: 0, formula: 'gross * 4 / 52', enabled: true },
-      { id: 'sick-leave', name: '2 weeks sick leave (savings)', amount: 0, formula: 'gross * 2 / 52', enabled: true },
       { id: "expense-fund", name: "Funds set aside for Business Expenses (savings)", amount: 0, formula: "gross * 0.025", enabled: false },
     ],
     taxBrackets: DEFAULT_TAX_BRACKETS,
@@ -112,35 +155,35 @@ export function defaultConfiguration(): Configuration {
   };
 }
 
-export function annualise(amount: number, frequency: "annual" | "monthly" | "fortnightly" | "weekly" | "daily" | "hourly"): number {
+export function annualise(amount: number, frequency: Frequency, week: WorkWeek = DEFAULT_WORK_WEEK): number {
   switch (frequency) {
     case "monthly":
       return amount * 12;
     case "fortnightly":
       return amount * 26;
     case "weekly":
-      return amount * 52;
+      return amount * WEEKS_YEAR;
     case "daily":
-      return amount * 365;
+      return amount * workDaysYear(week);
     case "hourly":
-      return annualise(amount * DEFAULT_HOURS_WEEK, 'weekly');
+      return annualise(amount * week.hoursPerWeek, 'weekly');
     default:
       return amount;
   }
 }
 
-export function deannualise(amount: number, frequency: "annual" | "monthly" | "fortnightly" | "weekly" | "daily" | "hourly"): number {
+export function deannualise(amount: number, frequency: Frequency, week: WorkWeek = DEFAULT_WORK_WEEK): number {
   switch (frequency) {
     case "monthly":
       return amount / 12;
     case "fortnightly":
       return amount / 26;
     case "weekly":
-      return amount / 52;
+      return amount / WEEKS_YEAR;
     case "daily":
-      return amount / 365;
+      return week.daysPerWeek > 0 ? amount / workDaysYear(week) : 0;
     case "hourly":
-      return deannualise(amount, 'weekly') / DEFAULT_HOURS_WEEK;
+      return week.hoursPerWeek > 0 ? deannualise(amount, 'weekly') / week.hoursPerWeek : 0;
     default:
       return amount;
   }
@@ -308,7 +351,24 @@ export function calculateIncomeTax(taxableIncome: number, brackets: TaxBrackets)
   return tax;
 }
 
+export function calculateEsctRate(salary: number, contribution: number, brackets: TaxBrackets): number {
+  // ESCT isn't progressive: one rate applies to the whole employer contribution,
+  // picked by the employee's salary plus that contribution.
+  const threshold = salary + contribution;
+  let rate = brackets.brackets[0]?.rate ?? 0;
+  for (const bracket of brackets.brackets) {
+    if (threshold > bracket.threshold) rate = bracket.rate;
+  }
+  return rate;
+}
+
 export interface SelfEmployedResult {
+  potentialIncome: number;
+  dayRate: number;
+  totalWorkDays: number;
+  nonWorkingDays: number;
+  workingDays: number;
+  lostRevenue: number;
   grossIncome: number;
   totalExpenses: number;
   taxableIncome: number;
@@ -318,11 +378,13 @@ export interface SelfEmployedResult {
   accWorkingSaferLevy: number;
   kiwiSaver: number;
   kiwiSaverEmployerContribution: number;
+  kiwiSaverEsctRate: number;
   studentLoan: number;
   totalDeductions: number;
   netIncome: number;
   additionalSavings: number;
   takeHomePay: number;
+  daysOffSavings: number;
 }
 
 export interface EmployeeResult {
@@ -342,7 +404,20 @@ export interface CalculationResult {
 }
 
 export function calculateSelfEmployed(config: Configuration): SelfEmployedResult {
-  const annualGross = annualise(config.grossIncome, config.frequency);
+  // The entered rate assumes every work day is worked; revenue only comes from
+  // the days left after leave, holidays and gaps between contracts.
+  const potentialIncome = annualise(config.grossIncome, config.frequency, config);
+  const totalWorkDays = workDaysYear(config);
+  const nonWorkingDays = Math.min(
+    totalWorkDays,
+    config.nonWorkingDays
+      .filter((d) => d.enabled)
+      .reduce((sum, d) => sum + Math.max(0, d.days), 0)
+  );
+  const workingDays = totalWorkDays - nonWorkingDays;
+  const dayRate = totalWorkDays > 0 ? potentialIncome / totalWorkDays : 0;
+  const lostRevenue = dayRate * nonWorkingDays;
+  const annualGross = potentialIncome - lostRevenue;
 
   // First pass: compute expenses using gross income context.
   const expensesWithFormula = config.expenses.map((e) => {
@@ -381,8 +456,15 @@ export function calculateSelfEmployed(config: Configuration): SelfEmployedResult
     ? Math.max(0, finalTaxableIncome) * config.acc.workingSaferRate
     : 0;
   const employeeKiwiSaver = config.kiwiSaver.enabled ? Math.max(0, finalTaxableIncome) * config.kiwiSaver.rate : 0;
+  // What an employer would pay into KiwiSaver on an equivalent salary, after ESCT.
+  const employerKiwiSaverGross = Math.max(0, finalTaxableIncome) * config.kiwiSaver.employerRate;
+  const kiwiSaverEsctRate = calculateEsctRate(
+    Math.max(0, finalTaxableIncome),
+    employerKiwiSaverGross,
+    config.kiwiSaver.esctBrackets
+  );
   const employerKiwiSaver = config.kiwiSaver.enabled && config.kiwiSaver.boostEmployerContribution
-    ? Math.max(0, finalTaxableIncome - incomeTax) * config.kiwiSaver.rate
+    ? employerKiwiSaverGross * (1 - kiwiSaverEsctRate)
     : 0;
   const kiwiSaver = employeeKiwiSaver;
   const kiwiSaverEmployerContribution = employerKiwiSaver;
@@ -410,12 +492,24 @@ export function calculateSelfEmployed(config: Configuration): SelfEmployedResult
     );
     return { ...d, computedAmount };
   });
-  const additionalSavings = deductionsWithFormula
+  const otherPayments = deductionsWithFormula
     .filter((d) => d.enabled)
     .reduce((sum, d) => sum + d.computedAmount, 0);
+  // Pay is only earned on working days; this is the share of it to set aside
+  // so pay continues through the non-working days, like an employee's would.
+  const daysOffSavings = totalWorkDays > 0
+    ? ((netIncome - otherPayments) / totalWorkDays) * nonWorkingDays
+    : 0;
+  const additionalSavings = otherPayments + (config.daysOffSavingsEnabled ? daysOffSavings : 0);
   const takeHomePay = netIncome - additionalSavings;
 
   return {
+    potentialIncome,
+    dayRate,
+    totalWorkDays,
+    nonWorkingDays,
+    workingDays,
+    lostRevenue,
     grossIncome: annualGross,
     totalExpenses: finalTotalExpenses,
     taxableIncome: finalTaxableIncome,
@@ -425,11 +519,13 @@ export function calculateSelfEmployed(config: Configuration): SelfEmployedResult
     accWorkingSaferLevy,
     kiwiSaver,
     kiwiSaverEmployerContribution,
+    kiwiSaverEsctRate,
     studentLoan,
     totalDeductions,
     netIncome,
     additionalSavings,
     takeHomePay,
+    daysOffSavings,
   };
 }
 
@@ -452,7 +548,7 @@ export function calculateEmployee(targetTakeHome: number, config: Configuration)
   // Deductions are monotonic in gross salary, so binary search.
   // The employee equivalent can never exceed the self-employed annual gross,
   // so use that as a sensible upper-bound floor instead of an arbitrary number.
-  const annualGross = annualise(config.grossIncome, config.frequency);
+  const annualGross = annualise(config.grossIncome, config.frequency, config);
   let low = 0;
   let high = Math.max(targetTakeHome * 2, annualGross);
   for (let i = 0; i < 100; i++) {
