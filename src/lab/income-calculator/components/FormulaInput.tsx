@@ -1,28 +1,21 @@
 import { useState } from "react";
-import { evaluateFormula, FormulaContext } from "../domain/calculate";
 import { formatCurrency } from "../utils/format";
 
 interface FormulaInputProps {
   value: number;
   formula?: string;
   onChange: (amount: number, formula?: string) => void;
-  context: FormulaContext;
-  prefix?: string;
+  computed: number;
 }
 
-export function FormulaInput({ value, formula, onChange, context, prefix }: FormulaInputProps) {
+export function FormulaInput({ value, formula, onChange, computed }: FormulaInputProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [text, setText] = useState(formula ?? String(value));
-
-  const computed = formula
-    ? evaluateFormula(formula, context, value)
-    : value;
 
   const commit = () => {
     const trimmed = text.trim();
     if (trimmed === "" || /^-?\d+(\.\d+)?$/.test(trimmed)) {
-      const num = trimmed === "" ? 0 : parseFloat(trimmed);
-      onChange(Number.isNaN(num) ? 0 : num, undefined);
+      onChange(trimmed === "" ? 0 : parseFloat(trimmed), undefined);
     } else {
       onChange(value, trimmed);
     }
@@ -32,7 +25,6 @@ export function FormulaInput({ value, formula, onChange, context, prefix }: Form
   if (isEditing) {
     return (
       <span className="formula-input-wrap">
-        {prefix && <span className="formula-input-prefix">{prefix}</span>}
         <input
           className="formula-input"
           value={text}

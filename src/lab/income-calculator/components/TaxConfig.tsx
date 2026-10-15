@@ -1,5 +1,5 @@
 import { TaxBrackets } from "../domain/calculate";
-import { NumberInput } from "./NumberInput";
+import { NumberInput, PercentInput } from "./NumberInput";
 import { RemoveIcon } from "./icons";
 
 interface TaxConfigProps {
@@ -47,10 +47,9 @@ export function TaxConfig({ brackets, onChange }: TaxConfigProps) {
               />
             </td>
             <td className="numeric">
-              <NumberInput
-                value={bracket.rate * 100}
-                onChange={(rate) => update(i, { rate: rate / 100 })}
-                suffix="%"
+              <PercentInput
+                value={bracket.rate}
+                onChange={(rate) => update(i, { rate })}
                 step={0.01}
               />
             </td>

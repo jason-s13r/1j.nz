@@ -364,17 +364,19 @@ export function evaluateFormula(
   }
 }
 
+// Brackets can be edited in any order, so sort by threshold before applying them.
+function sortedBrackets(brackets: TaxBrackets) {
+  return [...brackets.brackets].sort((a, b) => a.threshold - b.threshold);
+}
+
 export function calculateIncomeTax(taxableIncome: number, brackets: TaxBrackets): number {
   let tax = 0;
-  const list = brackets.brackets;
+  const list = sortedBrackets(brackets);
   for (let i = 0; i < list.length; i++) {
     const { threshold, rate } = list[i];
     if (taxableIncome <= threshold) break;
     const nextThreshold = i + 1 < list.length ? list[i + 1].threshold : Infinity;
-    const band = Math.min(taxableIncome, nextThreshold) - threshold;
-    if (band > 0) {
-      tax += band * rate;
-    }
+    tax += (Math.min(taxableIncome, nextThreshold) - threshold) * rate;
   }
   return tax;
 }
@@ -383,11 +385,24 @@ export function calculateEsctRate(salary: number, contribution: number, brackets
   // ESCT isn't progressive: one rate applies to the whole employer contribution,
   // picked by the employee's salary plus that contribution.
   const threshold = salary + contribution;
-  let rate = brackets.brackets[0]?.rate ?? 0;
-  for (const bracket of brackets.brackets) {
+  const list = sortedBrackets(brackets);
+  let rate = list[0]?.rate ?? 0;
+  for (const bracket of list) {
     if (threshold > bracket.threshold) rate = bracket.rate;
   }
   return rate;
+}
+
+// Amount of every item (for display, enabled or not) and the total of the enabled ones.
+function evaluateItems(items: LineItem[], context: FormulaContext) {
+  const amounts: Record<string, number> = {};
+  let total = 0;
+  for (const item of items) {
+    const amount = evaluateFormula(item.formula, context, item.amount);
+    amounts[item.id] = amount;
+    if (item.enabled) total += amount;
+  }
+  return { amounts, total };
 }
 
 export interface SelfEmployedResult {
@@ -400,6 +415,7 @@ export interface SelfEmployedResult {
   lostRevenue: number;
   grossIncome: number;
   totalExpenses: number;
+  expenseAmounts: Record<string, number>;
   taxableIncome: number;
   incomeTax: number;
   accEarnerLevy: number;
@@ -412,6 +428,7 @@ export interface SelfEmployedResult {
   totalDeductions: number;
   netIncome: number;
   additionalSavings: number;
+  deductionAmounts: Record<string, number>;
   takeHomePay: number;
   daysOffSavings: number;
 }
@@ -457,54 +474,41 @@ export function calculateSelfEmployed(config: Configuration): SelfEmployedResult
   };
 
   // First pass: compute expenses using gross income context.
-  const expensesWithFormula = config.expenses.map((e) => {
-    if (!e.enabled || !e.formula) return { ...e, computedAmount: e.amount };
-    const computedAmount = evaluateFormula(
-      e.formula,
-      { ...work, grossIncome: annualGross, taxableIncome: annualGross, netIncome: annualGross },
-      e.amount
-    );
-    return { ...e, computedAmount };
+  const { total: totalExpenses } = evaluateItems(config.expenses, {
+    ...work,
+    grossIncome: annualGross,
+    taxableIncome: annualGross,
+    netIncome: annualGross,
   });
-  const totalExpenses = expensesWithFormula
-    .filter((e) => e.enabled)
-    .reduce((sum, e) => sum + e.computedAmount, 0);
   const taxableIncome = annualGross - totalExpenses;
 
   // Second pass: recompute formula-based expenses using taxable income context.
-  const finalExpenses = expensesWithFormula.map((e) => {
-    if (!e.enabled || !e.formula) return { ...e, computedAmount: e.amount };
-    const computedAmount = evaluateFormula(
-      e.formula,
-      { ...work, grossIncome: annualGross, taxableIncome, netIncome: taxableIncome },
-      e.amount
-    );
-    return { ...e, computedAmount };
+  const { amounts: expenseAmounts, total: finalTotalExpenses } = evaluateItems(config.expenses, {
+    ...work,
+    grossIncome: annualGross,
+    taxableIncome,
+    netIncome: taxableIncome,
   });
-  const finalTotalExpenses = finalExpenses
-    .filter((e) => e.enabled)
-    .reduce((sum, e) => sum + e.computedAmount, 0);
   const finalTaxableIncome = annualGross - finalTotalExpenses;
 
   const incomeTax = calculateIncomeTax(finalTaxableIncome, config.taxBrackets);
-  const accEarnerLevy = Math.min(Math.max(0, finalTaxableIncome), config.acc.incomeCap) * config.acc.earnerRate;
+  const positiveIncome = Math.max(0, finalTaxableIncome);
+  const accEarnerLevy = Math.min(positiveIncome, config.acc.incomeCap) * config.acc.earnerRate;
   const accWorkLevy = config.acc.workLevyEnabled ? config.acc.workLevy : 0;
   const accWorkingSaferLevy = config.acc.workingSaferEnabled
-    ? Math.max(0, finalTaxableIncome) * config.acc.workingSaferRate
+    ? positiveIncome * config.acc.workingSaferRate
     : 0;
-  const employeeKiwiSaver = config.kiwiSaver.enabled ? Math.max(0, finalTaxableIncome) * config.kiwiSaver.rate : 0;
+  const kiwiSaver = config.kiwiSaver.enabled ? positiveIncome * config.kiwiSaver.rate : 0;
   // What an employer would pay into KiwiSaver on an equivalent salary, after ESCT.
-  const employerKiwiSaverGross = Math.max(0, finalTaxableIncome) * config.kiwiSaver.employerRate;
+  const employerKiwiSaverGross = positiveIncome * config.kiwiSaver.employerRate;
   const kiwiSaverEsctRate = calculateEsctRate(
-    Math.max(0, finalTaxableIncome),
+    positiveIncome,
     employerKiwiSaverGross,
     config.kiwiSaver.esctBrackets
   );
-  const employerKiwiSaver = config.kiwiSaver.enabled && config.kiwiSaver.boostEmployerContribution
+  const kiwiSaverEmployerContribution = config.kiwiSaver.enabled && config.kiwiSaver.boostEmployerContribution
     ? employerKiwiSaverGross * (1 - kiwiSaverEsctRate)
     : 0;
-  const kiwiSaver = employeeKiwiSaver;
-  const kiwiSaverEmployerContribution = employerKiwiSaver;
   const studentLoan =
     config.studentLoan.enabled && finalTaxableIncome > config.studentLoan.threshold
       ? (finalTaxableIncome - config.studentLoan.threshold) * config.studentLoan.rate
@@ -520,18 +524,12 @@ export function calculateSelfEmployed(config: Configuration): SelfEmployedResult
     studentLoan;
   const netIncome = finalTaxableIncome - totalDeductions;
 
-  const deductionsWithFormula = config.deductions.map((d) => {
-    if (!d.enabled || !d.formula) return { ...d, computedAmount: d.amount };
-    const computedAmount = evaluateFormula(
-      d.formula,
-      { ...work, grossIncome: annualGross, taxableIncome: finalTaxableIncome, netIncome },
-      d.amount
-    );
-    return { ...d, computedAmount };
+  const { amounts: deductionAmounts, total: otherPayments } = evaluateItems(config.deductions, {
+    ...work,
+    grossIncome: annualGross,
+    taxableIncome: finalTaxableIncome,
+    netIncome,
   });
-  const otherPayments = deductionsWithFormula
-    .filter((d) => d.enabled)
-    .reduce((sum, d) => sum + d.computedAmount, 0);
   // Pay is only earned on working days; this is the share of it to set aside
   // so pay continues through the non-working days, like an employee's would.
   const daysOffSavings = totalWorkDays > 0
@@ -550,6 +548,7 @@ export function calculateSelfEmployed(config: Configuration): SelfEmployedResult
     lostRevenue,
     grossIncome: annualGross,
     totalExpenses: finalTotalExpenses,
+    expenseAmounts,
     taxableIncome: finalTaxableIncome,
     incomeTax,
     accEarnerLevy,
@@ -562,6 +561,7 @@ export function calculateSelfEmployed(config: Configuration): SelfEmployedResult
     totalDeductions,
     netIncome,
     additionalSavings,
+    deductionAmounts,
     takeHomePay,
     daysOffSavings,
   };

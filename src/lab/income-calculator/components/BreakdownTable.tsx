@@ -12,19 +12,23 @@ export function BreakdownTable({ result, week }: BreakdownTableProps) {
       key: "gross",
       label: "Gross Pay",
       values: result.selfEmployed.grossIncome,
-      enabled: true,
+      className: "subtotal-row",
     },
     {
       key: "expenses",
       label: "Expenses",
       values: result.selfEmployed.totalExpenses,
-      enabled: true,
+    },
+    {
+      key: "taxableIncome",
+      label: "Taxable Income",
+      values: result.selfEmployed.taxableIncome,
+      className: "subtotal-row",
     },
     {
       key: "incomeTax",
       label: "TAX",
       values: result.selfEmployed.incomeTax,
-      enabled: true,
     },
     {
       key: "acc",
@@ -33,32 +37,33 @@ export function BreakdownTable({ result, week }: BreakdownTableProps) {
         result.selfEmployed.accEarnerLevy +
         result.selfEmployed.accWorkLevy +
         result.selfEmployed.accWorkingSaferLevy,
-      enabled: true,
     },
     {
       key: "kiwiSaver",
       label: "KiwiSaver",
       values: result.selfEmployed.kiwiSaver + result.selfEmployed.kiwiSaverEmployerContribution,
-      enabled: true,
     },
     {
       key: "studentLoan",
       label: "Student Loan",
       values: result.selfEmployed.studentLoan,
-      enabled: true,
+    },
+    {
+      key: "netIncome",
+      label: "Net Income",
+      values: result.selfEmployed.netIncome,
+      className: "subtotal-row",
     },
     {
       key: "payments",
       label: "Payments",
       values: result.selfEmployed.additionalSavings,
-      enabled: true,
     },
     {
       key: "takeHome",
       label: "Take Home Pay",
       values: result.selfEmployed.takeHomePay,
-      enabled: true,
-      highlight: true,
+      className: "highlight-row",
     },
   ];
 
@@ -74,7 +79,7 @@ export function BreakdownTable({ result, week }: BreakdownTableProps) {
       </thead>
       <tbody>
         {rows.map((row) => (
-          <tr key={row.key} className={row.highlight ? "highlight-row" : ""}>
+          <tr key={row.key} className={row.className}>
             <td>
               <span className="breakdown-row-label">{row.label}</span>
             </td>

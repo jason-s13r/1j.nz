@@ -1,7 +1,8 @@
+import { useState } from "react";
+
 interface NumberInputProps {
   value: number;
   onChange: (value: number) => void;
-  label?: string;
   prefix?: string;
   suffix?: string;
   min?: number;
@@ -13,7 +14,6 @@ interface NumberInputProps {
 export function NumberInput({
   value,
   onChange,
-  label,
   prefix,
   suffix,
   min,
@@ -21,25 +21,45 @@ export function NumberInput({
   step = 1,
   disabled,
 }: NumberInputProps) {
+  // While focused, show what was typed (including an empty field) rather than
+  // the parsed value, so clearing the field doesn't snap back to 0.
+  const [text, setText] = useState<string | null>(null);
+
   return (
     <label className="number-input">
-      {label && <span className="number-input-label">{label}</span>}
       <span className="number-input-wrap">
         {prefix && <span className="number-input-prefix">{prefix}</span>}
         <input
           type="number"
-          value={Number.isFinite(value) ? value : ""}
+          value={text ?? (Number.isFinite(value) ? value : "")}
           min={min}
           max={max}
           step={step}
           disabled={disabled}
           onChange={(e) => {
-            const v = e.target.value === "" ? 0 : parseFloat(e.target.value);
+            setText(e.target.value);
+            const v = parseFloat(e.target.value);
             onChange(Number.isNaN(v) ? 0 : v);
           }}
+          onBlur={() => setText(null)}
         />
         {suffix && <span className="number-input-suffix">{suffix}</span>}
       </span>
     </label>
+  );
+}
+
+export function PercentInput({
+  value,
+  onChange,
+  ...props
+}: Omit<NumberInputProps, "suffix">) {
+  return (
+    <NumberInput
+      {...props}
+      value={parseFloat((value * 100).toPrecision(12))}
+      onChange={(percent) => onChange(percent / 100)}
+      suffix="%"
+    />
   );
 }

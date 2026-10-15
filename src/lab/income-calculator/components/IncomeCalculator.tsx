@@ -3,7 +3,6 @@ import {
   calculate,
   Configuration,
   defaultConfiguration,
-  deannualise,
   CalculationResult,
 } from "../domain/calculate";
 import { formatCurrency, formatNumber } from "../utils/format";
@@ -13,7 +12,7 @@ import { Dialog } from "./Dialog";
 import { FormulaHelp } from "./FormulaHelp";
 import { ItemListSection } from "./ItemListSection";
 import { NonWorkingDaysSection } from "./NonWorkingDaysSection";
-import { NumberInput } from "./NumberInput";
+import { NumberInput, PercentInput } from "./NumberInput";
 import { TaxConfig } from "./TaxConfig";
 import { Toggle } from "./Toggle";
 import "./IncomeCalculator.scss";
@@ -21,7 +20,7 @@ import "./IncomeCalculator.scss";
 type DialogKey = "tax" | "esct";
 
 function useIncomeCalculatorState() {
-  const [config, setConfig] = useState<Configuration>(defaultConfiguration());
+  const [config, setConfig] = useState<Configuration>(defaultConfiguration);
   const [dialog, setDialog] = useState<DialogKey | null>(null);
 
   const result = useMemo(() => calculate(config), [config]);
@@ -29,14 +28,10 @@ function useIncomeCalculatorState() {
   const updateConfig = (patch: Partial<Configuration>) =>
     setConfig((c) => ({ ...c, ...patch }));
 
-  const updateAcc = (patch: Partial<Configuration["acc"]>) =>
-    setConfig((c) => ({ ...c, acc: { ...c.acc, ...patch } }));
-
-  const updateKiwiSaver = (patch: Partial<Configuration["kiwiSaver"]>) =>
-    setConfig((c) => ({ ...c, kiwiSaver: { ...c.kiwiSaver, ...patch } }));
-
-  const updateStudentLoan = (patch: Partial<Configuration["studentLoan"]>) =>
-    setConfig((c) => ({ ...c, studentLoan: { ...c.studentLoan, ...patch } }));
+  const updateSection =
+    <K extends "acc" | "kiwiSaver" | "studentLoan">(key: K) =>
+    (patch: Partial<Configuration[K]>) =>
+      setConfig((c) => ({ ...c, [key]: { ...c[key], ...patch } }));
 
   return {
     config,
@@ -44,36 +39,28 @@ function useIncomeCalculatorState() {
     dialog,
     setDialog,
     updateConfig,
-    updateAcc,
-    updateKiwiSaver,
-    updateStudentLoan,
+    updateAcc: updateSection("acc"),
+    updateKiwiSaver: updateSection("kiwiSaver"),
+    updateStudentLoan: updateSection("studentLoan"),
   };
 }
 
-function GrossIncomeRow({
+function IncomeRateRow({
   config,
-  result,
   updateConfig,
 }: {
   config: Configuration;
-  result: CalculationResult;
   updateConfig: (patch: Partial<Configuration>) => void;
 }) {
-  const displayedGross = deannualise(
-    result.selfEmployed.potentialIncome,
-    config.frequency,
-    config
-  );
-
   return (
     <tr className="section-row">
       <td>
-        <h2 className="section-title">Gross Income</h2>
+        <h2 className="section-title">Income Rate</h2>
       </td>
       <td colSpan={2} className="numeric">
         <div className="input-row">
           <NumberInput
-            value={displayedGross}
+            value={config.grossIncome}
             onChange={(grossIncome) => updateConfig({ grossIncome })}
             prefix="$"
           />
@@ -180,10 +167,9 @@ function AccEarnerLevyRow({
               onChange={(incomeCap) => updateAcc({ incomeCap })}
               prefix="$"
             />
-            <NumberInput
-              value={Number((config.acc.earnerRate * 100).toFixed(2))}
-              onChange={(earnerRate) => updateAcc({ earnerRate: earnerRate / 100 })}
-              suffix="%"
+            <PercentInput
+              value={config.acc.earnerRate}
+              onChange={(earnerRate) => updateAcc({ earnerRate })}
               step={0.01}
               min={0}
             />
@@ -245,12 +231,9 @@ function AccWorkingSaferRow({
             onChange={(checked) => updateAcc({ workingSaferEnabled: checked })}
             label={<span className="acc-inline-label">ACC working safer levy</span>}
           />
-          <NumberInput
-            value={Number((config.acc.workingSaferRate * 100).toFixed(2))}
-            onChange={(workingSaferRate) =>
-              updateAcc({ workingSaferRate: workingSaferRate / 100 })
-            }
-            suffix="%"
+          <PercentInput
+            value={config.acc.workingSaferRate}
+            onChange={(workingSaferRate) => updateAcc({ workingSaferRate })}
             step={0.01}
             min={0}
           />
@@ -282,10 +265,9 @@ function KiwiSaverRow({
             onChange={(checked) => updateKiwiSaver({ enabled: checked })}
             label={<span className="acc-inline-label">KiwiSaver</span>}
           />
-          <NumberInput
-            value={Number((config.kiwiSaver.rate * 100).toFixed(2))}
-            onChange={(rate) => updateKiwiSaver({ rate: rate / 100 })}
-            suffix="%"
+          <PercentInput
+            value={config.kiwiSaver.rate}
+            onChange={(rate) => updateKiwiSaver({ rate })}
             step={0.01}
             min={0}
             max={100}
@@ -346,11 +328,10 @@ function EmployerContributionRow({
           >
             <CogIcon />
           </button>
-          <NumberInput
-            value={Number((config.kiwiSaver.employerRate * 100).toFixed(2))}
-            onChange={(employerRate) => updateKiwiSaver({ employerRate: employerRate / 100 })}
+          <PercentInput
+            value={config.kiwiSaver.employerRate}
+            onChange={(employerRate) => updateKiwiSaver({ employerRate })}
             disabled={kiwiSaverDisabled}
-            suffix="%"
             step={0.01}
             min={0}
             max={100}
@@ -389,10 +370,9 @@ function StudentLoanRow({
               onChange={(threshold) => updateStudentLoan({ threshold })}
               prefix="$"
             />
-            <NumberInput
-              value={config.studentLoan.rate * 100}
-              onChange={(rate) => updateStudentLoan({ rate: rate / 100 })}
-              suffix="%"
+            <PercentInput
+              value={config.studentLoan.rate}
+              onChange={(rate) => updateStudentLoan({ rate })}
               step={0.01}
               min={0}
               max={100}
@@ -484,23 +464,11 @@ export default function IncomeCalculator() {
     updateStudentLoan,
   } = useIncomeCalculatorState();
 
-  const annualGross = result.selfEmployed.grossIncome;
-  const formulaContext = {
-    workingDays: result.selfEmployed.workingDays,
-    nonWorkingDays: result.selfEmployed.nonWorkingDays,
-    dayRate: result.selfEmployed.dayRate,
-    hourRate: result.selfEmployed.hourRate,
-    hoursPerWeek: config.hoursPerWeek,
-    grossIncome: annualGross,
-    taxableIncome: result.selfEmployed.taxableIncome,
-    netIncome: result.selfEmployed.netIncome,
-  };
-
   return (
     <div className="income-calculator">
       <table className="data-table single-table">
         <tbody>
-          <GrossIncomeRow config={config} result={result} updateConfig={updateConfig} />
+          <IncomeRateRow config={config} updateConfig={updateConfig} />
           <WorkWeekRow config={config} updateConfig={updateConfig} />
 
           <NonWorkingDaysSection
@@ -513,7 +481,7 @@ export default function IncomeCalculator() {
             title="Business expenses"
             items={config.expenses}
             total={result.selfEmployed.totalExpenses}
-            context={formulaContext}
+            amounts={result.selfEmployed.expenseAmounts}
             onChange={(expenses) => updateConfig({ expenses })}
             addLabel="Add expense"
           />
@@ -559,7 +527,7 @@ export default function IncomeCalculator() {
             title="Additional Payments"
             items={config.deductions}
             total={result.selfEmployed.additionalSavings}
-            context={formulaContext}
+            amounts={result.selfEmployed.deductionAmounts}
             onChange={(deductions) => updateConfig({ deductions })}
             addLabel="Add Payments"
           />

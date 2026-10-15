@@ -1,4 +1,4 @@
-import { Expense, Deduction, FormulaContext } from "../domain/calculate";
+import { Expense, Deduction } from "../domain/calculate";
 import { formatCurrency } from "../utils/format";
 import { FormulaInput } from "./FormulaInput";
 import { RemoveIcon } from "./icons";
@@ -6,14 +6,14 @@ import { Toggle } from "./Toggle";
 
 interface EditableItemRowProps<T extends Expense | Deduction> {
   item: T;
-  context: FormulaContext;
+  amount: number;
   onUpdate: (patch: Partial<T>) => void;
   onRemove: () => void;
 }
 
 function EditableItemRow<T extends Expense | Deduction>({
   item,
-  context,
+  amount,
   onUpdate,
   onRemove,
 }: EditableItemRowProps<T>) {
@@ -44,10 +44,10 @@ function EditableItemRow<T extends Expense | Deduction>({
           value={item.amount}
           formula={item.formula}
           onChange={(amount, formula) => onUpdate({ amount, formula } as Partial<T>)}
-          context={context}
+          computed={amount}
         />
       </td>
-      <td className="item-actions-cell"></td>
+      <td></td>
     </tr>
   );
 }
@@ -56,7 +56,7 @@ interface ItemListSectionProps<T extends Expense | Deduction> {
   title: string;
   items: T[];
   total: number;
-  context: FormulaContext;
+  amounts: Record<string, number>;
   onChange: (items: T[]) => void;
   addLabel: string;
 }
@@ -65,7 +65,7 @@ export function ItemListSection<T extends Expense | Deduction>({
   title,
   items,
   total,
-  context,
+  amounts,
   onChange,
   addLabel,
 }: ItemListSectionProps<T>) {
@@ -97,7 +97,7 @@ export function ItemListSection<T extends Expense | Deduction>({
         <EditableItemRow
           key={item.id}
           item={item}
-          context={context}
+          amount={amounts[item.id] ?? item.amount}
           onUpdate={(patch) => update(item.id, patch)}
           onRemove={() => remove(item.id)}
         />
