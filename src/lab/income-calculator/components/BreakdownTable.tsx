@@ -1,4 +1,4 @@
-import { CalculationResult, deannualise, WorkWeek } from "../domain/calculate";
+import { CalculationResult, deannualise, Frequency, WorkWeek } from "../domain/calculate";
 import { formatCurrency, frequencies, frequencyLabels } from "../utils/format";
 
 interface BreakdownTableProps {
@@ -7,6 +7,16 @@ interface BreakdownTableProps {
 }
 
 export function BreakdownTable({ result, week }: BreakdownTableProps) {
+  // Annual totals only accrue on working days, so every column but the year is
+  // per worked period: spread over the worked share of the year, not all of it.
+  // That keeps the entered rate in its own column and hour x hours/day = day, etc.
+  const { workingDays, nonWorkingDays, totalWorkDays } = result.selfEmployed;
+  const perPeriod = (annual: number, frequency: Frequency) => {
+    if (frequency === "annual") return annual;
+    if (workingDays <= 0) return 0;
+    return deannualise(annual * (totalWorkDays / workingDays), frequency, week);
+  };
+
   const rows = [
     {
       key: "gross",
@@ -57,7 +67,12 @@ export function BreakdownTable({ result, week }: BreakdownTableProps) {
     {
       key: "payments",
       label: "Payments",
-      values: result.selfEmployed.additionalSavings,
+      values: result.selfEmployed.otherPayments,
+    },
+    {
+      key: "daysOffSavings",
+      label: "Days Off Savings",
+      values: result.selfEmployed.additionalSavings - result.selfEmployed.otherPayments,
     },
     {
       key: "takeHome",
@@ -69,6 +84,12 @@ export function BreakdownTable({ result, week }: BreakdownTableProps) {
 
   return (
     <table className="data-table breakdown-table">
+      <caption>
+        Hour, Day, Week, Fortnight and Month show a period of work with no time off. Year is
+        the total for the {workingDays} days you work.
+        Days Off Savings is set aside while working to pay the same take home pay on the{" "}
+        {nonWorkingDays} days off.
+      </caption>
       <thead>
         <tr>
           <th></th>
@@ -85,7 +106,7 @@ export function BreakdownTable({ result, week }: BreakdownTableProps) {
             </td>
             {frequencies.map((f) => (
               <td key={f} className="numeric">
-                {formatCurrency(deannualise(row.values, f, week))}
+                {formatCurrency(perPeriod(row.values, f))}
               </td>
             ))}
           </tr>

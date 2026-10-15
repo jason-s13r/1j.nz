@@ -427,6 +427,7 @@ export interface SelfEmployedResult {
   studentLoan: number;
   totalDeductions: number;
   netIncome: number;
+  otherPayments: number;
   additionalSavings: number;
   deductionAmounts: Record<string, number>;
   takeHomePay: number;
@@ -560,6 +561,7 @@ export function calculateSelfEmployed(config: Configuration): SelfEmployedResult
     studentLoan,
     totalDeductions,
     netIncome,
+    otherPayments,
     additionalSavings,
     deductionAmounts,
     takeHomePay,

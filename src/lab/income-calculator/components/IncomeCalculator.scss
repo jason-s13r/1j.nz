@@ -347,6 +347,14 @@
 .breakdown-table {
   margin-top: 1.5rem;
 
+  caption {
+    caption-side: bottom;
+    padding-top: 0.5rem;
+    text-align: left;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
   th,
   td {
     text-align: center;
