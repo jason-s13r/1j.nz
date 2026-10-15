@@ -278,6 +278,10 @@
 }
 
 .single-table {
+  .sub-row-cell {
+    padding-left: 2rem;
+  }
+
   .item-cell {
     width: 100%;
   }
@@ -458,6 +462,13 @@
 .dialog-body {
   padding: 1rem;
   overflow-y: auto;
+}
+
+.dialog-note {
+  margin: 0 0 1rem;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: var(--muted);
 }
 
 .config-list {
@@ -652,4 +663,20 @@
     width: 7rem;
     flex-shrink: 0;
   }
+}
+
+.toggle:has(> input:disabled),
+.icon-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.icon-button:disabled:hover {
+  background: var(--card-bg);
+  color: var(--muted);
+}
+
+.number-input input:disabled {
+  color: var(--muted);
+  cursor: not-allowed;
 }

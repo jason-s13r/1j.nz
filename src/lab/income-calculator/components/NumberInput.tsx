@@ -7,6 +7,7 @@ interface NumberInputProps {
   min?: number;
   max?: number;
   step?: number;
+  disabled?: boolean;
 }
 
 export function NumberInput({
@@ -18,6 +19,7 @@ export function NumberInput({
   min,
   max,
   step = 1,
+  disabled,
 }: NumberInputProps) {
   return (
     <label className="number-input">
@@ -30,6 +32,7 @@ export function NumberInput({
           min={min}
           max={max}
           step={step}
+          disabled={disabled}
           onChange={(e) => {
             const v = e.target.value === "" ? 0 : parseFloat(e.target.value);
             onChange(Number.isNaN(v) ? 0 : v);

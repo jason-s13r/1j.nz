@@ -47,7 +47,7 @@ export function FormulaInput({ value, formula, onChange, context, prefix }: Form
           }}
           autoFocus
           placeholder="number or formula"
-          title="Enter a number or formula using gross/taxable and min/max"
+          title="Enter a number or formula, e.g. workdays * 15 or min(gross * 0.015, 1500)"
         />
       </span>
     );

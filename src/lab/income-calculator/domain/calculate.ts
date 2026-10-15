@@ -21,11 +21,25 @@ export interface NonWorkingDay {
   enabled: boolean;
 }
 
-export interface FormulaContext {
+export interface WorkContext {
+  workingDays: number;
+  nonWorkingDays: number;
+  dayRate: number;
+  hourRate: number;
+  hoursPerWeek: number;
+}
+
+export interface FormulaContext extends WorkContext {
   grossIncome: number;
   taxableIncome: number;
   netIncome: number;
 }
+
+const FORMULA_FUNCTIONS: Record<string, { arity?: number; fn: (...args: number[]) => number }> = {
+  min: { fn: Math.min },
+  max: { fn: Math.max },
+  round: { arity: 1, fn: Math.round },
+};
 
 export type LineItem = Expense | Deduction;
 
@@ -193,7 +207,7 @@ function parseFormula(formula: string, context: FormulaContext): number {
   let pos = 0;
   const text = formula;
 
-  const peek = () => text[pos];
+  const peek = () => text[pos] ?? "";
   const consume = (expected?: string) => {
     if (expected && text[pos] !== expected) {
       throw new Error(`Expected ${expected} at position ${pos}`);
@@ -279,7 +293,8 @@ function parseFormula(formula: string, context: FormulaContext): number {
       skipWhitespace();
 
       if (peek() === "(") {
-        if (name !== "min" && name !== "max") {
+        const func = FORMULA_FUNCTIONS[name];
+        if (!func) {
           throw new Error(`Unknown function: ${name}`);
         }
         pos++;
@@ -298,7 +313,10 @@ function parseFormula(formula: string, context: FormulaContext): number {
         }
         consume(")");
         if (args.length === 0) throw new Error(`${name} requires at least one argument`);
-        return name === "min" ? Math.min(...args) : Math.max(...args);
+        if (func.arity !== undefined && args.length !== func.arity) {
+          throw new Error(`${name} takes ${func.arity} argument(s)`);
+        }
+        return func.fn(...args);
       }
 
       switch (name) {
@@ -308,6 +326,16 @@ function parseFormula(formula: string, context: FormulaContext): number {
           return context.taxableIncome;
         case "net":
           return context.netIncome;
+        case "workdays":
+          return context.workingDays;
+        case "offdays":
+          return context.nonWorkingDays;
+        case "dayrate":
+          return context.dayRate;
+        case "hourrate":
+          return context.hourRate;
+        case "hours":
+          return context.hoursPerWeek;
         default:
           throw new Error(`Unknown variable: ${name}`);
       }
@@ -365,6 +393,7 @@ export function calculateEsctRate(salary: number, contribution: number, brackets
 export interface SelfEmployedResult {
   potentialIncome: number;
   dayRate: number;
+  hourRate: number;
   totalWorkDays: number;
   nonWorkingDays: number;
   workingDays: number;
@@ -418,13 +447,21 @@ export function calculateSelfEmployed(config: Configuration): SelfEmployedResult
   const dayRate = totalWorkDays > 0 ? potentialIncome / totalWorkDays : 0;
   const lostRevenue = dayRate * nonWorkingDays;
   const annualGross = potentialIncome - lostRevenue;
+  const hourRate = config.hoursPerWeek > 0 ? potentialIncome / WEEKS_YEAR / config.hoursPerWeek : 0;
+  const work: WorkContext = {
+    workingDays,
+    nonWorkingDays,
+    dayRate,
+    hourRate,
+    hoursPerWeek: config.hoursPerWeek,
+  };
 
   // First pass: compute expenses using gross income context.
   const expensesWithFormula = config.expenses.map((e) => {
     if (!e.enabled || !e.formula) return { ...e, computedAmount: e.amount };
     const computedAmount = evaluateFormula(
       e.formula,
-      { grossIncome: annualGross, taxableIncome: annualGross, netIncome: annualGross },
+      { ...work, grossIncome: annualGross, taxableIncome: annualGross, netIncome: annualGross },
       e.amount
     );
     return { ...e, computedAmount };
@@ -439,7 +476,7 @@ export function calculateSelfEmployed(config: Configuration): SelfEmployedResult
     if (!e.enabled || !e.formula) return { ...e, computedAmount: e.amount };
     const computedAmount = evaluateFormula(
       e.formula,
-      { grossIncome: annualGross, taxableIncome, netIncome: taxableIncome },
+      { ...work, grossIncome: annualGross, taxableIncome, netIncome: taxableIncome },
       e.amount
     );
     return { ...e, computedAmount };
@@ -487,7 +524,7 @@ export function calculateSelfEmployed(config: Configuration): SelfEmployedResult
     if (!d.enabled || !d.formula) return { ...d, computedAmount: d.amount };
     const computedAmount = evaluateFormula(
       d.formula,
-      { grossIncome: annualGross, taxableIncome: finalTaxableIncome, netIncome },
+      { ...work, grossIncome: annualGross, taxableIncome: finalTaxableIncome, netIncome },
       d.amount
     );
     return { ...d, computedAmount };
@@ -506,6 +543,7 @@ export function calculateSelfEmployed(config: Configuration): SelfEmployedResult
   return {
     potentialIncome,
     dayRate,
+    hourRate,
     totalWorkDays,
     nonWorkingDays,
     workingDays,

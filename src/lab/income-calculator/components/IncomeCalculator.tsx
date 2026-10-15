@@ -18,7 +18,7 @@ import { TaxConfig } from "./TaxConfig";
 import { Toggle } from "./Toggle";
 import "./IncomeCalculator.scss";
 
-type DialogKey = "tax";
+type DialogKey = "tax" | "esct";
 
 function useIncomeCalculatorState() {
   const [config, setConfig] = useState<Configuration>(defaultConfiguration());
@@ -302,11 +302,14 @@ function EmployerContributionRow({
   config,
   result,
   updateKiwiSaver,
+  onConfigureEsct,
 }: {
   config: Configuration;
   result: CalculationResult;
   updateKiwiSaver: (patch: Partial<Configuration["kiwiSaver"]>) => void;
+  onConfigureEsct: () => void;
 }) {
+  const kiwiSaverDisabled = !config.kiwiSaver.enabled;
   return (
     <tr
       className={
@@ -315,25 +318,38 @@ function EmployerContributionRow({
           : "disabled"
       }
     >
-      <td>
+      <td className="sub-row-cell">
         <span className="acc-inline-inputs">
           <Toggle
+            disabled={kiwiSaverDisabled}
             checked={config.kiwiSaver.boostEmployerContribution}
             onChange={(boostEmployerContribution) =>
               updateKiwiSaver({ boostEmployerContribution })
             }
             label={
-              <span className="acc-inline-label">
-                Equivalent to employer contribution{" "}
+              <span
+                className="acc-inline-label"
+                title="Equivalent to an employer's KiwiSaver contribution, after ESCT"
+              >
+                Employer equivalent{" "}
                 <span className="section-note">
                   (less {formatNumber(result.selfEmployed.kiwiSaverEsctRate * 100)}% ESCT)
                 </span>
               </span>
             }
           />
+          <button
+            className="icon-button"
+            onClick={onConfigureEsct}
+            disabled={kiwiSaverDisabled}
+            aria-label="Configure ESCT rates"
+          >
+            <CogIcon />
+          </button>
           <NumberInput
             value={Number((config.kiwiSaver.employerRate * 100).toFixed(2))}
             onChange={(employerRate) => updateKiwiSaver({ employerRate: employerRate / 100 })}
+            disabled={kiwiSaverDisabled}
             suffix="%"
             step={0.01}
             min={0}
@@ -470,6 +486,11 @@ export default function IncomeCalculator() {
 
   const annualGross = result.selfEmployed.grossIncome;
   const formulaContext = {
+    workingDays: result.selfEmployed.workingDays,
+    nonWorkingDays: result.selfEmployed.nonWorkingDays,
+    dayRate: result.selfEmployed.dayRate,
+    hourRate: result.selfEmployed.hourRate,
+    hoursPerWeek: config.hoursPerWeek,
     grossIncome: annualGross,
     taxableIncome: result.selfEmployed.taxableIncome,
     netIncome: result.selfEmployed.netIncome,
@@ -525,6 +546,7 @@ export default function IncomeCalculator() {
             config={config}
             result={result}
             updateKiwiSaver={updateKiwiSaver}
+            onConfigureEsct={() => setDialog("esct")}
           />
           <StudentLoanRow
             config={config}
@@ -555,6 +577,21 @@ export default function IncomeCalculator() {
         <TaxConfig
           brackets={config.taxBrackets}
           onChange={(taxBrackets) => updateConfig({ taxBrackets })}
+        />
+      </Dialog>
+
+      <Dialog
+        title="ESCT Rates"
+        open={dialog === "esct"}
+        onClose={() => setDialog(null)}
+      >
+        <p className="dialog-note">
+          Employer superannuation contribution tax isn't progressive: one rate applies to the
+          whole employer contribution, picked by salary plus employer contributions.
+        </p>
+        <TaxConfig
+          brackets={config.kiwiSaver.esctBrackets}
+          onChange={(esctBrackets) => updateKiwiSaver({ esctBrackets })}
         />
       </Dialog>
 
