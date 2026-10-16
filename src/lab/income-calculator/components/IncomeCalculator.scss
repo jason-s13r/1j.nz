@@ -326,6 +326,50 @@
   background: var(--card-bg);
 }
 
+.formula-input-field {
+  position: relative;
+  display: inline-flex;
+}
+
+.formula-input-wrap--error {
+  border-color: #dc2626;
+}
+
+// Floats below the input so an error doesn't resize the table row.
+.formula-error {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 10;
+  padding: 0.35rem 0.6rem;
+  border: 1px solid #dc2626;
+  border-radius: 6px;
+  background: var(--card-bg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  color: #dc2626;
+  font-size: 0.8rem;
+  white-space: nowrap;
+
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+
+  .formula-error-cancel {
+    padding: 0.15rem 0.45rem;
+    font-size: 0.8rem;
+  }
+
+  // Arrow pointing up at the input.
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    right: 1rem;
+    border: 6px solid transparent;
+    border-bottom-color: #dc2626;
+  }
+}
+
 .formula-input {
   border: none;
   padding: 0.4rem 0.5rem;

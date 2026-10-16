@@ -341,13 +341,34 @@ function parseFormula(formula: string, context: FormulaContext): number {
       }
     }
 
-    throw new Error(`Unexpected character: ${char}`);
+    throw new Error(char ? `Unexpected character: ${char}` : "Unexpected end of formula");
   };
 
   const result = parseExpression();
   skipWhitespace();
   if (pos !== text.length) throw new Error(`Unexpected character at position ${pos}`);
   return result;
+}
+
+const VALIDATION_CONTEXT: FormulaContext = {
+  workingDays: 1,
+  nonWorkingDays: 1,
+  dayRate: 1,
+  hourRate: 1,
+  hoursPerWeek: 1,
+  grossIncome: 1,
+  taxableIncome: 1,
+  netIncome: 1,
+};
+
+// Syntax errors, unknown names and bad argument counts; null if the formula parses.
+export function formulaError(formula: string): string | null {
+  try {
+    parseFormula(formula, VALIDATION_CONTEXT);
+    return null;
+  } catch (e) {
+    return e instanceof Error ? e.message : String(e);
+  }
 }
 
 export function evaluateFormula(
@@ -474,22 +495,26 @@ export function calculateSelfEmployed(config: Configuration): SelfEmployedResult
     hoursPerWeek: config.hoursPerWeek,
   };
 
-  // First pass: compute expenses using gross income context.
-  const { total: totalExpenses } = evaluateItems(config.expenses, {
-    ...work,
-    grossIncome: annualGross,
-    taxableIncome: annualGross,
-    netIncome: annualGross,
-  });
-  const taxableIncome = annualGross - totalExpenses;
-
-  // Second pass: recompute formula-based expenses using taxable income context.
-  const { amounts: expenseAmounts, total: finalTotalExpenses } = evaluateItems(config.expenses, {
-    ...work,
-    grossIncome: annualGross,
-    taxableIncome,
-    netIncome: taxableIncome,
-  });
+  // Expenses can depend on taxable income, which depends on expenses, so
+  // re-evaluate until the total settles. Without such formulas it settles
+  // straight away. Formulas that never settle (e.g. taxable * 1.5) keep the
+  // second pass result rather than diverging.
+  const evaluateExpenses = (taxableIncome: number) =>
+    evaluateItems(config.expenses, {
+      ...work,
+      grossIncome: annualGross,
+      taxableIncome,
+      netIncome: taxableIncome,
+    });
+  const secondPass = evaluateExpenses(annualGross - evaluateExpenses(annualGross).total);
+  let expenses = secondPass;
+  let settled = false;
+  for (let i = 0; i < 50 && !settled; i++) {
+    const next = evaluateExpenses(annualGross - expenses.total);
+    settled = Math.abs(next.total - expenses.total) < 0.001;
+    expenses = next;
+  }
+  const { amounts: expenseAmounts, total: finalTotalExpenses } = settled ? expenses : secondPass;
   const finalTaxableIncome = annualGross - finalTotalExpenses;
 
   const incomeTax = calculateIncomeTax(finalTaxableIncome, config.taxBrackets);
@@ -586,11 +611,15 @@ function employeeDeductions(grossSalary: number, config: Configuration) {
 export function calculateEmployee(targetTakeHome: number, config: Configuration): EmployeeResult {
   // Solve gross salary such that take-home equals targetTakeHome.
   // Deductions are monotonic in gross salary, so binary search.
-  // The employee equivalent can never exceed the self-employed annual gross,
-  // so use that as a sensible upper-bound floor instead of an arbitrary number.
+  // Start from the self-employed annual gross, then widen until the bound
+  // reaches the target: high edited tax rates can need more than that.
   const annualGross = annualise(config.grossIncome, config.frequency, config);
   let low = 0;
-  let high = Math.max(targetTakeHome * 2, annualGross);
+  let high = Math.max(targetTakeHome * 2, annualGross, 1);
+  while (employeeDeductions(high, config).takeHomePay < targetTakeHome && high < 1e9) {
+    low = high;
+    high *= 2;
+  }
   for (let i = 0; i < 100; i++) {
     const mid = (low + high) / 2;
     const { takeHomePay } = employeeDeductions(mid, config);
