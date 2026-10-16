@@ -1,12 +1,6 @@
-export interface Expense {
-  id: string;
-  name: string;
-  amount: number;
-  formula?: string;
-  enabled: boolean;
-}
-
-export interface Deduction {
+// A business expense or an additional payment: a fixed amount, or a formula
+// with the amount as its fallback.
+export interface LineItem {
   id: string;
   name: string;
   amount: number;
@@ -40,8 +34,6 @@ const FORMULA_FUNCTIONS: Record<string, { arity?: number; fn: (...args: number[]
   max: { fn: Math.max },
   round: { arity: 1, fn: Math.round },
 };
-
-export type LineItem = Expense | Deduction;
 
 export interface TaxBrackets {
   brackets: Array<{ threshold: number; rate: number }>;
@@ -84,8 +76,8 @@ export interface Configuration {
   daysPerWeek: number;
   nonWorkingDays: NonWorkingDay[];
   daysOffSavingsEnabled: boolean;
-  expenses: Expense[];
-  deductions: Deduction[];
+  expenses: LineItem[];
+  deductions: LineItem[];
   taxBrackets: TaxBrackets;
   acc: AccConfig;
   kiwiSaver: KiwiSaverConfig;
@@ -169,38 +161,29 @@ export function defaultConfiguration(): Configuration {
   };
 }
 
-export function annualise(amount: number, frequency: Frequency, week: WorkWeek = DEFAULT_WORK_WEEK): number {
+export function periodsPerYear(frequency: Frequency, week: WorkWeek = DEFAULT_WORK_WEEK): number {
   switch (frequency) {
+    case "annual":
+      return 1;
     case "monthly":
-      return amount * 12;
+      return 12;
     case "fortnightly":
-      return amount * 26;
+      return WEEKS_YEAR / 2;
     case "weekly":
-      return amount * WEEKS_YEAR;
+      return WEEKS_YEAR;
     case "daily":
-      return amount * workDaysYear(week);
+      return workDaysYear(week);
     case "hourly":
-      return annualise(amount * week.hoursPerWeek, 'weekly');
-    default:
-      return amount;
+      return WEEKS_YEAR * week.hoursPerWeek;
   }
 }
 
+export const annualise = (amount: number, frequency: Frequency, week: WorkWeek = DEFAULT_WORK_WEEK) =>
+  amount * periodsPerYear(frequency, week);
+
 export function deannualise(amount: number, frequency: Frequency, week: WorkWeek = DEFAULT_WORK_WEEK): number {
-  switch (frequency) {
-    case "monthly":
-      return amount / 12;
-    case "fortnightly":
-      return amount / 26;
-    case "weekly":
-      return amount / WEEKS_YEAR;
-    case "daily":
-      return week.daysPerWeek > 0 ? amount / workDaysYear(week) : 0;
-    case "hourly":
-      return week.hoursPerWeek > 0 ? deannualise(amount, 'weekly') / week.hoursPerWeek : 0;
-    default:
-      return amount;
-  }
+  const periods = periodsPerYear(frequency, week);
+  return periods > 0 ? amount / periods : 0;
 }
 
 function parseFormula(formula: string, context: FormulaContext): number {
@@ -483,10 +466,10 @@ export function calculateSelfEmployed(config: Configuration): SelfEmployedResult
       .reduce((sum, d) => sum + Math.max(0, d.days), 0)
   );
   const workingDays = totalWorkDays - nonWorkingDays;
-  const dayRate = totalWorkDays > 0 ? potentialIncome / totalWorkDays : 0;
+  const dayRate = deannualise(potentialIncome, "daily", config);
   const lostRevenue = dayRate * nonWorkingDays;
   const annualGross = potentialIncome - lostRevenue;
-  const hourRate = config.hoursPerWeek > 0 ? potentialIncome / WEEKS_YEAR / config.hoursPerWeek : 0;
+  const hourRate = deannualise(potentialIncome, "hourly", config);
   const work: WorkContext = {
     workingDays,
     nonWorkingDays,
@@ -517,14 +500,15 @@ export function calculateSelfEmployed(config: Configuration): SelfEmployedResult
   const { amounts: expenseAmounts, total: finalTotalExpenses } = settled ? expenses : secondPass;
   const finalTaxableIncome = annualGross - finalTotalExpenses;
 
-  const incomeTax = calculateIncomeTax(finalTaxableIncome, config.taxBrackets);
+  const { incomeTax, accEarnerLevy, kiwiSaver, studentLoan } = personalDeductions(
+    finalTaxableIncome,
+    config
+  );
   const positiveIncome = Math.max(0, finalTaxableIncome);
-  const accEarnerLevy = Math.min(positiveIncome, config.acc.incomeCap) * config.acc.earnerRate;
   const accWorkLevy = config.acc.workLevyEnabled ? config.acc.workLevy : 0;
   const accWorkingSaferLevy = config.acc.workingSaferEnabled
     ? positiveIncome * config.acc.workingSaferRate
     : 0;
-  const kiwiSaver = config.kiwiSaver.enabled ? positiveIncome * config.kiwiSaver.rate : 0;
   // What an employer would pay into KiwiSaver on an equivalent salary, after ESCT.
   const employerKiwiSaverGross = positiveIncome * config.kiwiSaver.employerRate;
   const kiwiSaverEsctRate = calculateEsctRate(
@@ -535,10 +519,6 @@ export function calculateSelfEmployed(config: Configuration): SelfEmployedResult
   const kiwiSaverEmployerContribution = config.kiwiSaver.enabled && config.kiwiSaver.boostEmployerContribution
     ? employerKiwiSaverGross * (1 - kiwiSaverEsctRate)
     : 0;
-  const studentLoan =
-    config.studentLoan.enabled && finalTaxableIncome > config.studentLoan.threshold
-      ? (finalTaxableIncome - config.studentLoan.threshold) * config.studentLoan.rate
-      : 0;
 
   const totalDeductions =
     incomeTax +
@@ -594,18 +574,29 @@ export function calculateSelfEmployed(config: Configuration): SelfEmployedResult
   };
 }
 
-function employeeDeductions(grossSalary: number, config: Configuration) {
-  const taxableIncome = grossSalary;
+// Deductions on taxable income that employees and the self-employed both pay.
+function personalDeductions(taxableIncome: number, config: Configuration) {
+  const positiveIncome = Math.max(0, taxableIncome);
   const incomeTax = calculateIncomeTax(taxableIncome, config.taxBrackets);
-  const accEarnerLevy = Math.min(Math.max(0, taxableIncome), config.acc.incomeCap) * config.acc.earnerRate;
-  const kiwiSaver = config.kiwiSaver.enabled ? Math.max(0, taxableIncome) * config.kiwiSaver.rate : 0;
+  const accEarnerLevy = Math.min(positiveIncome, config.acc.incomeCap) * config.acc.earnerRate;
+  const kiwiSaver = config.kiwiSaver.enabled ? positiveIncome * config.kiwiSaver.rate : 0;
   const studentLoan =
     config.studentLoan.enabled && taxableIncome > config.studentLoan.threshold
       ? (taxableIncome - config.studentLoan.threshold) * config.studentLoan.rate
       : 0;
-  const totalDeductions = incomeTax + accEarnerLevy + kiwiSaver + studentLoan;
-  const takeHomePay = grossSalary - totalDeductions;
-  return { taxableIncome, incomeTax, accEarnerLevy, kiwiSaver, studentLoan, totalDeductions, takeHomePay };
+  return { incomeTax, accEarnerLevy, kiwiSaver, studentLoan };
+}
+
+function employeeDeductions(grossSalary: number, config: Configuration) {
+  const deductions = personalDeductions(grossSalary, config);
+  const totalDeductions =
+    deductions.incomeTax + deductions.accEarnerLevy + deductions.kiwiSaver + deductions.studentLoan;
+  return {
+    taxableIncome: grossSalary,
+    ...deductions,
+    totalDeductions,
+    takeHomePay: grossSalary - totalDeductions,
+  };
 }
 
 export function calculateEmployee(targetTakeHome: number, config: Configuration): EmployeeResult {
@@ -620,7 +611,7 @@ export function calculateEmployee(targetTakeHome: number, config: Configuration)
     low = high;
     high *= 2;
   }
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 100 && high - low > 0.0001; i++) {
     const mid = (low + high) / 2;
     const { takeHomePay } = employeeDeductions(mid, config);
     if (takeHomePay < targetTakeHome) {

@@ -4,6 +4,7 @@ import {
   Configuration,
   defaultConfiguration,
   CalculationResult,
+  Frequency,
 } from "../domain/calculate";
 import { formatCurrency, formatNumber } from "../utils/format";
 import { BreakdownTable } from "./BreakdownTable";
@@ -18,6 +19,14 @@ import { Toggle } from "./Toggle";
 import "./IncomeCalculator.scss";
 
 type DialogKey = "tax" | "esct";
+type SectionKey = "acc" | "kiwiSaver" | "studentLoan";
+type UpdateConfig = (patch: Partial<Configuration>) => void;
+type UpdateSection<K extends SectionKey> = (patch: Partial<Configuration[K]>) => void;
+
+interface RowProps {
+  config: Configuration;
+  result: CalculationResult;
+}
 
 function useIncomeCalculatorState() {
   const [config, setConfig] = useState<Configuration>(defaultConfiguration);
@@ -25,12 +34,11 @@ function useIncomeCalculatorState() {
 
   const result = useMemo(() => calculate(config), [config]);
 
-  const updateConfig = (patch: Partial<Configuration>) =>
-    setConfig((c) => ({ ...c, ...patch }));
+  const updateConfig: UpdateConfig = (patch) => setConfig((c) => ({ ...c, ...patch }));
 
   const updateSection =
-    <K extends "acc" | "kiwiSaver" | "studentLoan">(key: K) =>
-    (patch: Partial<Configuration[K]>) =>
+    <K extends SectionKey>(key: K): UpdateSection<K> =>
+    (patch) =>
       setConfig((c) => ({ ...c, [key]: { ...c[key], ...patch } }));
 
   return {
@@ -45,17 +53,41 @@ function useIncomeCalculatorState() {
   };
 }
 
-function IncomeRateRow({
-  config,
-  updateConfig,
+// A label cell, then the self-employed and employee amounts. Leave out
+// employee for amounts only the self-employed pay.
+function ComparisonRow({
+  label,
+  selfEmployed,
+  employee,
+  enabled = true,
+  className,
+  labelClassName,
 }: {
-  config: Configuration;
-  updateConfig: (patch: Partial<Configuration>) => void;
+  label: React.ReactNode;
+  selfEmployed: number;
+  employee?: number;
+  enabled?: boolean;
+  className?: string;
+  labelClassName?: string;
 }) {
+  return (
+    <tr className={[className, enabled ? "" : "disabled"].filter(Boolean).join(" ")}>
+      <td className={labelClassName}>{label}</td>
+      <td className="numeric">{formatCurrency(selfEmployed)}</td>
+      <td className="numeric">{employee === undefined ? "-" : formatCurrency(employee)}</td>
+    </tr>
+  );
+}
+
+function SectionTitle({ children }: { children: React.ReactNode }) {
+  return <h2 className="section-title">{children}</h2>;
+}
+
+function IncomeRateRow({ config, updateConfig }: { config: Configuration; updateConfig: UpdateConfig }) {
   return (
     <tr className="section-row">
       <td>
-        <h2 className="section-title">Income Rate</h2>
+        <SectionTitle>Income Rate</SectionTitle>
       </td>
       <td colSpan={2} className="numeric">
         <div className="input-row">
@@ -66,9 +98,7 @@ function IncomeRateRow({
           />
           <select
             value={config.frequency}
-            onChange={(e) =>
-              updateConfig({ frequency: e.target.value as Configuration["frequency"] })
-            }
+            onChange={(e) => updateConfig({ frequency: e.target.value as Frequency })}
           >
             <option value="annual">Annual</option>
             <option value="monthly">Monthly</option>
@@ -83,13 +113,7 @@ function IncomeRateRow({
   );
 }
 
-function WorkWeekRow({
-  config,
-  updateConfig,
-}: {
-  config: Configuration;
-  updateConfig: (patch: Partial<Configuration>) => void;
-}) {
+function WorkWeekRow({ config, updateConfig }: { config: Configuration; updateConfig: UpdateConfig }) {
   return (
     <tr>
       <td>
@@ -126,39 +150,36 @@ function ComparisonHeader() {
     <tr className="section-row">
       <td></td>
       <td className="numeric header-cell">
-        <h2 className="section-title">Self-employed</h2>
+        <SectionTitle>Self-employed</SectionTitle>
       </td>
       <td className="numeric header-cell">
-        <h2 className="section-title">Employee</h2>
+        <SectionTitle>Employee</SectionTitle>
       </td>
     </tr>
   );
 }
 
-function TaxableIncomeRow({ result }: { result: CalculationResult }) {
+function IncomeTaxRow({ result, onConfigure }: { result: CalculationResult; onConfigure: () => void }) {
   return (
-    <tr className="section-row">
-      <td>
-        <h2 className="section-title">Taxable Income</h2>
-      </td>
-      <td className="numeric">{formatCurrency(result.selfEmployed.taxableIncome)}</td>
-      <td className="numeric">{formatCurrency(result.employee.taxableIncome)}</td>
-    </tr>
+    <ComparisonRow
+      label={
+        <div className="label-with-action">
+          <span>Income Tax</span>
+          <button className="icon-button" onClick={onConfigure} aria-label="Configure tax brackets">
+            <CogIcon />
+          </button>
+        </div>
+      }
+      selfEmployed={result.selfEmployed.incomeTax}
+      employee={result.employee.incomeTax}
+    />
   );
 }
 
-function AccEarnerLevyRow({
-  config,
-  result,
-  updateAcc,
-}: {
-  config: Configuration;
-  result: CalculationResult;
-  updateAcc: (patch: Partial<Configuration["acc"]>) => void;
-}) {
+function AccEarnerLevyRow({ config, result, updateAcc }: RowProps & { updateAcc: UpdateSection<"acc"> }) {
   return (
-    <tr>
-      <td>
+    <ComparisonRow
+      label={
         <span className="acc-inline-inputs">
           <span className="acc-inline-label acc-inline-label--grow">ACC earners' levy</span>
           <span className="inline-config-row">
@@ -175,29 +196,22 @@ function AccEarnerLevyRow({
             />
           </span>
         </span>
-      </td>
-      <td className="numeric">{formatCurrency(result.selfEmployed.accEarnerLevy)}</td>
-      <td className="numeric">{formatCurrency(result.employee.accEarnerLevy)}</td>
-    </tr>
+      }
+      selfEmployed={result.selfEmployed.accEarnerLevy}
+      employee={result.employee.accEarnerLevy}
+    />
   );
 }
 
-function AccWorkLevyRow({
-  config,
-  result,
-  updateAcc,
-}: {
-  config: Configuration;
-  result: CalculationResult;
-  updateAcc: (patch: Partial<Configuration["acc"]>) => void;
-}) {
+function AccWorkLevyRow({ config, result, updateAcc }: RowProps & { updateAcc: UpdateSection<"acc"> }) {
   return (
-    <tr className={config.acc.workLevyEnabled ? "" : "disabled"}>
-      <td>
+    <ComparisonRow
+      enabled={config.acc.workLevyEnabled}
+      label={
         <span className="acc-inline-inputs acc-inline-inputs--right">
           <Toggle
             checked={config.acc.workLevyEnabled}
-            onChange={(checked) => updateAcc({ workLevyEnabled: checked })}
+            onChange={(workLevyEnabled) => updateAcc({ workLevyEnabled })}
             label={<span className="acc-inline-label">ACC work levy</span>}
           />
           <NumberInput
@@ -206,29 +220,21 @@ function AccWorkLevyRow({
             prefix="$"
           />
         </span>
-      </td>
-      <td className="numeric">{formatCurrency(result.selfEmployed.accWorkLevy)}</td>
-      <td className="numeric">-</td>
-    </tr>
+      }
+      selfEmployed={result.selfEmployed.accWorkLevy}
+    />
   );
 }
 
-function AccWorkingSaferRow({
-  config,
-  result,
-  updateAcc,
-}: {
-  config: Configuration;
-  result: CalculationResult;
-  updateAcc: (patch: Partial<Configuration["acc"]>) => void;
-}) {
+function AccWorkingSaferRow({ config, result, updateAcc }: RowProps & { updateAcc: UpdateSection<"acc"> }) {
   return (
-    <tr className={config.acc.workingSaferEnabled ? "" : "disabled"}>
-      <td>
+    <ComparisonRow
+      enabled={config.acc.workingSaferEnabled}
+      label={
         <span className="acc-inline-inputs acc-inline-inputs--right">
           <Toggle
             checked={config.acc.workingSaferEnabled}
-            onChange={(checked) => updateAcc({ workingSaferEnabled: checked })}
+            onChange={(workingSaferEnabled) => updateAcc({ workingSaferEnabled })}
             label={<span className="acc-inline-label">ACC working safer levy</span>}
           />
           <PercentInput
@@ -238,12 +244,9 @@ function AccWorkingSaferRow({
             min={0}
           />
         </span>
-      </td>
-      <td className="numeric">
-        {formatCurrency(result.selfEmployed.accWorkingSaferLevy)}
-      </td>
-      <td className="numeric">-</td>
-    </tr>
+      }
+      selfEmployed={result.selfEmployed.accWorkingSaferLevy}
+    />
   );
 }
 
@@ -251,18 +254,15 @@ function KiwiSaverRow({
   config,
   result,
   updateKiwiSaver,
-}: {
-  config: Configuration;
-  result: CalculationResult;
-  updateKiwiSaver: (patch: Partial<Configuration["kiwiSaver"]>) => void;
-}) {
+}: RowProps & { updateKiwiSaver: UpdateSection<"kiwiSaver"> }) {
   return (
-    <tr className={config.kiwiSaver.enabled ? "" : "disabled"}>
-      <td>
+    <ComparisonRow
+      enabled={config.kiwiSaver.enabled}
+      label={
         <span className="acc-inline-inputs">
           <Toggle
             checked={config.kiwiSaver.enabled}
-            onChange={(checked) => updateKiwiSaver({ enabled: checked })}
+            onChange={(enabled) => updateKiwiSaver({ enabled })}
             label={<span className="acc-inline-label">KiwiSaver</span>}
           />
           <PercentInput
@@ -273,10 +273,10 @@ function KiwiSaverRow({
             max={100}
           />
         </span>
-      </td>
-      <td className="numeric">{formatCurrency(result.selfEmployed.kiwiSaver)}</td>
-      <td className="numeric">{formatCurrency(result.employee.kiwiSaver)}</td>
-    </tr>
+      }
+      selfEmployed={result.selfEmployed.kiwiSaver}
+      employee={result.employee.kiwiSaver}
+    />
   );
 }
 
@@ -285,29 +285,18 @@ function EmployerContributionRow({
   result,
   updateKiwiSaver,
   onConfigureEsct,
-}: {
-  config: Configuration;
-  result: CalculationResult;
-  updateKiwiSaver: (patch: Partial<Configuration["kiwiSaver"]>) => void;
-  onConfigureEsct: () => void;
-}) {
+}: RowProps & { updateKiwiSaver: UpdateSection<"kiwiSaver">; onConfigureEsct: () => void }) {
   const kiwiSaverDisabled = !config.kiwiSaver.enabled;
   return (
-    <tr
-      className={
-        config.kiwiSaver.enabled && config.kiwiSaver.boostEmployerContribution
-          ? ""
-          : "disabled"
-      }
-    >
-      <td className="sub-row-cell">
+    <ComparisonRow
+      enabled={config.kiwiSaver.enabled && config.kiwiSaver.boostEmployerContribution}
+      labelClassName="sub-row-cell"
+      label={
         <span className="acc-inline-inputs">
           <Toggle
             disabled={kiwiSaverDisabled}
             checked={config.kiwiSaver.boostEmployerContribution}
-            onChange={(boostEmployerContribution) =>
-              updateKiwiSaver({ boostEmployerContribution })
-            }
+            onChange={(boostEmployerContribution) => updateKiwiSaver({ boostEmployerContribution })}
             label={
               <span
                 className="acc-inline-label"
@@ -337,12 +326,9 @@ function EmployerContributionRow({
             max={100}
           />
         </span>
-      </td>
-      <td className="numeric">
-        {formatCurrency(result.selfEmployed.kiwiSaverEmployerContribution)}
-      </td>
-      <td className="numeric">-</td>
-    </tr>
+      }
+      selfEmployed={result.selfEmployed.kiwiSaverEmployerContribution}
+    />
   );
 }
 
@@ -350,18 +336,15 @@ function StudentLoanRow({
   config,
   result,
   updateStudentLoan,
-}: {
-  config: Configuration;
-  result: CalculationResult;
-  updateStudentLoan: (patch: Partial<Configuration["studentLoan"]>) => void;
-}) {
+}: RowProps & { updateStudentLoan: UpdateSection<"studentLoan"> }) {
   return (
-    <tr className={config.studentLoan.enabled ? "" : "disabled"}>
-      <td>
+    <ComparisonRow
+      enabled={config.studentLoan.enabled}
+      label={
         <span className="acc-inline-inputs">
           <Toggle
             checked={config.studentLoan.enabled}
-            onChange={(checked) => updateStudentLoan({ enabled: checked })}
+            onChange={(enabled) => updateStudentLoan({ enabled })}
             label={<span className="acc-inline-label">Student loan</span>}
           />
           <span className="inline-config-row">
@@ -379,34 +362,14 @@ function StudentLoanRow({
             />
           </span>
         </span>
-      </td>
-      <td className="numeric">{formatCurrency(result.selfEmployed.studentLoan)}</td>
-      <td className="numeric">{formatCurrency(result.employee.studentLoan)}</td>
-    </tr>
+      }
+      selfEmployed={result.selfEmployed.studentLoan}
+      employee={result.employee.studentLoan}
+    />
   );
 }
 
-function NetIncomeRow({ result }: { result: CalculationResult }) {
-  return (
-    <tr className="section-row">
-      <td>
-        <h2 className="section-title">Net Income</h2>
-      </td>
-      <td className="numeric">{formatCurrency(result.selfEmployed.netIncome)}</td>
-      <td className="numeric">{formatCurrency(result.employee.takeHomePay)}</td>
-    </tr>
-  );
-}
-
-function DaysOffSavingsRow({
-  config,
-  result,
-  updateConfig,
-}: {
-  config: Configuration;
-  result: CalculationResult;
-  updateConfig: (patch: Partial<Configuration>) => void;
-}) {
+function DaysOffSavingsRow({ config, result, updateConfig }: RowProps & { updateConfig: UpdateConfig }) {
   const { nonWorkingDays, daysOffSavings, grossIncome: revenue } = result.selfEmployed;
   return (
     <tr className={config.daysOffSavingsEnabled ? "" : "disabled"}>
@@ -435,7 +398,7 @@ function TakeHomeRow({ result }: { result: CalculationResult }) {
     <>
       <tr className="section-row highlight-row">
         <td>
-          <h2 className="section-title">Take home pay</h2>
+          <SectionTitle>Take home pay</SectionTitle>
         </td>
         <td colSpan={2} className="numeric take-home-value">
           {formatCurrency(result.selfEmployed.takeHomePay)}
@@ -487,25 +450,13 @@ export default function IncomeCalculator() {
           />
 
           <ComparisonHeader />
-          <TaxableIncomeRow result={result} />
-
-          <tr>
-            <td>
-              <div className="label-with-action">
-                <span>Income Tax</span>
-                <button
-                  className="icon-button"
-                  onClick={() => setDialog("tax")}
-                  aria-label="Configure tax brackets"
-                >
-                  <CogIcon />
-                </button>
-              </div>
-            </td>
-            <td className="numeric">{formatCurrency(result.selfEmployed.incomeTax)}</td>
-            <td className="numeric">{formatCurrency(result.employee.incomeTax)}</td>
-          </tr>
-
+          <ComparisonRow
+            className="section-row"
+            label={<SectionTitle>Taxable Income</SectionTitle>}
+            selfEmployed={result.selfEmployed.taxableIncome}
+            employee={result.employee.taxableIncome}
+          />
+          <IncomeTaxRow result={result} onConfigure={() => setDialog("tax")} />
           <AccEarnerLevyRow config={config} result={result} updateAcc={updateAcc} />
           <AccWorkLevyRow config={config} result={result} updateAcc={updateAcc} />
           <AccWorkingSaferRow config={config} result={result} updateAcc={updateAcc} />
@@ -521,7 +472,12 @@ export default function IncomeCalculator() {
             result={result}
             updateStudentLoan={updateStudentLoan}
           />
-          <NetIncomeRow result={result} />
+          <ComparisonRow
+            className="section-row"
+            label={<SectionTitle>Net Income</SectionTitle>}
+            selfEmployed={result.selfEmployed.netIncome}
+            employee={result.employee.takeHomePay}
+          />
 
           <ItemListSection
             title="Additional Payments"

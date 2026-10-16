@@ -1,22 +1,22 @@
-import { Expense, Deduction } from "../domain/calculate";
+import { LineItem } from "../domain/calculate";
 import { formatCurrency } from "../utils/format";
 import { FormulaInput } from "./FormulaInput";
 import { RemoveIcon } from "./icons";
 import { Toggle } from "./Toggle";
 
-interface EditableItemRowProps<T extends Expense | Deduction> {
-  item: T;
+interface EditableItemRowProps {
+  item: LineItem;
   amount: number;
-  onUpdate: (patch: Partial<T>) => void;
+  onUpdate: (patch: Partial<LineItem>) => void;
   onRemove: () => void;
 }
 
-function EditableItemRow<T extends Expense | Deduction>({
+function EditableItemRow({
   item,
   amount,
   onUpdate,
   onRemove,
-}: EditableItemRowProps<T>) {
+}: EditableItemRowProps) {
   return (
     <tr className={item.enabled ? "" : "disabled"}>
       <td className="item-cell">
@@ -29,12 +29,12 @@ function EditableItemRow<T extends Expense | Deduction>({
         </button>
         <Toggle
           checked={item.enabled}
-          onChange={(checked) => onUpdate({ enabled: checked } as Partial<T>)}
+          onChange={(checked) => onUpdate({ enabled: checked })}
           label={
             <input
               className="inline-name"
               value={item.name}
-              onChange={(e) => onUpdate({ name: e.target.value } as Partial<T>)}
+              onChange={(e) => onUpdate({ name: e.target.value })}
             />
           }
         />
@@ -43,7 +43,7 @@ function EditableItemRow<T extends Expense | Deduction>({
         <FormulaInput
           value={item.amount}
           formula={item.formula}
-          onChange={(amount, formula) => onUpdate({ amount, formula } as Partial<T>)}
+          onChange={(amount, formula) => onUpdate({ amount, formula })}
           computed={amount}
         />
       </td>
@@ -52,29 +52,29 @@ function EditableItemRow<T extends Expense | Deduction>({
   );
 }
 
-interface ItemListSectionProps<T extends Expense | Deduction> {
+interface ItemListSectionProps {
   title: string;
-  items: T[];
+  items: LineItem[];
   total: number;
   amounts: Record<string, number>;
-  onChange: (items: T[]) => void;
+  onChange: (items: LineItem[]) => void;
   addLabel: string;
 }
 
-export function ItemListSection<T extends Expense | Deduction>({
+export function ItemListSection({
   title,
   items,
   total,
   amounts,
   onChange,
   addLabel,
-}: ItemListSectionProps<T>) {
-  const update = (id: string, patch: Partial<T>) =>
+}: ItemListSectionProps) {
+  const update = (id: string, patch: Partial<LineItem>) =>
     onChange(items.map((item) => (item.id === id ? { ...item, ...patch } : item)));
   const add = () =>
     onChange([
       ...items,
-      { id: crypto.randomUUID(), name: "New item", amount: 0, enabled: true } as T,
+      { id: crypto.randomUUID(), name: "New item", amount: 0, enabled: true },
     ]);
   const remove = (id: string) => onChange(items.filter((item) => item.id !== id));
 
