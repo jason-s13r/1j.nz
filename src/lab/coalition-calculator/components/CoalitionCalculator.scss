@@ -1,0 +1,239 @@
+.coalition-calculator {
+  --muted: #6b7280;
+  --track: #eef0f3;
+
+  --party-n: #00529f;
+  --party-l: #d82a20;
+  --party-g: #098137;
+  --party-a: #fde401;
+  --party-z: #000000;
+  --party-m: #b2001a;
+  --party-o: #32dac3;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.5rem;
+
+  .hint {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin: 0.25rem 0 0;
+  }
+
+  .source {
+    display: grid;
+    gap: 0.25rem;
+
+    select {
+      max-width: 100%;
+    }
+  }
+
+  .seat-inputs {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+    gap: 0.5rem 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .seat-input {
+    display: grid;
+    grid-template-columns: auto 1fr 5rem;
+    align-items: center;
+    gap: 0.5rem;
+
+    input {
+      width: 100%;
+      box-sizing: border-box;
+      text-align: right;
+    }
+  }
+
+  .swatch {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+
+  .house-total {
+    margin: 1rem 0 0;
+  }
+
+  .exclusions {
+    margin: 1rem 0 0;
+
+    summary {
+      cursor: pointer;
+    }
+
+    fieldset {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+      align-items: start;
+      gap: 1rem 1.5rem;
+      min-width: 0;
+      margin: 0.75rem 0 0;
+      padding: 0;
+      border: none;
+    }
+  }
+
+  .exclusion-count {
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  .toggle {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    cursor: pointer;
+  }
+
+  .exclusion-heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+
+    h4 {
+      margin: 0;
+    }
+  }
+
+  .exclusion-list {
+    list-style: none;
+    margin: 0.25rem 0 0;
+    padding: 0;
+
+    li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .toggle {
+      white-space: nowrap;
+    }
+  }
+
+  .exclusion-tag {
+    font-size: 0.75rem;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .results {
+    // Lets the plausible grid drop to one column when the results are narrow.
+    container-type: inline-size;
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  h3 {
+    margin: 0;
+  }
+
+  .side-by-side {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    align-items: start;
+    gap: 1.25rem 2rem;
+  }
+
+  .result-section > .hint {
+    margin-bottom: 0.5rem;
+  }
+
+  .coalition-list,
+  .coalition-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+  }
+
+  .coalition-list {
+    gap: 0.75rem;
+  }
+
+  .coalition-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem 2rem;
+
+    @container (max-width: 36rem) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .coalition-head,
+    .hung {
+      margin: 0 0 0.5rem;
+    }
+  }
+
+  .coalition-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .coalition-seats {
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .seat-bar {
+    position: relative;
+    height: 12px;
+    margin: 0.25rem 0 1.25rem;
+    background: var(--track);
+  }
+
+  .seat-bar-fill {
+    display: flex;
+    gap: 2px;
+    height: 100%;
+  }
+
+  .seat-bar-segment {
+    flex-basis: 0;
+    min-width: 2px;
+  }
+
+  .seat-bar-majority {
+    position: absolute;
+    top: -3px;
+    bottom: -6px;
+    width: 2px;
+    margin-left: -1px;
+    background: currentColor;
+  }
+
+  // Hangs off the bottom of the majority line.
+  .seat-bar-majority-label {
+    position: absolute;
+    top: calc(100% + 6px);
+    transform: translateX(-50%);
+    font-size: 0.75rem;
+    line-height: 1.2;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .link-button {
+    margin-top: 0.5rem;
+    padding: 0;
+    border: none;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .hung,
+  .empty {
+    margin: 0.5rem 0 0;
+    color: var(--muted);
+  }
+}
