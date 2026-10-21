@@ -16,7 +16,7 @@ import {
   type Party,
 } from "../combinations";
 import { polls, POLLS_SOURCE, type Poll } from "../polls";
-import Horseshoe from "./Horseshoe";
+import Chamber from "./Chamber";
 import { partyColour, PartyNames } from "./party";
 import "./CoalitionCalculator.scss";
 
@@ -24,7 +24,7 @@ const CUSTOM = "custom";
 
 const LETTERS = "abcdefghijklmnopqrstuvwxyz".split("");
 
-// Coalitions shown before "View all": in each list of bars, and in the grid of horseshoes.
+// Coalitions shown before "View all": in each list of bars, and in the grid of chambers.
 const LIST_LIMIT = 10;
 const PLAUSIBLE_LIMIT = 8;
 
@@ -191,14 +191,14 @@ function AddedSeatInput({
   );
 }
 
-// A coalition as a small horseshoe, with it on the governing side.
+// A coalition in a small chamber, with it on the governing side.
 function CoalitionCard({ outcome, house, total }: { outcome: Outcome; house: House; total: number }) {
   const names = useContext(PartyNames);
 
   return (
     <>
       <div className="coalition-head">{coalitionLabel(outcome.members, names)}</div>
-      <Horseshoe house={house} government={outcome.members} label={`${outcome.seats} / ${total}`} />
+      <Chamber house={house} government={outcome.members} label={`${outcome.seats} / ${total}`} />
     </>
   );
 }
@@ -392,7 +392,7 @@ export default function CoalitionCalculator() {
             empty={
               <>
                 <p className="hung">Hung parliament: no permitted coalition reaches {majority} seats.</p>
-                <Horseshoe house={house} government={[]} label="Hung" />
+                <Chamber house={house} government={[]} label="Hung" />
               </>
             }
           >

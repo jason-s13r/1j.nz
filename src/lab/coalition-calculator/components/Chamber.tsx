@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { BLOCS, majorityOf, seatsOf, type House, type Party } from "../combinations";
 import { partyColour, PartyNames } from "./party";
-import "./Horseshoe.scss";
+import "./Chamber.scss";
 
 // Positions are in units of one seat spacing.
 const SEAT_RADIUS = 0.36;
@@ -20,7 +20,7 @@ const CURVE_SEATS = [4, 6, 9];
 const BACK_SEATS = 6;
 // The opposition's single seat in the sixth row, counted from the midpoint, as in the House.
 const SIXTH_ROW_SEAT = 4;
-// Extra space between the two halves of the horseshoe, at its midpoint.
+// Extra space between the two halves of the chamber, at its midpoint.
 const GAP = 1;
 // Seats in the line at the midpoint, front to back: the front three rows, then the fourth and fifth.
 const MIDPOINT_LINE = 5;
@@ -70,7 +70,7 @@ const alternate = <T,>(a: T[], b: T[]) => [
 const fromTheFoot = (a: { column: number; radius: number }, b: { column: number; radius: number }) =>
   a.column - b.column || a.radius - b.radius;
 
-// One half of the horseshoe, as an offset from the centre line (dx) and a distance from the foot
+// One half of the chamber, as an offset from the centre line (dx) and a distance from the foot
 // of the leg (y), split into the order its seats are taken. On the opposition side, the fifth
 // row's seat by the midpoint is the Serjeant-at-Arms', and the sixth row has a single seat a few
 // along from the midpoint, as in the House.
@@ -97,14 +97,14 @@ const halfSeats = (opposition: boolean, total: number) => {
   };
 };
 
-// The horseshoe as two halves opening downwards, each ordered from its foot to the midpoint, and
+// The chamber as two halves opening downwards, each ordered from its foot to the midpoint, and
 // the House's seats left empty. The government side, with the Speaker's chair, takes as many of its
 // House seats as it has members, and the other side the rest. Each side's seats empty in reverse:
 // the opposition's Serjeant-at-Arms' and sixth-row seats, then the back rows from the outside in,
 // then the front rows from the midpoint outward, after any overflow from the other side there.
 // Beyond the House, the rows behind, alternating sides. Without a Speaker, as in a hung parliament
 // with no majority to elect one, the chair stands empty.
-const horseshoeSeats = (total: number, government: number, elected: boolean) => {
+const chamberSeats = (total: number, government: number, elected: boolean) => {
   const left = halfSeats(true, total);
   const right = halfSeats(false, total);
   const chair = { radius: 0, column: -Infinity, dx: 0, y: LEG[0], speaker: true };
@@ -221,9 +221,9 @@ function PartyKey({ parties, house, opposition }: { parties: Party[]; house: Hou
   );
 }
 
-// The house as a horseshoe, with the government on the right leg. Without a government, the
-// traditional bloc holding the largest party takes the right leg.
-export default function Horseshoe({
+// The house seated in a horseshoe-shaped chamber, with the government on the right leg. Without a
+// government, the traditional bloc holding the largest party takes the right leg.
+export default function Chamber({
   house,
   government,
   label,
@@ -254,7 +254,7 @@ export default function Horseshoe({
   const total = sum(seated);
   // Faded behind the government; a hung parliament has no government, so nothing fades.
   const inOpposition = (party: Party) => government.length > 0 && !government.includes(party);
-  const { left: leftSeats, right: rightSeats, empty, width, height } = horseshoeSeats(
+  const { left: leftSeats, right: rightSeats, empty, width, height } = chamberSeats(
     total,
     sum(right.parties),
     government.length > 0,
@@ -287,7 +287,7 @@ export default function Horseshoe({
   const floorY = Math.max(1, height - (CURVE_START + INNER) / 2);
 
   return (
-    <figure className="horseshoe">
+    <figure className="chamber">
       <svg
         viewBox={`0 0 ${width} ${height}`}
         role="img"
