@@ -6,9 +6,29 @@
   --party-l: #d82a20;
   --party-g: #098137;
   --party-a: #fde401;
-  --party-z: #000000;
+  --party-f: #000000;
   --party-m: #b2001a;
   --party-o: #32dac3;
+  // For added parties, which take unused letters in order.
+  --party-b: #7b3fa0;
+  --party-c: #f08a24;
+  --party-d: #e05297;
+  --party-e: #8b5a2b;
+  --party-h: #4fb3ff;
+  --party-i: #9acd32;
+  --party-j: #ffb6c1;
+  --party-k: #2e2e8f;
+  --party-p: #ff6f61;
+  --party-q: #b8860b;
+  --party-r: #2f4f4f;
+  --party-s: #c0c0c0;
+  --party-t: #d2b48c;
+  --party-u: #ba55d3;
+  --party-v: #808000;
+  --party-w: #ffd27f;
+  --party-x: #66cdaa;
+  --party-y: #483d8b;
+  --party-z: #5c6b73;
 
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -38,15 +58,29 @@
 
   .seat-input {
     display: grid;
-    grid-template-columns: auto 1fr 5rem;
+    // The last column holds an added party's remove button.
+    grid-template-columns: auto minmax(0, 1fr) 5rem 1rem;
     align-items: center;
     gap: 0.5rem;
 
     input {
       width: 100%;
       box-sizing: border-box;
+    }
+
+    input[type="number"] {
       text-align: right;
     }
+  }
+
+  .remove-party {
+    padding: 0;
+    border: none;
+    background: none;
+    color: var(--muted);
+    font: inherit;
+    line-height: 1;
+    cursor: pointer;
   }
 
   .swatch {

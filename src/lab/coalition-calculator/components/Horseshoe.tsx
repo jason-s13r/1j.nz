@@ -1,5 +1,6 @@
-import { BLOCS, labels, PARTIES, type House, type Party } from "../combinations";
-import { partyColour } from "./party";
+import { useContext } from "react";
+import { BLOCS, type House, type Party } from "../combinations";
+import { partyColour, PartyNames } from "./party";
 import "./Horseshoe.scss";
 
 // Positions are in units of one seat spacing.
@@ -102,12 +103,13 @@ const fillHalf = (seats: Seat[], own: Party[], overflow: Party[]) => {
 };
 
 function PartyKey({ parties, house, opposition }: { parties: Party[]; house: House; opposition: boolean }) {
+  const names = useContext(PartyNames);
   return (
     <ul>
       {parties.map((party) => (
         <li key={party}>
           <span className={opposition ? "swatch opposition" : "swatch"} style={{ background: partyColour(party) }} />
-          {labels[party]} {house[party]}
+          {names[party]} {house[party]}
         </li>
       ))}
     </ul>
@@ -126,8 +128,9 @@ export default function Horseshoe({
   // Text in the middle of the floor, between the legs.
   label?: string;
 }) {
+  const names = useContext(PartyNames);
   // Largest first.
-  const seated = PARTIES.filter((party) => house[party] > 0).sort((a, b) => house[b] - house[a]);
+  const seated = Object.keys(house).filter((party) => house[party] > 0).sort((a, b) => house[b] - house[a]);
   if (!seated.length) {
     return null;
   }
@@ -169,7 +172,7 @@ export default function Horseshoe({
       >
         {groups.map(({ party, seats }) => (
           <g key={party} className={inOpposition(party) ? "opposition" : undefined} style={{ fill: partyColour(party) }}>
-            <title>{`${labels[party]}: ${house[party]}`}</title>
+            <title>{`${names[party]}: ${house[party]}`}</title>
             {seats.map(({ x, y }, i) => (
               <circle key={i} cx={x} cy={y} r={SEAT_RADIUS} />
             ))}

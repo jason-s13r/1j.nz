@@ -3,15 +3,18 @@ export const labels = {
   l: "Labour",
   g: "Green",
   a: "Act",
-  z: "NZ First",
+  f: "NZ First",
   m: "Te Pāti Māori",
   o: "Opportunity",
 };
 
-// A single-letter party key, e.g. "n" for National.
-export type Party = keyof typeof labels;
+// A single-letter party key, e.g. "n" for National. Parties added by the user take unused letters.
+export type Party = string;
 
-export const PARTIES = Object.keys(labels) as Party[];
+// The key of a party with poll data.
+export type KnownParty = keyof typeof labels;
+
+export const PARTIES = Object.keys(labels) as KnownParty[];
 
 // Seats per party.
 export type House = Record<Party, number>;
@@ -41,13 +44,13 @@ export const STATED_SOURCE =
   "https://thespinoff.co.nz/politics/25-08-2026/the-rule-in-rule-out-game-is-ruining-one-of-the-best-things-about-mmp";
 
 // The parties in the current government. Update after each election.
-export const INCUMBENT: Party[] = ["n", "a", "z"];
+export const INCUMBENT: Party[] = ["n", "a", "f"];
 
 // Traditional left and right blocs, used to seat a hung parliament. Opportunity sits with the
 // left as National has ruled it out.
 export const BLOCS: { left: Party[]; right: Party[] } = {
   left: ["l", "g", "m", "o"],
-  right: ["n", "a", "z"],
+  right: ["n", "a", "f"],
 };
 
 // Parties polling but without seats in the current parliament. Update after each election.
@@ -62,12 +65,12 @@ export const NO_HISTORY: Pair[] = [
   "ga", // Greens, Act
   "lm", // Labour, Te Pāti Māori
   "gm", // Greens, Te Pāti Māori
-  "zm", // NZ First, Te Pāti Māori
+  "fm", // NZ First, Te Pāti Māori
   "no", // Opportunity has never been in parliament
   "lo",
   "go",
   "ao",
-  "zo",
+  "fo",
   "mo",
 ];
 
@@ -79,9 +82,9 @@ export const EXCLUSIONS = {
     "ga", // Greens exclude Act
   ],
   stated: [
-    "gz", // Greens exclude NZ First
-    "lz", // Labour exclude NZ First
-    "mz", // Te Pāti Māori exclude NZ First
+    "gf", // Greens exclude NZ First
+    "lf", // Labour exclude NZ First
+    "mf", // Te Pāti Māori exclude NZ First
     "mn", // Te Pāti Māori exclude National
     "ma", // Te Pāti Māori exclude Act
   ],
@@ -94,9 +97,10 @@ export const EXCLUSIONS = {
 export const DEFAULT_EXCLUSIONS: Pair[] = [...EXCLUSIONS.traditional, ...EXCLUSIONS.stated];
 
 // Every combination of one or more parties.
-const COALITIONS = PARTIES.reduce<Party[][]>((all, party) => [...all, [party], ...all.map((c) => [...c, party])], []);
+const coalitions = (parties: Party[]) =>
+  parties.reduce<Party[][]>((all, party) => [...all, [party], ...all.map((c) => [...c, party])], []);
 
-export const parties = (pair: Pair) => pair.split("") as Party[];
+export const parties = (pair: Pair) => pair.split("");
 
 const sum = (values: number[]) => values.reduce((s, v) => s + v, 0);
 
@@ -109,7 +113,7 @@ export const makeup = (house: House, exclusions: Pair[]): Makeup => {
   // Favour coalitions led by a large party, with few partners.
   const weight = ({ members, seats }: Outcome) => house[members[0]] / seats / members.length;
 
-  const outcomes = COALITIONS.filter((members) => members.every((p) => house[p] > 0))
+  const outcomes = coalitions(Object.keys(house).filter((p) => house[p] > 0))
     .map((members) => ({
       members: members.toSorted((a, b) => house[b] - house[a]),
       seats: sum(members.map((p) => house[p])),
