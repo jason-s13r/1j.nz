@@ -16,12 +16,14 @@ import {
   type Pair,
   type Party,
 } from "../combinations";
+import { elections } from "../elections";
 import { polls, POLLS_SOURCE, type Poll } from "../polls";
 import Chamber from "./Chamber";
 import { partyColour, PartyNames } from "./party";
 import "./CoalitionCalculator.scss";
 
-const CUSTOM = "custom";
+// Where the seats came from: a poll or an election, by index, or null once edited by hand.
+type Source = { kind: "poll" | "election"; index: number } | null;
 
 const LETTERS = "abcdefghijklmnopqrstuvwxyz".split("");
 
@@ -305,7 +307,7 @@ function ResultSection({
 }
 
 export default function CoalitionCalculator() {
-  const [source, setSource] = useState<string>("0");
+  const [source, setSource] = useState<Source>({ kind: "poll", index: 0 });
   const [names, setNames] = useState<Record<Party, string>>(labels);
   const [house, setHouse] = useState<House>(() => houseOf(polls[0]));
   const [excluded, setExcluded] = useState(
@@ -317,18 +319,23 @@ export default function CoalitionCalculator() {
     [house, excluded],
   );
 
-  const onSource = (value: string) => {
-    setSource(value);
-    if (value !== CUSTOM) {
-      // A poll starts afresh, without any added parties or their rule-outs.
-      setNames(labels);
-      setHouse(houseOf(polls[Number(value)]));
-      setExcluded((e) => new Set([...e].filter((pair) => parties(pair).every((party) => party in labels))));
-    }
+  // A poll or election starts afresh, without any added parties or their rule-outs. Parties an
+  // election had that have since gone come in as added parties.
+  const load = (next: Source, seats: House, others: Record<string, number> = {}) => {
+    const letters = LETTERS.filter((letter) => !(letter in labels));
+    const gone = Object.entries(others).map(([name, n], i) => ({ party: letters[i], name, n }));
+    setSource(next);
+    setNames({ ...labels, ...Object.fromEntries(gone.map(({ party, name }) => [party, name])) });
+    setHouse({ ...seats, ...Object.fromEntries(gone.map(({ party, n }) => [party, n])) });
+    setExcluded((e) => new Set([...e].filter((pair) => parties(pair).every((party) => party in labels))));
   };
 
+  const onPoll = (index: number) => load({ kind: "poll", index }, houseOf(polls[index]));
+
+  const onElection = (index: number) => load({ kind: "election", index }, elections[index].seats, elections[index].others);
+
   const onSeats = (party: Party, seats: number) => {
-    setSource(CUSTOM);
+    setSource(null);
     setHouse((h) => ({ ...h, [party]: seats }));
   };
 
@@ -354,17 +361,42 @@ export default function CoalitionCalculator() {
           <div className="house-inputs">
             <h3>Party seat allocations</h3>
             <div className="source">
-              <select aria-label="Seat allocations from" value={source} onChange={(e) => onSource(e.target.value)}>
-                <option value={CUSTOM}>Custom</option>
-                {polls.map(({ pollster, date }, i) => (
-                  <option key={i} value={i}>
-                    {pollster} ({date})
+              <label>
+                <span>Poll</span>
+                <select
+                  value={source?.kind === "poll" ? source.index : ""}
+                  onChange={(e) => onPoll(Number(e.target.value))}
+                >
+                  <option value="" disabled>
+                    Choose a poll
                   </option>
-                ))}
-              </select>
+                  {polls.map(({ pollster, date }, i) => (
+                    <option key={i} value={i}>
+                      {pollster} ({date})
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label>
+                <span>Election result</span>
+                <select
+                  value={source?.kind === "election" ? source.index : ""}
+                  onChange={(e) => onElection(Number(e.target.value))}
+                >
+                  <option value="" disabled>
+                    Choose an election
+                  </option>
+                  {elections.map(({ year, date }, i) => (
+                    <option key={year} value={i}>
+                      {year} ({date})
+                    </option>
+                  ))}
+                </select>
+              </label>
               <p className="hint">
-                Poll seat projections from <a href={POLLS_SOURCE}>Wikipedia</a>. Edit any party to use your own numbers,
-                or add your own parties.
+                Poll seat projections and election results from{" "}
+                <a href={source?.kind === "election" ? elections[source.index].source : POLLS_SOURCE}>Wikipedia</a>.
+                Edit any party to use your own numbers, or add your own parties.
               </p>
             </div>
 
