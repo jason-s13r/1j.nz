@@ -102,21 +102,25 @@ const coalitions = (parties: Party[]) =>
 
 export const parties = (pair: Pair) => pair.split("");
 
-const sum = (values: number[]) => values.reduce((s, v) => s + v, 0);
+// Seats held by the given parties.
+export const seatsOf = (house: House, members: Party[]) => members.reduce((s, p) => s + house[p], 0);
+
+// Seats needed to govern.
+export const majorityOf = (total: number) => Math.floor(total / 2) + 1;
 
 export const makeup = (house: House, exclusions: Pair[]): Makeup => {
-  const total = sum(Object.values(house));
-  const majority = Math.floor(total / 2) + 1;
+  const total = seatsOf(house, Object.keys(house));
+  const majority = majorityOf(total);
   const wins = ({ seats }: Outcome) => seats >= majority;
-  const excluded = ({ members }: Outcome) =>
-    exclusions.some((pair) => parties(pair).every((p) => members.includes(p)));
+  const ruledOutPairs = exclusions.map(parties);
+  const excluded = ({ members }: Outcome) => ruledOutPairs.some((pair) => pair.every((p) => members.includes(p)));
   // Favour coalitions led by a large party, with few partners.
   const weight = ({ members, seats }: Outcome) => house[members[0]] / seats / members.length;
 
   const outcomes = coalitions(Object.keys(house).filter((p) => house[p] > 0))
     .map((members) => ({
       members: members.toSorted((a, b) => house[b] - house[a]),
-      seats: sum(members.map((p) => house[p])),
+      seats: seatsOf(house, members),
     }))
     .sort((a, b) => weight(b) - weight(a));
   const allowed = outcomes.filter((outcome) => !excluded(outcome));

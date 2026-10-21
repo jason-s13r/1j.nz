@@ -54,16 +54,20 @@ const pairsOf = (keys: Party[]) =>
     })),
   );
 
-const groupsOf = (keys: Party[]) =>
-  [
-    { label: "Stated", source: STATED_SOURCE },
-    { label: "Worked together" },
-    { label: "No history" },
-    { label: "Outside parliament" },
-    { label: "Added parties" },
-  ]
-    .map((group) => ({ ...group, pairs: pairsOf(keys).filter((p) => p.group === group.label) }))
-    .filter(({ pairs }) => pairs.length);
+const GROUPS: { label: ReturnType<typeof groupOf>; source?: string }[] = [
+  { label: "Stated", source: STATED_SOURCE },
+  { label: "Worked together" },
+  { label: "No history" },
+  { label: "Outside parliament" },
+  { label: "Added parties" },
+];
+
+const groupsOf = (keys: Party[]) => {
+  const pairs = pairsOf(keys);
+  return GROUPS.map((group) => ({ ...group, pairs: pairs.filter((p) => p.group === group.label) })).filter(
+    ({ pairs }) => pairs.length,
+  );
+};
 
 const houseOf = ({ pollster, date, ...house }: Poll): House => house;
 
@@ -212,6 +216,7 @@ function CoalitionRow({
   majority: number;
 }) {
   const names = useContext(PartyNames);
+  const majorityAt = percent(majority / total);
 
   return (
     <>
@@ -232,8 +237,8 @@ function CoalitionRow({
             />
           ))}
         </div>
-        <span className="seat-bar-majority" style={{ left: percent(majority / total) }} title={`Majority: ${majority}`} />
-        <span className="seat-bar-majority-label" style={{ left: percent(majority / total) }}>
+        <span className="seat-bar-majority" style={{ left: majorityAt }} title={`Majority: ${majority}`} />
+        <span className="seat-bar-majority-label" style={{ left: majorityAt }}>
           Needs {majority} seats to govern
         </span>
       </div>

@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { BLOCS, type House, type Party } from "../combinations";
+import { BLOCS, majorityOf, seatsOf, type House, type Party } from "../combinations";
 import { partyColour, PartyNames } from "./party";
 import "./Horseshoe.scss";
 
@@ -36,8 +36,9 @@ interface Seat {
   back: boolean;
   // How far round the curve from the end of the leg (negative along the leg), scaled to the front
   // row, so a seat is directly behind those in front with the same. Each row's first and last seats
-  // round the curve line up with the front row's. And distance from the centre.
+  // round the curve line up with the front row's.
   column: number;
+  // Distance from the centre.
   radius: number;
   // The Speaker's chair, at the foot between the legs.
   speaker?: boolean;
@@ -71,8 +72,9 @@ const fromTheFoot = (a: { column: number; radius: number }, b: { column: number;
   a.column - b.column || a.radius - b.radius;
 
 // One half of the horseshoe, as an offset from the centre line (dx) and a distance from the foot
-// of the leg (y), split into the order its seats are taken. On the opposition side, the fifth row's seat by the midpoint is the Serjeant-at-Arms', and the
-// sixth row has a single seat a few along from the midpoint, as in the House.
+// of the leg (y), split into the order its seats are taken. On the opposition side, the fifth
+// row's seat by the midpoint is the Serjeant-at-Arms', and the sixth row has a single seat a few
+// along from the midpoint, as in the House.
 const halfSeats = (opposition: boolean, total: number) => {
   const row = (n: number) => rowSeats(n, opposition ? -1 : 1);
   const [fourth, fifth, sixth] = [3, 4, 5].map(row);
@@ -121,8 +123,9 @@ const horseshoeSeats = (total: number, government: number) => {
     ...emptySeats(left.front, [...left.back, ...left.last], onLeft, Math.max(0, government - onRight)),
     ...emptySeats([speaker, ...right.front], right.back, onRight, Math.max(0, total - government - onLeft)),
   ];
+  const isEmpty = new Set(empty);
   const taken = [
-    ...[...leftHouse, ...rightHouse].filter((seat) => !empty.includes(seat)),
+    ...[...leftHouse, ...rightHouse].filter((seat) => !isEmpty.has(seat)),
     ...alternate(left.behind, right.behind).slice(0, total - inHouse),
   ];
 
@@ -132,10 +135,10 @@ const horseshoeSeats = (total: number, government: number) => {
 
   // Flip y so the feet of the legs are at the bottom.
   const place = ({ dx, y, ...seat }: (typeof all)[number]): Seat => ({ ...seat, x: cx + dx, y: height - y });
-  const half = (onLeft: boolean) =>
+  const half = (leftSide: boolean) =>
     taken
-      .filter(({ dx }) => dx < 0 === onLeft)
-      .sort((a, b) => a.column - b.column || a.radius - b.radius)
+      .filter(({ dx }) => dx < 0 === leftSide)
+      .sort(fromTheFoot)
       .map(place);
   return { left: half(true), right: half(false), empty: empty.map(place), width: 2 * cx, height };
 };
@@ -161,6 +164,7 @@ const fillHalf = (seats: Seat[], own: Party[], overflow: Party[]) => {
     .forEach((index, i) => (placed[index] = overflow[i]));
   let next = 0;
   const parties = seats.map((_, index) => placed[index] ?? own[next++]);
+  const ownParties = new Set(own);
 
   const inFront = (index: number) => seats[index].radius === INNER;
   const seatsOf = (party: Party) => [...seats.keys()].filter((index) => parties[index] === party);
@@ -168,13 +172,13 @@ const fillHalf = (seats: Seat[], own: Party[], overflow: Party[]) => {
   const distance = (a: number, b: number) => Math.abs(seats[a].column - seats[b].column);
   // Parties that have taken a front-row seat keep it.
   const settled = new Set<Party>();
-  const lacking = [...new Set(own)].filter((party) => !fronts(party));
+  const lacking = [...ownParties].filter((party) => !fronts(party));
   for (let party = lacking.shift(); party !== undefined; party = lacking.shift()) {
     settled.add(party);
     const mine = seatsOf(party);
     const near = (index: number) => Math.min(...mine.map((m) => distance(index, m)));
     const [taken] = [...seats.keys()]
-      .filter((index) => inFront(index) && own.includes(parties[index]) && !settled.has(parties[index]))
+      .filter((index) => inFront(index) && ownParties.has(parties[index]) && !settled.has(parties[index]))
       .sort((a, b) => near(a) - near(b) || fronts(parties[b]) - fronts(parties[a]));
     if (taken === undefined) continue;
     const owner = parties[taken];
@@ -186,7 +190,7 @@ const fillHalf = (seats: Seat[], own: Party[], overflow: Party[]) => {
       const moved = line.map((index) => parties[index]).sort((a, b) => Number(b === party) - Number(a === party));
       line.forEach((index, i) => (parties[index] = moved[i]));
     } else {
-      const [given] = mine.sort((a, b) => distance(a, taken) - distance(b, taken) || seats[b].radius - seats[a].radius);
+      const [given] = mine.toSorted((a, b) => distance(a, taken) - distance(b, taken) || seats[b].radius - seats[a].radius);
       [parties[taken], parties[given]] = [parties[given], parties[taken]];
     }
     if (!fronts(owner)) lacking.push(owner);
@@ -238,10 +242,11 @@ export default function Horseshoe({
   const left = { label: leftLabel, parties: seated.filter((p) => !rightMembers.includes(p)) };
   const right = { label: rightLabel, parties: seated.filter((p) => rightMembers.includes(p)) };
 
-  const sum = (parties: Party[]) => parties.reduce((s, p) => s + house[p], 0);
+  const sum = (parties: Party[]) => seatsOf(house, parties);
+  const total = sum(seated);
   // Faded behind the government; a hung parliament has no government, so nothing fades.
   const inOpposition = (party: Party) => government.length > 0 && !government.includes(party);
-  const { left: leftSeats, right: rightSeats, empty, width, height } = horseshoeSeats(sum(seated), sum(right.parties));
+  const { left: leftSeats, right: rightSeats, empty, width, height } = horseshoeSeats(total, sum(right.parties));
 
   // Each side fills its own half from the foot, largest party first, so the largest parties sit
   // nearest the Speaker. A side with more than half the house carries on across the aisle, at the
@@ -255,7 +260,7 @@ export default function Horseshoe({
   ];
   const groups = seated.map((party) => ({ party, seats: placed.filter((seat) => seat.party === party) }));
 
-  const majority = Math.floor(sum(seated) / 2) + 1;
+  const majority = majorityOf(total);
   const floorY = Math.max(1, height - (CURVE_START + INNER) / 2);
 
   return (
