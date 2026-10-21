@@ -146,8 +146,7 @@ const horseshoeSeats = (total: number, government: number, elected: boolean) => 
 };
 
 // Seats in the line nearest the midpoint first, front to back, then the next line out.
-const fromTheAisle = (seats: Seat[]) =>
-  [...seats.keys()].sort((a, b) => seats[b].column - seats[a].column || seats[a].radius - seats[b].radius);
+const fromTheAisle = (seats: Seat[]) => seats.toSorted((a, b) => b.column - a.column || a.radius - b.radius);
 
 // Seat one side as slices of pizza: each party's slice runs back from its stretch of the front row,
 // squeezed against its neighbours' to hold its MPs.
@@ -274,13 +273,13 @@ export default function Horseshoe({
     { seats: leftSeats, parties: left.parties },
     { seats: rightSeats, parties: right.parties },
   ].sort((a, b) => extra(b) - extra(a));
-  const straddling =
-    extra(big) > 0 ? big.parties.slice(1).findLast((party) => house[party] >= extra(big) + MIDPOINT_LINE) : undefined;
+  const over = extra(big);
+  const straddling = over > 0 ? big.parties.slice(1).findLast((party) => house[party] >= over + MIDPOINT_LINE) : undefined;
   const order = straddling ? [...big.parties.filter((party) => party !== straddling), straddling] : big.parties;
-  const across = new Set(fromTheAisle(small.seats).slice(0, extra(big)));
+  const across = fromTheAisle(small.seats).slice(0, over);
   const placed = [
-    ...fillSide(big.seats, [...across].map((index) => small.seats[index]), expand(order)),
-    ...fillSide(small.seats.filter((_, index) => !across.has(index)), [], expand(small.parties)),
+    ...fillSide(big.seats, across, expand(order)),
+    ...fillSide(small.seats.filter((seat) => !across.includes(seat)), [], expand(small.parties)),
   ];
   const groups = seated.map((party) => ({ party, seats: placed.filter((seat) => seat.party === party) }));
 
