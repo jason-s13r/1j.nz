@@ -40,20 +40,44 @@
     margin: 0.25rem 0 0;
   }
 
+  // Where the seats come from, set apart as the first choice to make.
   .source {
-    display: grid;
-    gap: 0.25rem;
+    margin-top: 0.75rem;
+    padding: 1rem;
+    background: var(--track);
+    border-radius: 6px;
 
     select {
-      max-width: 100%;
+      display: block;
+      width: 100%;
+      padding: 0.4rem 0.5rem;
+      font: inherit;
+    }
+
+    .hint {
+      margin-top: 0.5rem;
     }
   }
 
+  // The house beside the ruled-out partnerships, stacking when there's no room for both.
+  .inputs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 1.5rem 2rem;
+  }
+
+  // Narrow enough that each party's name stays near its seats.
+  .house-inputs {
+    flex: 0 1 20rem;
+    min-width: 0;
+  }
+
+  // One party per line, then the add button and the total lined up with the seats.
   .seat-inputs {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
-    gap: 0.5rem 1.5rem;
-    margin-top: 1rem;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
   }
 
   .seat-input {
@@ -88,26 +112,62 @@
     height: 0.75rem;
   }
 
+  // In the seats' column, so it lines up under the seat inputs.
+  .add-party {
+    grid-column: 3;
+    padding: 0.35rem 0;
+    border: 1px solid var(--muted);
+    border-radius: 4px;
+    background: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+
+    &:hover {
+      background: var(--track);
+    }
+  }
+
+  // Ruled off like a sum, ending under the seats so the total sits beneath them.
   .house-total {
-    margin: 1rem 0 0;
+    margin: 0.25rem 0 0;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--muted);
+
+    span {
+      grid-column: 1 / 4;
+      text-align: right;
+    }
   }
 
   .exclusions {
-    margin: 1rem 0 0;
+    flex: 1 1 24rem;
+    display: grid;
+    gap: 0.75rem;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: none;
 
+    .hint {
+      margin: 0;
+    }
+  }
+
+  .exclusion-group {
     summary {
       cursor: pointer;
     }
 
-    fieldset {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
-      align-items: start;
-      gap: 1rem 1.5rem;
-      min-width: 0;
-      margin: 0.75rem 0 0;
-      padding: 0;
-      border: none;
+    h4 {
+      display: inline;
+      margin: 0;
+    }
+
+    // Keeps the source link on the summary's line, clear of the open/closed marker.
+    summary .exclusion-tag {
+      float: right;
+      line-height: inherit;
     }
   }
 
@@ -121,17 +181,6 @@
     align-items: flex-start;
     gap: 0.5rem;
     cursor: pointer;
-  }
-
-  .exclusion-heading {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 0.5rem;
-
-    h4 {
-      margin: 0;
-    }
   }
 
   .exclusion-list {

@@ -1,6 +1,7 @@
 import { useContext, useMemo, useState, type ReactNode } from "react";
 import {
   DEFAULT_EXCLUSIONS,
+  ELECTION,
   EXCLUSIONS,
   INCUMBENT,
   labels,
@@ -32,13 +33,15 @@ const hasPair = (pairs: Pair[], a: Party, b: Party) => pairs.some((pair) => pair
 
 const added = (party: Party) => !(party in labels);
 
+const STATED = `Ruled out for ${ELECTION}`;
+
 // Why a pair of parties might not govern together.
 const groupOf = (a: Party, b: Party) => {
   if (added(a) || added(b)) return "Added parties";
-  if (hasPair([...EXCLUSIONS.stated, ...EXCLUSIONS.disputed], a, b)) return "Stated";
+  if (hasPair([...EXCLUSIONS.stated, ...EXCLUSIONS.disputed], a, b)) return STATED;
   if (OUTSIDE_PARLIAMENT.includes(a) || OUTSIDE_PARLIAMENT.includes(b)) return "Outside parliament";
-  if (hasPair(NO_HISTORY, a, b)) return "No history";
-  return "Worked together";
+  if (hasPair(NO_HISTORY, a, b)) return "Never governed together";
+  return "Governed together";
 };
 
 // Every pair of parties.
@@ -49,15 +52,17 @@ const pairsOf = (keys: Party[]) =>
       group: groupOf(a, b),
       // Both in the current government.
       incumbent: INCUMBENT.includes(a) && INCUMBENT.includes(b),
+      // Ruled out, but not expected to hold.
+      unlikelyToHold: hasPair(EXCLUSIONS.disputed, a, b),
       // Ruled out by default.
       excluded: hasPair(DEFAULT_EXCLUSIONS, a, b),
     })),
   );
 
 const GROUPS: { label: ReturnType<typeof groupOf>; source?: string }[] = [
-  { label: "Stated", source: STATED_SOURCE },
-  { label: "Worked together" },
-  { label: "No history" },
+  { label: STATED, source: STATED_SOURCE },
+  { label: "Governed together" },
+  { label: "Never governed together" },
   { label: "Outside parliament" },
   { label: "Added parties" },
 ];
@@ -86,45 +91,52 @@ function Exclusions({ excluded, onChange }: { excluded: Set<Pair>; onChange: (ex
   };
 
   return (
-    <details className="exclusions">
-      <summary>
+    <fieldset className="exclusions" aria-label="Ruled-out partnerships">
+      <h3>
         Ruled-out partnerships <span className="exclusion-count">{excluded.size} ruled out</span>
-      </summary>
+      </h3>
       <p className="hint">Parties that refuse to govern together.</p>
-      <fieldset aria-label="Ruled-out partnerships">
-        {groupsOf(Object.keys(names)).map(({ label, source, pairs }) => (
-          <div key={label} className="exclusion-group">
-            <div className="exclusion-heading">
-              <h4>{label}</h4>
-              {source && (
-                <a className="exclusion-tag" href={source} title="The Spinoff">
-                  Source
-                </a>
-              )}
-            </div>
-            <ul className="exclusion-list">
-              {pairs.map(({ pair, incumbent }) => (
-                <li key={pair}>
-                  <label className="toggle">
-                    <input
-                      type="checkbox"
-                      checked={excluded.has(pair)}
-                      onChange={(e) => toggle(pair, e.target.checked)}
-                    />
-                    <span>{coalitionLabel(parties(pair), names)}</span>
-                  </label>
-                  {incumbent && (
-                    <span className="exclusion-tag" title="Both in the current government">
-                      Incumbent
-                    </span>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </fieldset>
-    </details>
+      {groupsOf(Object.keys(names)).map(({ label, source, pairs }) => (
+        // Only the stated rule-outs start open; the rest are there to explore.
+        <details key={label} className="exclusion-group" open={label === STATED}>
+          <summary>
+            <h4>{label}</h4>{" "}
+            <span className="exclusion-count">
+              {pairs.filter(({ pair }) => excluded.has(pair)).length} of {pairs.length} ruled out
+            </span>
+            {source && (
+              <a className="exclusion-tag" href={source} title="The Spinoff">
+                Source
+              </a>
+            )}
+          </summary>
+          <ul className="exclusion-list">
+            {pairs.map(({ pair, incumbent, unlikelyToHold }) => (
+              <li key={pair}>
+                <label className="toggle">
+                  <input
+                    type="checkbox"
+                    checked={excluded.has(pair)}
+                    onChange={(e) => toggle(pair, e.target.checked)}
+                  />
+                  <span>{coalitionLabel(parties(pair), names)}</span>
+                </label>
+                {incumbent && (
+                  <span className="exclusion-tag" title="Both in the current government">
+                    Incumbent
+                  </span>
+                )}
+                {unlikelyToHold && (
+                  <span className="exclusion-tag" title="Ruled out repeatedly in the media, but not expected to hold, so not ticked by default">
+                    Unlikely to hold
+                  </span>
+                )}
+              </li>
+            ))}
+          </ul>
+        </details>
+      ))}
+    </fieldset>
   );
 }
 
@@ -308,8 +320,10 @@ export default function CoalitionCalculator() {
   const onSource = (value: string) => {
     setSource(value);
     if (value !== CUSTOM) {
-      // Added parties keep their seats, as polls don't cover them.
-      setHouse((h) => ({ ...h, ...houseOf(polls[Number(value)]) }));
+      // A poll starts afresh, without any added parties or their rule-outs.
+      setNames(labels);
+      setHouse(houseOf(polls[Number(value)]));
+      setExcluded((e) => new Set([...e].filter((pair) => parties(pair).every((party) => party in labels))));
     }
   };
 
@@ -337,47 +351,53 @@ export default function CoalitionCalculator() {
     <PartyNames value={names}>
       <div className="coalition-calculator">
         <section className="panel inputs">
-          <label className="source">
-            <span>Seats from</span>
-            <select value={source} onChange={(e) => onSource(e.target.value)}>
-              <option value={CUSTOM}>Custom</option>
-              {polls.map(({ pollster, date }, i) => (
-                <option key={i} value={i}>
-                  {pollster} ({date})
-                </option>
-              ))}
-            </select>
-          </label>
-          <p className="hint">
-            Poll seat projections from <a href={POLLS_SOURCE}>Wikipedia</a>. Edit any party to use your own numbers, or
-            add your own parties.
-          </p>
+          <div className="house-inputs">
+            <h3>Party seat allocations</h3>
+            <div className="source">
+              <select aria-label="Seat allocations from" value={source} onChange={(e) => onSource(e.target.value)}>
+                <option value={CUSTOM}>Custom</option>
+                {polls.map(({ pollster, date }, i) => (
+                  <option key={i} value={i}>
+                    {pollster} ({date})
+                  </option>
+                ))}
+              </select>
+              <p className="hint">
+                Poll seat projections from <a href={POLLS_SOURCE}>Wikipedia</a>. Edit any party to use your own numbers,
+                or add your own parties.
+              </p>
+            </div>
 
-          <div className="seat-inputs">
-            {PARTIES.map((party) => (
-              <SeatInput key={party} party={party} value={house[party]} onChange={(seats) => onSeats(party, seats)} />
-            ))}
-            {Object.keys(names)
-              .filter(added)
-              .map((party) => (
-                <AddedSeatInput
-                  key={party}
-                  party={party}
-                  value={house[party]}
-                  onChange={(seats) => onSeats(party, seats)}
-                  onRename={(name) => setNames((n) => ({ ...n, [party]: name }))}
-                  onRemove={() => removeParty(party)}
-                />
+            <div className="seat-inputs">
+              {PARTIES.map((party) => (
+                <SeatInput key={party} party={party} value={house[party]} onChange={(seats) => onSeats(party, seats)} />
               ))}
+              {Object.keys(names)
+                .filter(added)
+                .map((party) => (
+                  <AddedSeatInput
+                    key={party}
+                    party={party}
+                    value={house[party]}
+                    onChange={(seats) => onSeats(party, seats)}
+                    onRename={(name) => setNames((n) => ({ ...n, [party]: name }))}
+                    onRemove={() => removeParty(party)}
+                  />
+                ))}
+              {Object.keys(names).length < LETTERS.length && (
+                <div className="seat-input">
+                  <button type="button" className="add-party" title="Add a party" onClick={addParty}>
+                    + Add
+                  </button>
+                </div>
+              )}
+              <p className="seat-input house-total">
+                <span>
+                  {total} seats, {majority} for a majority
+                </span>
+              </p>
+            </div>
           </div>
-          {Object.keys(names).length < LETTERS.length && (
-            <button type="button" className="link-button" onClick={addParty}>
-              Add a party
-            </button>
-          )}
-          <p className="house-total">
-            {total} seats, {majority} for a majority
-          </p>
 
           <Exclusions excluded={excluded} onChange={setExcluded} />
         </section>

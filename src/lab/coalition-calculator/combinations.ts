@@ -39,6 +39,9 @@ export interface Makeup {
   ruledOut: Outcome[];
 }
 
+// The coming election, which the stated rule-outs are for. Update after each election.
+export const ELECTION = 2026;
+
 // Where the stated rule-outs come from.
 export const STATED_SOURCE =
   "https://thespinoff.co.nz/politics/25-08-2026/the-rule-in-rule-out-game-is-ruining-one-of-the-best-things-about-mmp";
