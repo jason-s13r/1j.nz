@@ -22,6 +22,8 @@ const BACK_SEATS = 6;
 const SIXTH_ROW_SEAT = 4;
 // Extra space between the two halves of the horseshoe, at its midpoint.
 const GAP = 1;
+// Seats in the line at the midpoint, front to back: the front three rows, then the fourth and fifth.
+const MIDPOINT_LINE = 5;
 
 // Distance round a row from the end of the leg to the gap.
 const curveLength = (radius: number) => (Math.PI / 2) * radius - GAP / 2;
@@ -103,13 +105,15 @@ const halfSeats = (opposition: boolean, total: number) => {
 // House seats as it has members, and the other side the rest. Each side's seats empty in reverse:
 // the opposition's Serjeant-at-Arms' and sixth-row seats, then the back rows from the outside in,
 // then the front rows from the midpoint outward, after any overflow from the other side there.
-// Beyond the House, the rows behind, alternating sides.
-const horseshoeSeats = (total: number, government: number) => {
+// Beyond the House, the rows behind, alternating sides. Without a Speaker, as in a hung parliament
+// with no majority to elect one, the chair stands empty.
+const horseshoeSeats = (total: number, government: number, elected: boolean) => {
   const left = halfSeats(true, total);
   const right = halfSeats(false, total);
-  const speaker = { radius: 0, column: -Infinity, back: false, dx: 0, y: LEG[0], speaker: true };
+  const chair = { radius: 0, column: -Infinity, back: false, dx: 0, y: LEG[0], speaker: true };
+  const speaker = elected ? [chair] : [];
   const leftHouse = [...left.front, ...left.back, ...left.last];
-  const rightHouse = [speaker, ...right.front, ...right.back];
+  const rightHouse = [...speaker, ...right.front, ...right.back];
   const inHouse = Math.min(total, leftHouse.length + rightHouse.length);
   const onRight = Math.min(rightHouse.length, Math.max(government, inHouse - leftHouse.length));
   const onLeft = inHouse - onRight;
@@ -121,7 +125,8 @@ const horseshoeSeats = (total: number, government: number) => {
   };
   const empty = [
     ...emptySeats(left.front, [...left.back, ...left.last], onLeft, Math.max(0, government - onRight)),
-    ...emptySeats([speaker, ...right.front], right.back, onRight, Math.max(0, total - government - onLeft)),
+    ...emptySeats([...speaker, ...right.front], right.back, onRight, Math.max(0, total - government - onLeft)),
+    ...(elected ? [] : [chair]),
   ];
   const isEmpty = new Set(empty);
   const taken = [
@@ -152,49 +157,77 @@ const fromTheBack = (seats: Seat[]) =>
       seats[b].radius - seats[a].radius,
   );
 
-// Seat any overflow from the other side at the back, then fill the rest with this half's own side
-// from the foot, front to back across the rows, so each party sits in a block behind its stretch of
-// the front row. Any party left without a front-row seat takes the nearest one, moving to the front
-// of the line behind it or swapping its nearest seat for it, and a party left without one in turn
-// does the same.
-const fillHalf = (seats: Seat[], own: Party[], overflow: Party[]) => {
-  const placed: (Party | undefined)[] = new Array(seats.length);
-  fromTheBack(seats)
-    .slice(0, overflow.length)
-    .forEach((index, i) => (placed[index] = overflow[i]));
-  let next = 0;
-  const parties = seats.map((_, index) => placed[index] ?? own[next++]);
-  const ownParties = new Set(own);
+// Seats in the line nearest the midpoint first, front to back, then the next line out.
+const fromTheAisle = (seats: Seat[]) =>
+  [...seats.keys()].sort((a, b) => seats[b].column - seats[a].column || seats[a].radius - seats[b].radius);
 
-  const inFront = (index: number) => seats[index].radius === INNER;
-  const seatsOf = (party: Party) => [...seats.keys()].filter((index) => parties[index] === party);
-  const fronts = (party: Party) => seatsOf(party).filter(inFront).length;
-  const distance = (a: number, b: number) => Math.abs(seats[a].column - seats[b].column);
-  // Parties that have taken a front-row seat keep it.
-  const settled = new Set<Party>();
-  const lacking = [...ownParties].filter((party) => !fronts(party));
-  for (let party = lacking.shift(); party !== undefined; party = lacking.shift()) {
-    settled.add(party);
-    const mine = seatsOf(party);
-    const near = (index: number) => Math.min(...mine.map((m) => distance(index, m)));
-    const [taken] = [...seats.keys()]
-      .filter((index) => inFront(index) && ownParties.has(parties[index]) && !settled.has(parties[index]))
-      .sort((a, b) => near(a) - near(b) || fronts(parties[b]) - fronts(parties[a]));
-    if (taken === undefined) continue;
-    const owner = parties[taken];
-    // Move to the front of the line of seats behind it, or swap for its nearest seat if it has none there.
-    const line = [...seats.keys()]
-      .filter((index) => seats[index].column === seats[taken].column)
-      .sort((a, b) => seats[a].radius - seats[b].radius);
-    if (line.some((index) => parties[index] === party)) {
-      const moved = line.map((index) => parties[index]).sort((a, b) => Number(b === party) - Number(a === party));
-      line.forEach((index, i) => (parties[index] = moved[i]));
-    } else {
-      const [given] = mine.toSorted((a, b) => distance(a, taken) - distance(b, taken) || seats[b].radius - seats[a].radius);
-      [parties[taken], parties[given]] = [parties[given], parties[taken]];
+// Seat one side as slices of pizza: each party's slice runs back from its stretch of the front row,
+// squeezed against its neighbours' to hold its MPs.
+//
+// The side's seats run from the foot to the midpoint of its half, then across the aisle toward the
+// midpoint, then up the midpoint line from the back. Filling them in that order decides who takes
+// the seats across the aisle: a side too big for its half carries on across it, while the party at
+// the midpoint keeps the line behind its front-row seat.
+// It also shares out the front row, except that every party gets a front-row seat, from the nearest
+// party with one to spare.
+//
+// The rest of the half goes party by party from the foot. Each slice meets the next midway between
+// their front-row seats, and leans that edge as little as it can to take the seats it needs,
+// bending the back rows more than those just behind the front.
+const fillSide = (half: Seat[], across: Seat[], members: Party[]) => {
+  const atMidpoint = (seat: Seat) => seat.column === FRONT_LAST;
+  const seats = [
+    ...half.filter((seat) => !atMidpoint(seat)),
+    ...across.toReversed(),
+    ...half.filter(atMidpoint).toReversed(),
+  ];
+  const parties: Party[] = new Array(seats.length);
+  const isAcross = (index: number) => across.includes(seats[index]);
+  const inFront = (index: number) => !isAcross(index) && seats[index].radius === INNER;
+  const fronts = [...seats.keys()].filter(inFront);
+  const sides = [...new Set(members)];
+  const counts = sides.map((party) => members.filter((member) => member === party).length);
+
+  for (const index of seats.keys()) {
+    if (isAcross(index)) {
+      parties[index] = members[index];
+      counts[sides.indexOf(members[index])]--;
     }
-    if (!fronts(owner)) lacking.push(owner);
   }
+
+  const shares = sides.map((party) => fronts.filter((index) => members[index] === party).length);
+  for (const [p, share] of shares.entries()) {
+    if (share) continue;
+    const [lender] = [...shares.keys()]
+      .filter((q) => shares[q] > 1)
+      .sort((a, b) => Math.abs(a - p) - Math.abs(b - p) || shares[b] - shares[a]);
+    if (lender === undefined) break;
+    shares[lender]--;
+    shares[p]++;
+  }
+  let front = 0;
+  const crusts = sides.map((party, p) => {
+    const mine = fronts.slice(front, (front += shares[p]));
+    for (const index of mine) parties[index] = party;
+    counts[p] -= mine.length;
+    return mine.map((index) => seats[index].column);
+  });
+
+  // The Speaker's chair, first from the foot, is the first party's.
+  let rest = [...seats.keys()].filter((index) => parties[index] === undefined);
+  if (seats[rest[0]]?.speaker) {
+    parties[rest.shift()!] = sides[0];
+    counts[0]--;
+  }
+  sides.forEach((party, p) => {
+    const next = crusts.slice(p + 1).find((crust) => crust.length);
+    const edge = next ? (Math.max(...crusts[p], -Infinity) + next[0]) / 2 : Infinity;
+    // Along the legs, where the rows line up, the slices don't lean.
+    const lean = ({ column, radius }: Seat) => (column - edge) / (column > 0 ? Math.sqrt(radius - INNER) : 1);
+    const order = rest.toSorted((a, b) => lean(seats[a]) - lean(seats[b]) || seats[a].radius - seats[b].radius);
+    for (const index of order.slice(0, counts[p])) parties[index] = party;
+    rest = order.slice(counts[p]);
+  });
 
   return seats.map((seat, index) => ({ ...seat, party: parties[index] }));
 };
@@ -246,17 +279,32 @@ export default function Horseshoe({
   const total = sum(seated);
   // Faded behind the government; a hung parliament has no government, so nothing fades.
   const inOpposition = (party: Party) => government.length > 0 && !government.includes(party);
-  const { left: leftSeats, right: rightSeats, empty, width, height } = horseshoeSeats(total, sum(right.parties));
+  const { left: leftSeats, right: rightSeats, empty, width, height } = horseshoeSeats(
+    total,
+    sum(right.parties),
+    government.length > 0,
+  );
 
   // Each side fills its own half from the foot, largest party first, so the largest parties sit
-  // nearest the Speaker. A side with more than half the house carries on across the aisle, at the
-  // back of the other side.
+  // nearest the Speaker. A side with more than half the house carries on across the aisle. Its
+  // smallest party big enough to hold the line at the midpoint and every seat across the aisle goes
+  // last, and takes the other side's lines nearest the aisle, front to back, so it straddles the
+  // aisle in one block and the smaller parties keep their own slices. With no party big enough, the
+  // smallest holds the line and the one before it carries on across the back of the other side.
   const expand = (parties: Party[]) => parties.flatMap((party) => Array<Party>(house[party]).fill(party));
-  const leftOrder = expand(left.parties);
-  const rightOrder = expand(right.parties);
+  const extra = ({ seats, parties }: { seats: Seat[]; parties: Party[] }) => sum(parties) - seats.length;
+  // The side with more members than its half has seats first, if either.
+  const [big, small] = [
+    { seats: leftSeats, parties: left.parties },
+    { seats: rightSeats, parties: right.parties },
+  ].sort((a, b) => extra(b) - extra(a));
+  const straddling =
+    extra(big) > 0 ? big.parties.slice(1).findLast((party) => house[party] >= extra(big) + MIDPOINT_LINE) : undefined;
+  const order = straddling ? [...big.parties.filter((party) => party !== straddling), straddling] : big.parties;
+  const across = new Set((straddling ? fromTheAisle : fromTheBack)(small.seats).slice(0, extra(big)));
   const placed = [
-    ...fillHalf(leftSeats, leftOrder.slice(0, leftSeats.length), rightOrder.slice(rightSeats.length)),
-    ...fillHalf(rightSeats, rightOrder.slice(0, rightSeats.length), leftOrder.slice(leftSeats.length)),
+    ...fillSide(big.seats, [...across].map((index) => small.seats[index]), expand(order)),
+    ...fillSide(small.seats.filter((_, index) => !across.has(index)), [], expand(small.parties)),
   ];
   const groups = seated.map((party) => ({ party, seats: placed.filter((seat) => seat.party === party) }));
 

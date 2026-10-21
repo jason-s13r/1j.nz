@@ -392,7 +392,7 @@ export default function CoalitionCalculator() {
             empty={
               <>
                 <p className="hung">Hung parliament: no permitted coalition reaches {majority} seats.</p>
-                <Horseshoe house={house} government={[]} />
+                <Horseshoe house={house} government={[]} label="Hung" />
               </>
             }
           >
