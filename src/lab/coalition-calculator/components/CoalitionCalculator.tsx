@@ -16,7 +16,7 @@ import {
   type Pair,
   type Party,
 } from "../combinations";
-import { elections } from "../elections";
+import { elections, type Election } from "../elections";
 import { averages, houseOf, polls, POLLS_SOURCE } from "../polls";
 import Chamber from "./Chamber";
 import { partyColour, PartyNames } from "./party";
@@ -323,12 +323,10 @@ export default function CoalitionCalculator() {
 
   // A poll or election starts afresh, without any added parties or their rule-outs. Parties an
   // election had that have since gone come in as added parties.
-  const load = (next: Source, seats: House, others: Record<string, number> = {}) => {
-    const letters = LETTERS.filter((letter) => !(letter in labels));
-    const gone = Object.entries(others).map(([name, n], i) => ({ party: letters[i], name, n }));
+  const load = (next: Source, seats: House, others: Election["others"] = []) => {
     setSource(next);
-    setNames({ ...labels, ...Object.fromEntries(gone.map(({ party, name }) => [party, name])) });
-    setHouse({ ...seats, ...Object.fromEntries(gone.map(({ party, n }) => [party, n])) });
+    setNames({ ...labels, ...Object.fromEntries(others.map(({ party, name }) => [party, name])) });
+    setHouse({ ...seats, ...Object.fromEntries(others.map(({ party, seats }) => [party, seats])) });
     setExcluded((e) => new Set([...e].filter((pair) => parties(pair).every((party) => party in labels))));
   };
 
