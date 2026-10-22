@@ -4,3 +4,6 @@ allowBuilds:
   lmdb: false
   msgpackr-extract: false
   sharp: false
+
+overrides:
+  jstransformer-markdown-it>markdown-it: ^14.3.3
