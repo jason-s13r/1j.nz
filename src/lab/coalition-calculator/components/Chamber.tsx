@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { BLOCS, majorityOf, seatsOf, type House, type Party } from "../combinations";
+import { BLOCS, majorityOf, seatedParties, seatsOf, type House, type Party } from "../combinations";
 import { partyColour, PartyNames } from "./party";
 import "./Chamber.scss";
 
@@ -67,8 +67,8 @@ const alternate = <T,>(a: T[], b: T[]) => [
 ];
 
 // From the foot round to the midpoint, front to back across the rows.
-const fromTheFoot = (a: { column: number; radius: number }, b: { column: number; radius: number }) =>
-  a.column - b.column || a.radius - b.radius;
+type Position = Pick<Seat, "column" | "radius">;
+const fromTheFoot = (a: Position, b: Position) => a.column - b.column || a.radius - b.radius;
 
 // One half of the chamber, as an offset from the centre line (dx) and a distance from the foot
 // of the leg (y), split into the order its seats are taken. On the opposition side, the fifth
@@ -234,10 +234,7 @@ export default function Chamber({
   label?: string;
 }) {
   const names = useContext(PartyNames);
-  // Largest first.
-  const seated = Object.keys(house)
-    .filter((party) => house[party] > 0)
-    .sort((a, b) => house[b] - house[a]);
+  const seated = seatedParties(house);
   if (!seated.length) {
     return null;
   }

@@ -111,28 +111,33 @@ export const seatsOf = (house: House, members: Party[]) => members.reduce((s, p)
 // Seats needed to govern.
 export const majorityOf = (total: number) => Math.floor(total / 2) + 1;
 
+// Parties with seats, largest first.
+export const seatedParties = (house: House) =>
+  Object.keys(house)
+    .filter((party) => house[party] > 0)
+    .sort((a, b) => house[b] - house[a]);
+
 export const makeup = (house: House, exclusions: Pair[]): Makeup => {
   const total = seatsOf(house, Object.keys(house));
   const majority = majorityOf(total);
-  const wins = ({ seats }: Outcome) => seats >= majority;
   const ruledOutPairs = exclusions.map(parties);
   const excluded = ({ members }: Outcome) => ruledOutPairs.some((pair) => pair.every((p) => members.includes(p)));
   // Favour coalitions led by a large party, with few partners.
   const weight = ({ members, seats }: Outcome) => house[members[0]] / seats / members.length;
 
-  const outcomes = coalitions(Object.keys(house).filter((p) => house[p] > 0))
-    .map((members) => ({
-      members: members.toSorted((a, b) => house[b] - house[a]),
-      seats: seatsOf(house, members),
-    }))
+  // Combinations keep their parties' order, so each coalition's members are largest first.
+  const outcomes = coalitions(seatedParties(house))
+    .map((members) => ({ members, seats: seatsOf(house, members) }))
     .sort((a, b) => weight(b) - weight(a));
-  const allowed = outcomes.filter((outcome) => !excluded(outcome));
+  const {
+    plausible = [],
+    short = [],
+    ruledOut = [],
+  } = Object.groupBy(outcomes, (outcome) => {
+    const wins = outcome.seats >= majority;
+    if (!excluded(outcome)) return wins ? "plausible" : "short";
+    return wins ? "ruledOut" : "neither";
+  });
 
-  return {
-    total,
-    majority,
-    plausible: allowed.filter(wins),
-    short: allowed.filter((outcome) => !wins(outcome)).sort((a, b) => b.seats - a.seats),
-    ruledOut: outcomes.filter((outcome) => wins(outcome) && excluded(outcome)),
-  };
+  return { total, majority, plausible, short: short.sort((a, b) => b.seats - a.seats), ruledOut };
 };

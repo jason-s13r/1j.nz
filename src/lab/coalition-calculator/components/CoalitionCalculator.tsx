@@ -56,9 +56,15 @@ const pairsOf = (keys: Party[]) =>
       incumbent: INCUMBENT.includes(a) && INCUMBENT.includes(b),
       // Ruled out, but not expected to hold.
       unlikelyToHold: hasPair(EXCLUSIONS.disputed, a, b),
-      // Ruled out by default.
-      excluded: hasPair(DEFAULT_EXCLUSIONS, a, b),
     })),
+  );
+
+// The default rule-outs, in the same letter order as the pairs listed.
+const defaultExcluded = () =>
+  new Set(
+    pairsOf(PARTIES)
+      .map(({ pair }) => pair)
+      .filter(([a, b]) => hasPair(DEFAULT_EXCLUSIONS, a, b)),
   );
 
 const GROUPS: { label: ReturnType<typeof groupOf>; source?: string }[] = [
@@ -171,7 +177,7 @@ function SeatInput({ party, value, onChange }: { party: Party; value: number; on
   return (
     <label className="seat-input">
       <span className="swatch" style={{ background: partyColour(party) }} />
-      <span className="seat-input-label">{names[party]}</span>
+      <span>{names[party]}</span>
       <SeatField value={value} onChange={onChange} />
     </label>
   );
@@ -289,12 +295,12 @@ function ResultSection({
       <ul className={className}>
         {outcomes.length ? (
           shown.map((outcome) => (
-            <li key={outcome.members.join("")} className="coalition">
+            <li key={outcome.members.join("")}>
               {children(outcome)}
             </li>
           ))
         ) : (
-          <li className="coalition">{empty}</li>
+          <li>{empty}</li>
         )}
       </ul>
       {outcomes.length > limit && (
@@ -310,9 +316,7 @@ export default function CoalitionCalculator() {
   const [source, setSource] = useState<Source>({ kind: "poll", index: 0 });
   const [names, setNames] = useState<Record<Party, string>>(labels);
   const [house, setHouse] = useState<House>(() => houseOf(polls[0]));
-  const [excluded, setExcluded] = useState(
-    () => new Set(pairsOf(PARTIES).flatMap((p) => (p.excluded ? [p.pair] : []))),
-  );
+  const [excluded, setExcluded] = useState(defaultExcluded);
 
   const { total, majority, plausible, short, ruledOut } = useMemo(
     () => makeup(house, [...excluded]),
@@ -346,6 +350,8 @@ export default function CoalitionCalculator() {
   };
 
   const removeParty = (party: Party) => {
+    // Its seats no longer match the poll or election.
+    if (house[party]) setSource(null);
     setNames(({ [party]: _, ...n }) => n);
     setHouse(({ [party]: _, ...h }) => h);
     setExcluded((e) => new Set([...e].filter((pair) => !pair.includes(party))));
@@ -357,7 +363,7 @@ export default function CoalitionCalculator() {
   return (
     <PartyNames value={names}>
       <div className="coalition-calculator">
-        <section className="panel inputs">
+        <section className="inputs">
           <div className="house-inputs">
             <h3>Party seat allocations</h3>
             <div className="source">
@@ -434,7 +440,7 @@ export default function CoalitionCalculator() {
           <Exclusions excluded={excluded} onChange={setExcluded} />
         </section>
 
-        <section className="panel results">
+        <section className="results">
           <ResultSection
             title="Plausible Coalitions"
             hint="Majority coalitions without a ruled-out partnership."

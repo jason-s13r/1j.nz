@@ -1,3 +1,12 @@
+%plain-button {
+  padding: 0;
+  border: none;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
 .coalition-calculator {
   --muted: #6b7280;
   --track: #eef0f3;
@@ -108,13 +117,9 @@
   }
 
   .remove-party {
-    padding: 0;
-    border: none;
-    background: none;
+    @extend %plain-button;
     color: var(--muted);
-    font: inherit;
     line-height: 1;
-    cursor: pointer;
   }
 
   .swatch {
@@ -124,14 +129,11 @@
 
   // In the seats' column, so it lines up under the seat inputs.
   .add-party {
+    @extend %plain-button;
     grid-column: 3;
     padding: 0.35rem 0;
     border: 1px solid var(--muted);
     border-radius: 4px;
-    background: none;
-    color: inherit;
-    font: inherit;
-    cursor: pointer;
 
     &:hover {
       background: var(--track);
@@ -315,19 +317,17 @@
   }
 
   .link-button {
+    @extend %plain-button;
     margin-top: 0.5rem;
-    padding: 0;
-    border: none;
-    background: none;
-    color: inherit;
-    font: inherit;
     text-decoration: underline;
-    cursor: pointer;
   }
 
   .hung,
   .empty {
-    margin: 0.5rem 0 0;
     color: var(--muted);
+  }
+
+  .empty {
+    margin: 0.5rem 0 0;
   }
 }

@@ -38,10 +38,6 @@
     max-width: 24rem;
     margin: 0.5rem auto 0;
 
-    > div:last-child:not(:first-child) {
-      text-align: right;
-    }
-
     ul {
       list-style: none;
       margin: 0.25rem 0 0;
@@ -55,8 +51,12 @@
       gap: 0.35rem;
     }
 
-    > div:last-child:not(:first-child) li {
-      justify-content: flex-end;
+    > div:last-child:not(:first-child) {
+      text-align: right;
+
+      li {
+        justify-content: flex-end;
+      }
     }
   }
 }
