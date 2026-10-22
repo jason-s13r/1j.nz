@@ -1,4 +1,4 @@
-import type { KnownParty } from "./combinations";
+import { meanHouse, type House, type KnownParty } from "./combinations";
 
 export interface Poll extends Record<KnownParty, number> {
   pollster: string;
@@ -129,4 +129,36 @@ export const polls: Poll[] = [
   { pollster: "Roy Morgan", date: "Dec 2023", n: 46, l: 28, g: 20, a: 12, f: 8, m: 8, o: 0 },
   { pollster: "Curia", date: "3–5 Dec 2023", n: 46, l: 36, g: 14, a: 8, f: 10, m: 6, o: 0 },
   { pollster: "Taxpayers' Union–Curia", date: "1–6 Nov 2023", n: 46, l: 35, g: 17, a: 10, f: 8, m: 6, o: 0 },
+];
+
+// How many of the latest polls the rolling average covers.
+const AVERAGE_OF = 10;
+
+// How many of the latest months get their own average.
+const MONTHS = 6;
+
+export interface Average {
+  label: string;
+  // How many polls it averages.
+  count: number;
+  seats: Record<KnownParty, number>;
+}
+
+export const houseOf = ({ pollster, date, ...house }: Poll): House => house;
+
+const average = (label: string, some: Poll[]): Average => ({
+  label,
+  count: some.length,
+  seats: meanHouse(some.map(houseOf)) as Record<KnownParty, number>,
+});
+
+// The month a poll ended, e.g. "Oct 2026" for "24 Sep – 1 Oct 2026".
+const endMonth = ({ date }: Poll) => date.slice(-"Mmm YYYY".length);
+
+// The rolling average first, then each of the latest months' polls, newest first.
+export const averages: Average[] = [
+  average("Rolling average", polls.slice(0, AVERAGE_OF)),
+  ...Object.entries(Object.groupBy(polls, endMonth))
+    .slice(0, MONTHS)
+    .map(([month, some]) => average(month, some!)),
 ];

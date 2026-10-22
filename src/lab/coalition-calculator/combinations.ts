@@ -108,6 +108,20 @@ export const parties = (pair: Pair) => pair.split("");
 // Seats held by the given parties.
 export const seatsOf = (house: House, members: Party[]) => members.reduce((s, p) => s + house[p], 0);
 
+// Each party's mean seats across the houses. Rounded by largest remainder, so the house is their mean size.
+export const meanHouse = (houses: House[]): House => {
+  const all = [...new Set(houses.flatMap((house) => Object.keys(house)))];
+  const means = all.map((party) => houses.reduce((s, house) => s + (house[party] ?? 0), 0) / houses.length);
+  const seats = means.map(Math.floor);
+  const short = Math.round(means.reduce((s, m) => s + m, 0)) - seats.reduce((s, n) => s + n, 0);
+  means
+    .map((m, i) => ({ i, remainder: m - seats[i] }))
+    .sort((a, b) => b.remainder - a.remainder)
+    .slice(0, short)
+    .forEach(({ i }) => seats[i]++);
+  return Object.fromEntries(all.map((party, i) => [party, seats[i]]));
+};
+
 // Seats needed to govern.
 export const majorityOf = (total: number) => Math.floor(total / 2) + 1;
 

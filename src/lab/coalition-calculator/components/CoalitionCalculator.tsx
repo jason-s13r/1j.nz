@@ -17,13 +17,13 @@ import {
   type Party,
 } from "../combinations";
 import { elections } from "../elections";
-import { polls, POLLS_SOURCE, type Poll } from "../polls";
+import { averages, houseOf, polls, POLLS_SOURCE } from "../polls";
 import Chamber from "./Chamber";
 import { partyColour, PartyNames } from "./party";
 import "./CoalitionCalculator.scss";
 
-// Where the seats came from: a poll or an election, by index, or null once edited by hand.
-type Source = { kind: "poll" | "election"; index: number } | null;
+// Where the seats came from: a poll average, a poll or an election, by index, or null once edited by hand.
+type Source = { kind: "average" | "poll" | "election"; index: number } | null;
 
 const LETTERS = "abcdefghijklmnopqrstuvwxyz".split("");
 
@@ -81,8 +81,6 @@ const groupsOf = (keys: Party[]) => {
     ({ pairs }) => pairs.length,
   );
 };
-
-const houseOf = ({ pollster, date, ...house }: Poll): House => house;
 
 const percent = (fraction: number) => `${(fraction * 100).toFixed(2)}%`;
 
@@ -313,9 +311,9 @@ function ResultSection({
 }
 
 export default function CoalitionCalculator() {
-  const [source, setSource] = useState<Source>({ kind: "poll", index: 0 });
+  const [source, setSource] = useState<Source>({ kind: "average", index: 0 });
   const [names, setNames] = useState<Record<Party, string>>(labels);
-  const [house, setHouse] = useState<House>(() => houseOf(polls[0]));
+  const [house, setHouse] = useState<House>(() => averages[0].seats);
   const [excluded, setExcluded] = useState(defaultExcluded);
 
   const { total, majority, plausible, short, ruledOut } = useMemo(
@@ -333,6 +331,8 @@ export default function CoalitionCalculator() {
     setHouse({ ...seats, ...Object.fromEntries(gone.map(({ party, n }) => [party, n])) });
     setExcluded((e) => new Set([...e].filter((pair) => parties(pair).every((party) => party in labels))));
   };
+
+  const onAverage = (index: number) => load({ kind: "average", index }, averages[index].seats);
 
   const onPoll = (index: number) => load({ kind: "poll", index }, houseOf(polls[index]));
 
@@ -367,6 +367,22 @@ export default function CoalitionCalculator() {
           <div className="house-inputs">
             <h3>Party seat allocations</h3>
             <div className="source">
+              <label>
+                <span>Poll average</span>
+                <select
+                  value={source?.kind === "average" ? source.index : ""}
+                  onChange={(e) => onAverage(Number(e.target.value))}
+                >
+                  <option value="" disabled>
+                    Choose an average
+                  </option>
+                  {averages.map(({ label, count }, i) => (
+                    <option key={label} value={i}>
+                      {label} ({count} {count === 1 ? "poll" : "polls"})
+                    </option>
+                  ))}
+                </select>
+              </label>
               <label>
                 <span>Poll</span>
                 <select
