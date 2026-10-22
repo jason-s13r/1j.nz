@@ -1,0 +1,12 @@
+diff --git a/lib/loadSharp.js b/lib/loadSharp.js
+index 1917738a3025944e96db81bb3c6981323f751859..5289ce540629ef4ca20efe3656dd41be4bec6063 100644
+--- a/lib/loadSharp.js
++++ b/lib/loadSharp.js
+@@ -1,6 +1,6 @@
+ "use strict";
+ 
+-const SHARP_RANGE = '^0.33.5';
++const SHARP_RANGE = '^0.35.5';
+ 
+ // This is used to load sharp on the main thread, which prevents errors when worker threads exit
+ // See https://sharp.pixelplumbing.com/install#worker-threads and https://github.com/lovell/sharp/issues/2263

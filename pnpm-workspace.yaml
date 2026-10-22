@@ -7,3 +7,6 @@ allowBuilds:
 
 overrides:
   jstransformer-markdown-it>markdown-it: ^14.3.3
+
+patchedDependencies:
+  '@parcel/transformer-image@2.16.4': patches/@parcel__transformer-image@2.16.4.patch
