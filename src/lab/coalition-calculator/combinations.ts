@@ -49,11 +49,10 @@ export const STATED_SOURCE =
 // The parties in the current government. Update after each election.
 export const INCUMBENT: Party[] = ["n", "a", "f"];
 
-// Traditional left and right blocs, used to seat a hung parliament. Opportunity sits with the
-// left as National has ruled it out.
-export const BLOCS: { left: Party[]; right: Party[] } = {
-  left: ["l", "g", "m", "o"],
+export const BLOCS: { left: Party[]; right: Party[]; other: Party[] } = {
+  left: ["l", "g", "m"],
   right: ["n", "a", "f"],
+  other: ["o"],
 };
 
 // Parties polling but without seats in the current parliament. Update after each election.

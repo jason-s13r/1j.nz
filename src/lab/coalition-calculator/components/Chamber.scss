@@ -51,6 +51,15 @@
       gap: 0.35rem;
     }
 
+    // The unaligned, between the blocs.
+    > div:nth-child(2):not(:last-child) {
+      text-align: center;
+
+      li {
+        justify-content: center;
+      }
+    }
+
     > div:last-child:not(:first-child) {
       text-align: right;
 
