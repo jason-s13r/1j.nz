@@ -20,6 +20,6 @@ Similarly, 'b' becomes 'n', and so on until 'z' becomes 'm'.
 <!--more-->
 
 <web-lolcryption-app></web-lolcryption-app>
-<script type="module">import '/src/lab/lolcryption/main.ts';</script>
+<script type="module" src="/src/lab/lolcryption/main.ts"></script>
 
 https://github.com/jason-s13r/lolcryption-web

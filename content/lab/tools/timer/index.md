@@ -11,6 +11,6 @@ Measurement is based on duration between `Temporal.Instant` instances, subtracti
 <!--more-->
 
 <web-timer Hz="30"></web-timer>
-<script async type="module">import '/src/lab/timer/main.ts';</script>
+<script type="module" src="/src/lab/timer/main.ts"></script>
 
 https://github.com/jason-s13r/timer-web

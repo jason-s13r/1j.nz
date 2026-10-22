@@ -12,4 +12,4 @@ An income breakdown calculator inspired by [paye.net.nz](https://www.paye.net.nz
 I can't guarantee the accuracy of all the numbers, but at least most of the inputs are configurable.
 
 <web-income-calculator-app></web-income-calculator-app>
-<script type="module">import '/src/lab/income-calculator/main.ts';</script>
+<script type="module" src="/src/lab/income-calculator/main.ts"></script>

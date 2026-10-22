@@ -11,5 +11,9 @@
       "./src/core/parcel/pretty-urls.optimizer.ts",
       "..."
     ]
-  }
+  },
+  "namers": [
+    "./src/core/parcel/shared.namer.ts",
+    "..."
+  ]
 }
