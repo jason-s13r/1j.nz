@@ -105,7 +105,7 @@
     },
     "others": [
       {
-        "party": "c",
+        "party": "s",
         "name": "Progressive",
         "seats": 1
       },
@@ -136,7 +136,7 @@
         "seats": 3
       },
       {
-        "party": "c",
+        "party": "s",
         "name": "Progressive",
         "seats": 1
       }
@@ -162,7 +162,7 @@
         "seats": 8
       },
       {
-        "party": "c",
+        "party": "s",
         "name": "Progressive",
         "seats": 2
       }
@@ -183,7 +183,7 @@
     },
     "others": [
       {
-        "party": "c",
+        "party": "i",
         "name": "Alliance",
         "seats": 10
       },
@@ -209,7 +209,7 @@
     },
     "others": [
       {
-        "party": "c",
+        "party": "i",
         "name": "Alliance",
         "seats": 13
       },
