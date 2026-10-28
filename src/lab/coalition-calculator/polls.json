@@ -1,6 +1,7 @@
 [
   {
-    "pollster": "1News–Verian",
+    "pollster": "1News-Verian",
+    "publisher": "1News-Verian",
     "date": "21-25 Oct 2026",
     "n": 34,
     "l": 33,
@@ -9,10 +10,11 @@
     "f": 12,
     "m": 4,
     "o": 8,
-    "b": 1
+    "t": 1
   },
   {
-    "pollster": "1News–Verian",
+    "pollster": "1News-Verian",
+    "publisher": "1News-Verian",
     "date": "15–19 Oct 2026",
     "n": 38,
     "l": 32,
@@ -20,10 +22,12 @@
     "a": 13,
     "f": 9,
     "m": 4,
-    "o": 8
+    "o": 8,
+    "t": 1
   },
   {
     "pollster": "The Post/Freshwater Strategy",
+    "publisher": "The Post/Freshwater Strategy",
     "date": "9–19 Oct 2026",
     "n": 34,
     "l": 35,
@@ -31,10 +35,12 @@
     "a": 11,
     "f": 14,
     "m": 4,
-    "o": 7
+    "o": 7,
+    "t": 0
   },
   {
-    "pollster": "1News–Verian",
+    "pollster": "1News-Verian",
+    "publisher": "1News-Verian",
     "date": "8–12 Oct 2026",
     "n": 34,
     "l": 34,
@@ -42,10 +48,12 @@
     "a": 12,
     "f": 12,
     "m": 4,
-    "o": 10
+    "o": 10,
+    "t": 1
   },
   {
     "pollster": "Anacta",
+    "publisher": "Anacta",
     "date": "6–10 Oct 2026",
     "n": 34,
     "l": 36,
@@ -53,10 +61,12 @@
     "a": 11,
     "f": 12,
     "m": 4,
-    "o": 7
+    "o": 7,
+    "t": 0
   },
   {
-    "pollster": "Taxpayers' Union–Curia",
+    "pollster": "Curia",
+    "publisher": "Taxpayers' Union–Curia",
     "date": "1–5 Oct 2026",
     "n": 37,
     "l": 36,
@@ -64,10 +74,12 @@
     "a": 12,
     "f": 16,
     "m": 4,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "1News–Verian",
+    "pollster": "1News-Verian",
+    "publisher": "1News-Verian",
     "date": "1–5 Oct 2026",
     "n": 35,
     "l": 34,
@@ -75,10 +87,12 @@
     "a": 11,
     "f": 12,
     "m": 4,
-    "o": 8
+    "o": 8,
+    "t": 1
   },
   {
-    "pollster": "RNZ–Reid Research",
+    "pollster": "Reid Research",
+    "publisher": "RNZ",
     "date": "24 Sep – 1 Oct 2026",
     "n": 32,
     "l": 37,
@@ -86,10 +100,12 @@
     "a": 11,
     "f": 13,
     "m": 4,
-    "o": 7
+    "o": 7,
+    "t": 0
   },
   {
-    "pollster": "1News–Verian",
+    "pollster": "1News-Verian",
+    "publisher": "1News-Verian",
     "date": "23–27 Sep 2026",
     "n": 34,
     "l": 34,
@@ -97,7 +113,8 @@
     "a": 13,
     "f": 11,
     "m": 4,
-    "o": 7
+    "o": 7,
+    "t": 0
   },
   {
     "pollster": "Roy Morgan",
@@ -108,10 +125,12 @@
     "a": 13,
     "f": 12,
     "m": 4,
-    "o": 8
+    "o": 8,
+    "t": 0
   },
   {
     "pollster": "The Post/Freshwater Strategy",
+    "publisher": "The Post/Freshwater Strategy",
     "date": "4–11 Sep 2026",
     "n": 33,
     "l": 34,
@@ -119,10 +138,12 @@
     "a": 11,
     "f": 16,
     "m": 4,
-    "o": 7
+    "o": 7,
+    "t": 0
   },
   {
     "pollster": "Anacta",
+    "publisher": "Anacta",
     "date": "4–10 Sep 2026",
     "n": 36,
     "l": 37,
@@ -130,10 +151,12 @@
     "a": 10,
     "f": 12,
     "m": 4,
-    "o": 8
+    "o": 8,
+    "t": 0
   },
   {
-    "pollster": "Taxpayers' Union–Curia",
+    "pollster": "Curia",
+    "publisher": "Taxpayers' Union–Curia",
     "date": "1–3 Sep 2026",
     "n": 39,
     "l": 34,
@@ -141,7 +164,8 @@
     "a": 14,
     "f": 11,
     "m": 4,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Roy Morgan",
@@ -152,10 +176,12 @@
     "a": 13,
     "f": 9,
     "m": 4,
-    "o": 11
+    "o": 11,
+    "t": 0
   },
   {
-    "pollster": "RNZ–Reid Research",
+    "pollster": "Reid Research",
+    "publisher": "RNZ",
     "date": "14–21 Aug 2026",
     "n": 35,
     "l": 39,
@@ -163,10 +189,12 @@
     "a": 9,
     "f": 15,
     "m": 4,
-    "o": 6
+    "o": 6,
+    "t": 0
   },
   {
-    "pollster": "1News–Verian",
+    "pollster": "1News-Verian",
+    "publisher": "1News-Verian",
     "date": "8–11 Aug 2026",
     "n": 36,
     "l": 37,
@@ -174,7 +202,8 @@
     "a": 11,
     "f": 10,
     "m": 4,
-    "o": 10
+    "o": 10,
+    "t": 0
   },
   {
     "pollster": "Talbot Mills",
@@ -185,10 +214,12 @@
     "a": 8,
     "f": 16,
     "m": 4,
-    "o": 6
+    "o": 6,
+    "t": 0
   },
   {
-    "pollster": "Taxpayers' Union–Curia",
+    "pollster": "Curia",
+    "publisher": "Taxpayers' Union–Curia",
     "date": "1–4 Aug 2026",
     "n": 40,
     "l": 36,
@@ -196,7 +227,8 @@
     "a": 9,
     "f": 12,
     "m": 4,
-    "o": 8
+    "o": 8,
+    "t": 0
   },
   {
     "pollster": "Roy Morgan",
@@ -207,7 +239,8 @@
     "a": 10,
     "f": 10,
     "m": 4,
-    "o": 10
+    "o": 10,
+    "t": 0
   },
   {
     "pollster": "Talbot Mills",
@@ -218,10 +251,12 @@
     "a": 9,
     "f": 15,
     "m": 4,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "RNZ–Reid Research",
+    "pollster": "Reid Research",
+    "publisher": "RNZ",
     "date": "2–9 Jul 2026",
     "n": 36,
     "l": 43,
@@ -229,10 +264,12 @@
     "a": 10,
     "f": 15,
     "m": 4,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "Taxpayers' Union–Curia",
+    "pollster": "Curia",
+    "publisher": "Taxpayers' Union–Curia",
     "date": "1–5 Jul 2026",
     "n": 39,
     "l": 41,
@@ -240,7 +277,8 @@
     "a": 9,
     "f": 14,
     "m": 4,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Roy Morgan",
@@ -251,10 +289,12 @@
     "a": 11,
     "f": 13,
     "m": 4,
-    "o": 8
+    "o": 8,
+    "t": 0
   },
   {
-    "pollster": "1News–Verian",
+    "pollster": "1News-Verian",
+    "publisher": "1News-Verian",
     "date": "13–17 Jun 2026",
     "n": 38,
     "l": 41,
@@ -262,10 +302,12 @@
     "a": 8,
     "f": 14,
     "m": 4,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "The Post/Freshwater Strategy",
+    "publisher": "The Post/Freshwater Strategy",
     "date": "5–11 Jun 2026",
     "n": 36,
     "l": 44,
@@ -273,7 +315,8 @@
     "a": 10,
     "f": 15,
     "m": 4,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Talbot Mills",
@@ -284,10 +327,12 @@
     "a": 8,
     "f": 15,
     "m": 4,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "Taxpayers' Union–Curia",
+    "pollster": "Curia",
+    "publisher": "Taxpayers' Union–Curia",
     "date": "4–8 Jun 2026",
     "n": 38,
     "l": 40,
@@ -295,7 +340,8 @@
     "a": 10,
     "f": 14,
     "m": 4,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Roy Morgan",
@@ -306,7 +352,8 @@
     "a": 12,
     "f": 13,
     "m": 5,
-    "o": 7
+    "o": 7,
+    "t": 0
   },
   {
     "pollster": "Talbot Mills",
@@ -317,10 +364,12 @@
     "a": 9,
     "f": 17,
     "m": 5,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "Taxpayers' Union–Curia",
+    "pollster": "Curia",
+    "publisher": "Taxpayers' Union–Curia",
     "date": "3–7 May 2026",
     "n": 39,
     "l": 41,
@@ -328,7 +377,8 @@
     "a": 8,
     "f": 15,
     "m": 5,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Roy Morgan",
@@ -339,7 +389,8 @@
     "a": 13,
     "f": 14,
     "m": 5,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Talbot Mills",
@@ -350,10 +401,12 @@
     "a": 10,
     "f": 19,
     "m": 5,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "1News–Verian",
+    "pollster": "1News-Verian",
+    "publisher": "1News-Verian",
     "date": "11–15 Apr 2026",
     "n": 37,
     "l": 46,
@@ -361,10 +414,12 @@
     "a": 9,
     "f": 12,
     "m": 5,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "Taxpayers' Union–Curia",
+    "pollster": "Curia",
+    "publisher": "Taxpayers' Union–Curia",
     "date": "1–2 Apr 2026",
     "n": 37,
     "l": 42,
@@ -372,7 +427,8 @@
     "a": 11,
     "f": 17,
     "m": 5,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Roy Morgan",
@@ -383,10 +439,12 @@
     "a": 12,
     "f": 14,
     "m": 5,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "RNZ–Reid Research",
+    "pollster": "Reid Research",
+    "publisher": "RNZ",
     "date": "12–20 Mar 2026",
     "n": 38,
     "l": 44,
@@ -394,7 +452,8 @@
     "a": 9,
     "f": 13,
     "m": 5,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Talbot Mills",
@@ -405,10 +464,12 @@
     "a": 9,
     "f": 13,
     "m": 5,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "Taxpayers' Union–Curia",
+    "pollster": "Curia",
+    "publisher": "Taxpayers' Union–Curia",
     "date": "1–3 Mar 2026",
     "n": 36,
     "l": 44,
@@ -416,7 +477,8 @@
     "a": 10,
     "f": 13,
     "m": 4,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Roy Morgan",
@@ -427,10 +489,12 @@
     "a": 10,
     "f": 12,
     "m": 4,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "The Post/Freshwater Strategy",
+    "publisher": "The Post/Freshwater Strategy",
     "date": "6–12 Feb 2026",
     "n": 38,
     "l": 46,
@@ -438,10 +502,12 @@
     "a": 7,
     "f": 14,
     "m": 4,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "1News–Verian",
+    "pollster": "1News-Verian",
+    "publisher": "1News-Verian",
     "date": "7–11 Feb 2026",
     "n": 42,
     "l": 39,
@@ -449,10 +515,12 @@
     "a": 11,
     "f": 12,
     "m": 4,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "Taxpayers' Union–Curia",
+    "pollster": "Curia",
+    "publisher": "Taxpayers' Union–Curia",
     "date": "1–3 Feb 2026",
     "n": 39,
     "l": 43,
@@ -460,7 +528,8 @@
     "a": 8,
     "f": 13,
     "m": 4,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Roy Morgan",
@@ -471,10 +540,12 @@
     "a": 11,
     "f": 11,
     "m": 4,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "RNZ–Reid Research",
+    "pollster": "Reid Research",
+    "publisher": "RNZ",
     "date": "15–22 Jan 2026",
     "n": 40,
     "l": 43,
@@ -482,10 +553,12 @@
     "a": 9,
     "f": 12,
     "m": 4,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "Taxpayers' Union–Curia",
+    "pollster": "Curia",
+    "publisher": "Taxpayers' Union–Curia",
     "date": "14–18 Jan 2026",
     "n": 39,
     "l": 43,
@@ -493,7 +566,8 @@
     "a": 9,
     "f": 15,
     "m": 4,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Roy Morgan",
@@ -504,10 +578,12 @@
     "a": 9,
     "f": 12,
     "m": 4,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "The Post/Freshwater Strategy",
+    "publisher": "The Post/Freshwater Strategy",
     "date": "5–10 Dec 2025",
     "n": 38,
     "l": 48,
@@ -515,10 +591,12 @@
     "a": 10,
     "f": 11,
     "m": 4,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "1News–Verian",
+    "pollster": "1News-Verian",
+    "publisher": "1News-Verian",
     "date": "29 Nov–3 Dec 2025",
     "n": 44,
     "l": 43,
@@ -526,7 +604,8 @@
     "a": 12,
     "f": 11,
     "m": 4,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Roy Morgan",
@@ -537,7 +616,8 @@
     "a": 10,
     "f": 11,
     "m": 4,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Talbot Mills",
@@ -548,10 +628,12 @@
     "a": 9,
     "f": 10,
     "m": 4,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "Taxpayers' Union–Curia",
+    "pollster": "Curia",
+    "publisher": "Taxpayers' Union–Curia",
     "date": "2–6 Nov 2025",
     "n": 39,
     "l": 42,
@@ -559,7 +641,8 @@
     "a": 11,
     "f": 12,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Roy Morgan",
@@ -570,7 +653,8 @@
     "a": 10,
     "f": 12,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Talbot Mills",
@@ -581,10 +665,12 @@
     "a": 10,
     "f": 15,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "1News–Verian",
+    "pollster": "1News-Verian",
+    "publisher": "1News-Verian",
     "date": "4–8 Oct 2025",
     "n": 42,
     "l": 40,
@@ -592,10 +678,12 @@
     "a": 9,
     "f": 12,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "The Post/Freshwater Strategy",
+    "publisher": "The Post/Freshwater Strategy",
     "date": "3–8 Oct 2025",
     "n": 38,
     "l": 42,
@@ -603,10 +691,12 @@
     "a": 11,
     "f": 14,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "Taxpayers' Union–Curia",
+    "pollster": "Curia",
+    "publisher": "Taxpayers' Union–Curia",
     "date": "1–5 Oct 2025",
     "n": 38,
     "l": 40,
@@ -614,7 +704,8 @@
     "a": 8,
     "f": 13,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Roy Morgan",
@@ -625,10 +716,12 @@
     "a": 11,
     "f": 10,
     "m": 7,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "RNZ–Reid Research",
+    "pollster": "Reid Research",
+    "publisher": "RNZ",
     "date": "4–12 Sep 2025",
     "n": 40,
     "l": 42,
@@ -636,7 +729,8 @@
     "a": 9,
     "f": 11,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Talbot Mills",
@@ -647,10 +741,12 @@
     "a": 9,
     "f": 12,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "Taxpayers' Union–Curia",
+    "pollster": "Curia",
+    "publisher": "Taxpayers' Union–Curia",
     "date": "31 Aug – 2 Sep 2025",
     "n": 42,
     "l": 42,
@@ -658,7 +754,8 @@
     "a": 8,
     "f": 10,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Roy Morgan",
@@ -669,7 +766,8 @@
     "a": 13,
     "f": 9,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Talbot Mills",
@@ -680,10 +778,12 @@
     "a": 10,
     "f": 11,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "1News–Verian",
+    "pollster": "1News-Verian",
+    "publisher": "1News-Verian",
     "date": "2–6 Aug 2025",
     "n": 42,
     "l": 40,
@@ -691,10 +791,12 @@
     "a": 10,
     "f": 11,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "Taxpayers' Union–Curia",
+    "pollster": "Curia",
+    "publisher": "Taxpayers' Union–Curia",
     "date": "3–5 Aug 2025",
     "n": 40,
     "l": 43,
@@ -702,7 +804,8 @@
     "a": 11,
     "f": 10,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Roy Morgan",
@@ -713,7 +816,8 @@
     "a": 13,
     "f": 12,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Talbot Mills",
@@ -724,10 +828,12 @@
     "a": 10,
     "f": 9,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "Taxpayers' Union–Curia",
+    "pollster": "Curia",
+    "publisher": "Taxpayers' Union–Curia",
     "date": "2–6 Jul 2025",
     "n": 42,
     "l": 39,
@@ -735,7 +841,8 @@
     "a": 11,
     "f": 12,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Roy Morgan",
@@ -746,10 +853,12 @@
     "a": 15,
     "f": 8,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "Taxpayers' Union–Curia",
+    "pollster": "Curia",
+    "publisher": "Taxpayers' Union–Curia",
     "date": "7–9 Jun 2025",
     "n": 42,
     "l": 44,
@@ -757,10 +866,12 @@
     "a": 12,
     "f": 8,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "RNZ–Reid Research",
+    "pollster": "Reid Research",
+    "publisher": "RNZ",
     "date": "23–30 May 2025",
     "n": 38,
     "l": 42,
@@ -768,10 +879,12 @@
     "a": 8,
     "f": 11,
     "m": 7,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "1News–Verian",
+    "pollster": "1News-Verian",
+    "publisher": "1News-Verian",
     "date": "24–28 May 2025",
     "n": 43,
     "l": 37,
@@ -779,7 +892,8 @@
     "a": 10,
     "f": 10,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Roy Morgan",
@@ -790,10 +904,12 @@
     "a": 15,
     "f": 8,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "Taxpayers' Union–Curia",
+    "pollster": "Curia",
+    "publisher": "Taxpayers' Union–Curia",
     "date": "30 Apr – 4 May 2025",
     "n": 42,
     "l": 41,
@@ -801,7 +917,8 @@
     "a": 12,
     "f": 9,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Roy Morgan",
@@ -812,10 +929,12 @@
     "a": 11,
     "f": 11,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "1News–Verian",
+    "pollster": "1News-Verian",
+    "publisher": "1News-Verian",
     "date": "29 Mar – 2 Apr 2025",
     "n": 44,
     "l": 40,
@@ -823,10 +942,12 @@
     "a": 11,
     "f": 9,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "Taxpayers' Union–Curia",
+    "pollster": "Curia",
+    "publisher": "Taxpayers' Union–Curia",
     "date": "29 Mar – 1 Apr 2025",
     "n": 42,
     "l": 37,
@@ -834,10 +955,12 @@
     "a": 13,
     "f": 9,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "RNZ–Reid Research",
+    "pollster": "Reid Research",
+    "publisher": "RNZ",
     "date": "21–27 Mar 2025",
     "n": 41,
     "l": 40,
@@ -845,7 +968,8 @@
     "a": 12,
     "f": 9,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Roy Morgan",
@@ -856,7 +980,8 @@
     "a": 10,
     "f": 9,
     "m": 7,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Talbot Mills",
@@ -867,10 +992,12 @@
     "a": 12,
     "f": 8,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "Taxpayers' Union–Curia",
+    "pollster": "Curia",
+    "publisher": "Taxpayers' Union–Curia",
     "date": "2–4 Mar 2025",
     "n": 42,
     "l": 42,
@@ -878,7 +1005,8 @@
     "a": 10,
     "f": 6,
     "m": 8,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Roy Morgan",
@@ -889,10 +1017,12 @@
     "a": 14,
     "f": 8,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "1News–Verian",
+    "pollster": "1News-Verian",
+    "publisher": "1News-Verian",
     "date": "3–7 Feb 2025",
     "n": 43,
     "l": 42,
@@ -900,10 +1030,12 @@
     "a": 11,
     "f": 6,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "Taxpayers' Union–Curia",
+    "pollster": "Curia",
+    "publisher": "Taxpayers' Union–Curia",
     "date": "2–4 Feb 2025",
     "n": 39,
     "l": 39,
@@ -911,7 +1043,8 @@
     "a": 12,
     "f": 8,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Talbot Mills",
@@ -922,7 +1055,8 @@
     "a": 11,
     "f": 6,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Roy Morgan",
@@ -933,10 +1067,12 @@
     "a": 11,
     "f": 11,
     "m": 8,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "Taxpayers' Union–Curia",
+    "pollster": "Curia",
+    "publisher": "Taxpayers' Union–Curia",
     "date": "9–13 Jan 2025",
     "n": 38,
     "l": 39,
@@ -944,7 +1080,8 @@
     "a": 14,
     "f": 10,
     "m": 7,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Roy Morgan",
@@ -955,10 +1092,12 @@
     "a": 16,
     "f": 9,
     "m": 7,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "1News–Verian",
+    "pollster": "1News-Verian",
+    "publisher": "1News-Verian",
     "date": "30 Nov – 4 Dec 2024",
     "n": 46,
     "l": 36,
@@ -966,10 +1105,12 @@
     "a": 10,
     "f": 7,
     "m": 9,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "Taxpayers' Union–Curia",
+    "pollster": "Curia",
+    "publisher": "Taxpayers' Union–Curia",
     "date": "1–3 Dec 2024",
     "n": 44,
     "l": 34,
@@ -977,10 +1118,12 @@
     "a": 17,
     "f": 7,
     "m": 7,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "Labour–Talbot Mills",
+    "pollster": "Talbot Mills",
+    "publisher": "Labour–Talbot Mills",
     "date": "22–28 Nov 2024",
     "n": 39,
     "l": 40,
@@ -988,10 +1131,12 @@
     "a": 12,
     "f": 8,
     "m": 9,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "The Post/Freshwater Strategy",
+    "publisher": "The Post/Freshwater Strategy",
     "date": "26–27 Nov 2024",
     "n": 42,
     "l": 39,
@@ -999,7 +1144,8 @@
     "a": 10,
     "f": 8,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Roy Morgan",
@@ -1010,10 +1156,12 @@
     "a": 11,
     "f": 8,
     "m": 11,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "Taxpayers' Union–Curia",
+    "pollster": "Curia",
+    "publisher": "Taxpayers' Union–Curia",
     "date": "6–10 Nov 2024",
     "n": 48,
     "l": 39,
@@ -1021,7 +1169,8 @@
     "a": 11,
     "f": 8,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Talbot Mills",
@@ -1032,7 +1181,8 @@
     "a": 12,
     "f": 9,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Roy Morgan",
@@ -1043,10 +1193,12 @@
     "a": 11,
     "f": 9,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "1News–Verian",
+    "pollster": "1News-Verian",
+    "publisher": "1News-Verian",
     "date": "5–9 Oct 2024",
     "n": 47,
     "l": 37,
@@ -1054,10 +1206,12 @@
     "a": 10,
     "f": 6,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "Taxpayers' Union–Curia",
+    "pollster": "Curia",
+    "publisher": "Taxpayers' Union–Curia",
     "date": "3–7 Oct 2024",
     "n": 44,
     "l": 38,
@@ -1065,7 +1219,8 @@
     "a": 12,
     "f": 9,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Roy Morgan",
@@ -1076,10 +1231,12 @@
     "a": 13,
     "f": 9,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "Taxpayers' Union–Curia",
+    "pollster": "Curia",
+    "publisher": "Taxpayers' Union–Curia",
     "date": "8–10 Sep 2024",
     "n": 48,
     "l": 33,
@@ -1087,7 +1244,8 @@
     "a": 11,
     "f": 8,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Talbot Mills",
@@ -1098,7 +1256,8 @@
     "a": 10,
     "f": 8,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Roy Morgan",
@@ -1109,10 +1268,12 @@
     "a": 12,
     "f": 9,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "1News–Verian",
+    "pollster": "1News-Verian",
+    "publisher": "1News-Verian",
     "date": "10–14 Aug 2024",
     "n": 49,
     "l": 38,
@@ -1120,7 +1281,8 @@
     "a": 8,
     "f": 7,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Roy Morgan",
@@ -1131,10 +1293,12 @@
     "a": 14,
     "f": 8,
     "m": 8,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "Taxpayers' Union–Curia",
+    "pollster": "Curia",
+    "publisher": "Taxpayers' Union–Curia",
     "date": "4–8 Jul 2024",
     "n": 47,
     "l": 33,
@@ -1142,7 +1306,8 @@
     "a": 11,
     "f": 9,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Roy Morgan",
@@ -1153,10 +1318,12 @@
     "a": 11,
     "f": 7,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "1News–Verian",
+    "pollster": "1News-Verian",
+    "publisher": "1News-Verian",
     "date": "15–19 Jun 2024",
     "n": 47,
     "l": 36,
@@ -1164,10 +1331,12 @@
     "a": 9,
     "f": 8,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "Taxpayers' Union–Curia",
+    "pollster": "Curia",
+    "publisher": "Taxpayers' Union–Curia",
     "date": "4–6 Jun 2024",
     "n": 44,
     "l": 36,
@@ -1175,7 +1344,8 @@
     "a": 12,
     "f": 7,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Roy Morgan",
@@ -1186,10 +1356,12 @@
     "a": 12,
     "f": 7,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "Taxpayers' Union–Curia",
+    "pollster": "Curia",
+    "publisher": "Taxpayers' Union–Curia",
     "date": "5–7 May 2024",
     "n": 47,
     "l": 37,
@@ -1197,7 +1369,8 @@
     "a": 12,
     "f": 7,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Talbot Mills",
@@ -1208,10 +1381,12 @@
     "a": 9,
     "f": 8,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "1News–Verian",
+    "pollster": "1News-Verian",
+    "publisher": "1News-Verian",
     "date": "20–24 Apr 2024",
     "n": 48,
     "l": 40,
@@ -1219,7 +1394,8 @@
     "a": 9,
     "f": 0,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Roy Morgan",
@@ -1230,10 +1406,12 @@
     "a": 14,
     "f": 7,
     "m": 7,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "Taxpayers' Union–Curia",
+    "pollster": "Curia",
+    "publisher": "Taxpayers' Union–Curia",
     "date": "2–4 Apr 2024",
     "n": 47,
     "l": 32,
@@ -1241,7 +1419,8 @@
     "a": 9,
     "f": 8,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Roy Morgan",
@@ -1252,7 +1431,8 @@
     "a": 15,
     "f": 9,
     "m": 5,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Talbot Mills",
@@ -1263,10 +1443,12 @@
     "a": 9,
     "f": 8,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "Taxpayers' Union–Curia",
+    "pollster": "Curia",
+    "publisher": "Taxpayers' Union–Curia",
     "date": "1–7 Feb 2024",
     "n": 49,
     "l": 34,
@@ -1274,7 +1456,8 @@
     "a": 17,
     "f": 6,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Roy Morgan",
@@ -1285,7 +1468,8 @@
     "a": 10,
     "f": 7,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Roy Morgan",
@@ -1296,7 +1480,8 @@
     "a": 12,
     "f": 8,
     "m": 8,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
     "pollster": "Curia",
@@ -1307,10 +1492,12 @@
     "a": 8,
     "f": 10,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   },
   {
-    "pollster": "Taxpayers' Union–Curia",
+    "pollster": "Curia",
+    "publisher": "Taxpayers' Union–Curia",
     "date": "1–6 Nov 2023",
     "n": 46,
     "l": 35,
@@ -1318,6 +1505,7 @@
     "a": 10,
     "f": 8,
     "m": 6,
-    "o": 0
+    "o": 0,
+    "t": 0
   }
 ]

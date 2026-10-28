@@ -6,6 +6,7 @@ export const labels = {
   f: "NZ First",
   m: "Te Pāti Māori",
   o: "Opportunity",
+  t: "Te Tai Tokerau",
 };
 
 // A single-letter party key, e.g. "n" for National. Parties added by the user take unused letters.
@@ -50,13 +51,13 @@ export const STATED_SOURCE =
 export const INCUMBENT: Party[] = ["n", "a", "f"];
 
 export const BLOCS: { left: Party[]; right: Party[]; other: Party[] } = {
-  left: ["l", "g", "m"],
+  left: ["l", "g", "m", "t"],
   right: ["n", "a", "f"],
   other: ["o"],
 };
 
 // Parties polling but without seats in the current parliament. Update after each election.
-export const OUTSIDE_PARLIAMENT: Party[] = ["o"];
+export const OUTSIDE_PARLIAMENT: Party[] = ["o", "t"];
 
 // Pairs never in government together (coalition or confidence and supply) under MMP, since 1996.
 // Remove a pair once it has been in government together.

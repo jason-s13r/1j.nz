@@ -3,6 +3,7 @@ import data from "./polls.json";
 
 export interface Poll extends Record<KnownParty, number> {
   pollster: string;
+  publisher?: string;
   date: string;
 }
 
@@ -25,7 +26,7 @@ export interface Average {
   seats: Record<KnownParty, number>;
 }
 
-export const houseOf = ({ pollster, date, ...house }: Poll): House => house;
+export const houseOf = ({ pollster, publisher, date, ...house }: Poll): House => house;
 
 const average = (label: string, some: Poll[]): Average => ({
   label,
@@ -36,10 +37,14 @@ const average = (label: string, some: Poll[]): Average => ({
 // The month a poll ended, e.g. "Oct 2026" for "24 Sep – 1 Oct 2026".
 const endMonth = ({ date }: Poll) => date.slice(-"Mmm YYYY".length);
 
+// const YEAR = new Date().getFullYear();
+
 // The rolling average first, then each of the latest months' polls, newest first.
 export const averages: Average[] = [
   average("Rolling average", polls.slice(0, AVERAGE_OF)),
   ...Object.entries(Object.groupBy(polls, endMonth))
     .slice(0, MONTHS)
     .map(([month, some]) => average(month, some!)),
+  // ...Object.entries(Object.groupBy(polls.filter(poll => +poll.date.slice(-'YYYY'.length) === YEAR), poll => poll.pollster))
+  //   .map(([pollster, some]) => average(pollster, some!.slice(0, AVERAGE_OF))),
 ];
