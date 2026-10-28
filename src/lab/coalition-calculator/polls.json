@@ -131,6 +131,7 @@
   },
   {
     "pollster": "Roy Morgan",
+    "publisher": "Roy Morgan",
     "date": "31 Aug - 27 Sep 2026",
     "n": 38,
     "l": 28,
@@ -182,6 +183,7 @@
   },
   {
     "pollster": "Roy Morgan",
+    "publisher": "Roy Morgan",
     "date": "27 Jul - 23 Aug 2026",
     "n": 37,
     "l": 29,
@@ -220,6 +222,7 @@
   },
   {
     "pollster": "Talbot Mills",
+    "publisher": "Talbot Mills",
     "date": "1-11 Aug 2026",
     "n": 35,
     "l": 41,
@@ -245,6 +248,7 @@
   },
   {
     "pollster": "Roy Morgan",
+    "publisher": "Roy Morgan",
     "date": "29 Jun - 26 Jul 2026",
     "n": 40,
     "l": 31,
@@ -257,6 +261,7 @@
   },
   {
     "pollster": "Talbot Mills",
+    "publisher": "Talbot Mills",
     "date": "10-19 Jul 2026",
     "n": 39,
     "l": 42,
@@ -295,6 +300,7 @@
   },
   {
     "pollster": "Roy Morgan",
+    "publisher": "Roy Morgan",
     "date": "25 May - 21 Jun 2026",
     "n": 37,
     "l": 31,
@@ -333,6 +339,7 @@
   },
   {
     "pollster": "Talbot Mills",
+    "publisher": "Talbot Mills",
     "date": "1-10 Jun 2026",
     "n": 36,
     "l": 42,
@@ -358,6 +365,7 @@
   },
   {
     "pollster": "Roy Morgan",
+    "publisher": "Roy Morgan",
     "date": "27 Apr - 24 May 2026",
     "n": 37,
     "l": 33,
@@ -370,6 +378,7 @@
   },
   {
     "pollster": "Talbot Mills",
+    "publisher": "Talbot Mills",
     "date": "1-10 May 2026",
     "n": 36,
     "l": 45,
@@ -395,6 +404,7 @@
   },
   {
     "pollster": "Roy Morgan",
+    "publisher": "Roy Morgan",
     "date": "30 Mar - 26 Apr 2026",
     "n": 32,
     "l": 43,
@@ -407,6 +417,7 @@
   },
   {
     "pollster": "Talbot Mills",
+    "publisher": "Talbot Mills",
     "date": "16 Apr 2026",
     "n": 36,
     "l": 44,
@@ -445,6 +456,7 @@
   },
   {
     "pollster": "Roy Morgan",
+    "publisher": "Roy Morgan",
     "date": "23 Feb - 22 Mar 2026",
     "n": 33,
     "l": 43,
@@ -470,6 +482,7 @@
   },
   {
     "pollster": "Talbot Mills",
+    "publisher": "Talbot Mills",
     "date": "2-12 Mar 2026",
     "n": 39,
     "l": 43,
@@ -495,6 +508,7 @@
   },
   {
     "pollster": "Roy Morgan",
+    "publisher": "Roy Morgan",
     "date": "27 Jan - 22 Feb 2026",
     "n": 39,
     "l": 38,
@@ -546,6 +560,7 @@
   },
   {
     "pollster": "Roy Morgan",
+    "publisher": "Roy Morgan",
     "date": "6-26 Jan 2026",
     "n": 43,
     "l": 38,
@@ -584,6 +599,7 @@
   },
   {
     "pollster": "Roy Morgan",
+    "publisher": "Roy Morgan",
     "date": "25 Nov - 21 Dec 2025",
     "n": 41,
     "l": 40,
@@ -622,6 +638,7 @@
   },
   {
     "pollster": "Roy Morgan",
+    "publisher": "Roy Morgan",
     "date": "27 Oct - 23 Nov 2025",
     "n": 42,
     "l": 36,
@@ -634,6 +651,7 @@
   },
   {
     "pollster": "Talbot Mills",
+    "publisher": "Talbot Mills",
     "date": "1-10 Nov 2025",
     "n": 40,
     "l": 47,
@@ -659,6 +677,7 @@
   },
   {
     "pollster": "Roy Morgan",
+    "publisher": "Roy Morgan",
     "date": "29 Sep - 26 Oct 2025",
     "n": 41,
     "l": 39,
@@ -671,6 +690,7 @@
   },
   {
     "pollster": "Talbot Mills",
+    "publisher": "Talbot Mills",
     "date": "1-10 Oct 2025",
     "n": 35,
     "l": 43,
@@ -722,6 +742,7 @@
   },
   {
     "pollster": "Roy Morgan",
+    "publisher": "Roy Morgan",
     "date": "25 Aug - 21 Sep 2025",
     "n": 39,
     "l": 36,
@@ -747,6 +768,7 @@
   },
   {
     "pollster": "Talbot Mills",
+    "publisher": "Talbot Mills",
     "date": "1-10 Sep 2025",
     "n": 39,
     "l": 43,
@@ -772,6 +794,7 @@
   },
   {
     "pollster": "Roy Morgan",
+    "publisher": "Roy Morgan",
     "date": "28 Jul - 24 Aug 2025",
     "n": 36,
     "l": 42,
@@ -784,6 +807,7 @@
   },
   {
     "pollster": "Talbot Mills",
+    "publisher": "Talbot Mills",
     "date": "1-10 Aug 2025",
     "n": 39,
     "l": 42,
@@ -822,6 +846,7 @@
   },
   {
     "pollster": "Roy Morgan",
+    "publisher": "Roy Morgan",
     "date": "30 Jun - 27 Jul 2025",
     "n": 38,
     "l": 39,
@@ -834,6 +859,7 @@
   },
   {
     "pollster": "Talbot Mills",
+    "publisher": "Talbot Mills",
     "date": "1-10 Jul 2025",
     "n": 39,
     "l": 42,
@@ -859,6 +885,7 @@
   },
   {
     "pollster": "Roy Morgan",
+    "publisher": "Roy Morgan",
     "date": "26 May - 22 Jun 2025",
     "n": 40,
     "l": 37,
@@ -910,6 +937,7 @@
   },
   {
     "pollster": "Roy Morgan",
+    "publisher": "Roy Morgan",
     "date": "28 Apr - 25 May 2025",
     "n": 40,
     "l": 37,
@@ -935,6 +963,7 @@
   },
   {
     "pollster": "Roy Morgan",
+    "publisher": "Roy Morgan",
     "date": "24 Mar - 20 Apr 2025",
     "n": 39,
     "l": 36,
@@ -986,6 +1015,7 @@
   },
   {
     "pollster": "Roy Morgan",
+    "publisher": "Roy Morgan",
     "date": "24 Feb - 23 Mar 2025",
     "n": 41,
     "l": 35,
@@ -998,6 +1028,7 @@
   },
   {
     "pollster": "Talbot Mills",
+    "publisher": "Talbot Mills",
     "date": "1-10 Mar 2025",
     "n": 39,
     "l": 43,
@@ -1023,6 +1054,7 @@
   },
   {
     "pollster": "Roy Morgan",
+    "publisher": "Roy Morgan",
     "date": "27 Jan - 23 Feb 2025",
     "n": 38,
     "l": 36,
@@ -1061,6 +1093,7 @@
   },
   {
     "pollster": "Talbot Mills",
+    "publisher": "Talbot Mills",
     "date": "7-27 Jan 2025",
     "n": 40,
     "l": 42,
@@ -1073,6 +1106,7 @@
   },
   {
     "pollster": "Roy Morgan",
+    "publisher": "Roy Morgan",
     "date": "2-26 Jan 2025",
     "n": 40,
     "l": 36,
@@ -1098,6 +1132,7 @@
   },
   {
     "pollster": "Roy Morgan",
+    "publisher": "Roy Morgan",
     "date": "25 Nov - 15 Dec 2024",
     "n": 39,
     "l": 32,
@@ -1162,6 +1197,7 @@
   },
   {
     "pollster": "Roy Morgan",
+    "publisher": "Roy Morgan",
     "date": "28 Oct - 24 Nov 2024",
     "n": 37,
     "l": 36,
@@ -1187,6 +1223,7 @@
   },
   {
     "pollster": "Talbot Mills",
+    "publisher": "Talbot Mills",
     "date": "1-10 Nov 2024",
     "n": 42,
     "l": 41,
@@ -1199,6 +1236,7 @@
   },
   {
     "pollster": "Roy Morgan",
+    "publisher": "Roy Morgan",
     "date": "23 Sep - 20 Oct 2024",
     "n": 39,
     "l": 37,
@@ -1237,6 +1275,7 @@
   },
   {
     "pollster": "Roy Morgan",
+    "publisher": "Roy Morgan",
     "date": "26 Aug - 22 Sep 2024",
     "n": 47,
     "l": 29,
@@ -1262,6 +1301,7 @@
   },
   {
     "pollster": "Talbot Mills",
+    "publisher": "Talbot Mills",
     "date": "1-10 Sep 2024",
     "n": 46,
     "l": 39,
@@ -1274,6 +1314,7 @@
   },
   {
     "pollster": "Roy Morgan",
+    "publisher": "Roy Morgan",
     "date": "29 Jul - 25 Aug 2024",
     "n": 45,
     "l": 33,
@@ -1299,6 +1340,7 @@
   },
   {
     "pollster": "Roy Morgan",
+    "publisher": "Roy Morgan",
     "date": "24 Jun - 21 Jul 2024",
     "n": 41,
     "l": 31,
@@ -1324,6 +1366,7 @@
   },
   {
     "pollster": "Roy Morgan",
+    "publisher": "Roy Morgan",
     "date": "27 May - 23 Jun 2024",
     "n": 44,
     "l": 35,
@@ -1362,6 +1405,7 @@
   },
   {
     "pollster": "Roy Morgan",
+    "publisher": "Roy Morgan",
     "date": "22 Apr - 19 May 2024",
     "n": 42,
     "l": 38,
@@ -1387,6 +1431,7 @@
   },
   {
     "pollster": "Talbot Mills",
+    "publisher": "Talbot Mills",
     "date": "30 Apr 2024",
     "n": 42,
     "l": 41,
@@ -1412,6 +1457,7 @@
   },
   {
     "pollster": "Roy Morgan",
+    "publisher": "Roy Morgan",
     "date": "25 Mar - 21 Apr 2024",
     "n": 45,
     "l": 31,
@@ -1437,6 +1483,7 @@
   },
   {
     "pollster": "Roy Morgan",
+    "publisher": "Roy Morgan",
     "date": "29 Jan - 25 Feb 2024",
     "n": 45,
     "l": 27,
@@ -1449,6 +1496,7 @@
   },
   {
     "pollster": "Talbot Mills",
+    "publisher": "Talbot Mills",
     "date": "1-10 Feb 2024",
     "n": 47,
     "l": 35,
@@ -1474,6 +1522,7 @@
   },
   {
     "pollster": "Roy Morgan",
+    "publisher": "Roy Morgan",
     "date": "8-28 Jan 2024",
     "n": 49,
     "l": 28,
@@ -1486,6 +1535,7 @@
   },
   {
     "pollster": "Roy Morgan",
+    "publisher": "Roy Morgan",
     "date": "Dec 2023",
     "n": 46,
     "l": 28,
