@@ -36,8 +36,10 @@ const average = (label: string, some: Poll[]): Average => ({
 
 // The month a poll ended, e.g. "Oct 2026" for "24 Sep – 1 Oct 2026".
 const endMonth = ({ date }: Poll) => date.slice(-"Mmm YYYY".length);
+const endYear = ({ date }: Poll) => date.slice(-"YYYY".length);
+const pollsterYear = ({ date, pollster }: Poll) => date.slice(-"YYYY".length) + ' ' + pollster;
 
-// const YEAR = new Date().getFullYear();
+const isCurrentYear = (poll: Poll) => +endYear(poll) === new Date().getFullYear()
 
 // The rolling average first, then each of the latest months' polls, newest first.
 export const averages: Average[] = [
@@ -45,6 +47,10 @@ export const averages: Average[] = [
   ...Object.entries(Object.groupBy(polls, endMonth))
     .slice(0, MONTHS)
     .map(([month, some]) => average(month, some!)),
-  // ...Object.entries(Object.groupBy(polls.filter(poll => +poll.date.slice(-'YYYY'.length) === YEAR), poll => poll.pollster))
-  //   .map(([pollster, some]) => average(pollster, some!.slice(0, AVERAGE_OF))),
+  ...Object.entries(Object.groupBy(polls.filter(isCurrentYear), pollsterYear))
+    .map(([label, some]) => average(label, some!))
+    .sort((a, b) => a.label.localeCompare(b.label)),
+  ...Object.entries(Object.groupBy(polls, endYear))
+    .map(([year, some]) => average(year, some!))
+    .sort((a, b) => b.label.localeCompare(a.label)),
 ];

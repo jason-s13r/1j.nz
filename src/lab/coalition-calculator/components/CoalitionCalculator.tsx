@@ -390,9 +390,9 @@ export default function CoalitionCalculator() {
                   <option value="" disabled>
                     Choose a poll
                   </option>
-                  {polls.map(({ pollster, date }, i) => (
+                  {polls.map(({ publisher, pollster, date }, i) => (
                     <option key={i} value={i}>
-                      {pollster} ({date})
+                      {publisher} ({date})
                     </option>
                   ))}
                 </select>
